@@ -11,10 +11,6 @@ const Header = () => {
   const routes = [
     {
       href: "/",
-      label: "Available Cars",
-    },
-    {
-      href: "/",
       label: "Login",
     },
   ];

@@ -1,6 +1,56 @@
+import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
+
+const cars = [
+  {
+    id: "1",
+    category: "Electic",
+    name: "Tesla Model 3",
+    price: "200NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+
+  {
+    id: "2",
+    category: "Gas",
+    name: "VW Golf",
+    price: "300NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+
+  {
+    id: "3",
+    category: "Electic",
+    name: "Tesla Model Y",
+    price: "400NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+
+  {
+    id: "4",
+    category: "Gas",
+    name: "BMW M3",
+    price: "900NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+
+  {
+    id: "5",
+    category: "Gas",
+    name: "Citroen C3",
+    price: "200NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+  {
+    id: "6",
+    category: "Gas",
+    name: "BMW iX",
+    price: "500NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+];
 
 export default function Home() {
   return (
@@ -21,6 +71,12 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="w-full h-full flex justify-center items-center">
+          <h1 className="font-bold text-2xl">Popular Cars</h1>
+        </div>
+        <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
+          <ProductList items={cars} />
         </div>
       </div>
     </Container>
