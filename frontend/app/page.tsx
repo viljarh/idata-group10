@@ -16,7 +16,7 @@ export default function Home() {
                 Available Cars
                 <Button size="lg" className="w-full py-6 text-xl">
                   <ShoppingBag className="mr-2" />
-                  Rent Now
+                  Rent A Car Now
                 </Button>
               </div>
             </div>
