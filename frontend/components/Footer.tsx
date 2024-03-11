@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="p-4 items-center justify-center">
+    <div className="flex p-4 items-center justify-center">
       This website is a result of a university group project, performed in the
       course IDATA2301 Web technologies, at NTNU. All the information provided
       here is a result of imagination. Any resemblance with real companies or

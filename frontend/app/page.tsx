@@ -6,7 +6,7 @@ import { ShoppingBag } from "lucide-react";
 const cars = [
   {
     id: "1",
-    category: "Electic",
+    category: "Electric",
     name: "Tesla Model 3",
     price: "200NOK",
     images: ["/img/teslamod3.jpeg"],
@@ -22,7 +22,7 @@ const cars = [
 
   {
     id: "3",
-    category: "Electic",
+    category: "Electric",
     name: "Tesla Model Y",
     price: "400NOK",
     images: ["/img/teslamod3.jpeg"],
@@ -50,6 +50,20 @@ const cars = [
     price: "500NOK",
     images: ["/img/teslamod3.jpeg"],
   },
+  {
+    id: "7",
+    category: "Electric",
+    name: "BMW i3",
+    price: "420NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+  {
+    id: "8",
+    category: "Gas",
+    name: "Peugeot 3008",
+    price: "20NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
 ];
 
 export default function Home() {
@@ -63,16 +77,21 @@ export default function Home() {
           >
             <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
               <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black dark:text-white bg-secondary/60 p-4 rounded-lg">
-                Available Cars
-                <Button size="lg" className="w-full py-6 text-xl">
-                  <ShoppingBag className="mr-2" />
-                  Rent A Car Now
-                </Button>
+                {/*Find the cheapest cars to rent in Ålesund*/}
+                <a href="#popular-cars" className="block w-full">
+                  <Button size="lg" className="w-full py-6 text-xl">
+                    <ShoppingBag className="mr-2" />
+                    Rent A Car Now
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
         </div>
-        <div className="w-full h-full flex justify-center items-center">
+        <div
+          id="popular-cars"
+          className="w-full h-full flex justify-center items-center"
+        >
           <h1 className="font-bold text-2xl">Popular Cars</h1>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">

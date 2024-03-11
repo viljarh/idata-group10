@@ -1,16 +1,26 @@
+"use client";
 import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardFooter } from "./card";
+import { useState } from "react";
+import CarDetails from "../CarDetails";
 
 interface ProductCard {
   data: Product;
 }
 
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleViewMoreClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setIsOpen(true);
+  };
   return (
     <Link
       href="/"
+      onClick={handleViewMoreClick}
       className="outline-0 focus:ring-2 hover:ring-2 ring-primary transition duration-300 rounded-lg"
     >
       <Card className="rounded-lg border-2">
@@ -32,6 +42,12 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
           </div>
 
           <div className="flex items-center justify-between">{data?.price}</div>
+
+          <CarDetails
+            isOpen={isOpen}
+            closeModal={() => setIsOpen(false)}
+            data={data}
+          />
         </CardFooter>
       </Card>
     </Link>
