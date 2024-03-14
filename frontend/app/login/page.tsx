@@ -1,19 +1,18 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push("/dashboard");
+    // Here you can add your login logic, e.g., send a request to your backend
+    // After successful login, redirect the user to the dashboard page
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto m-5">
       <h1 className="text-2xl font-bold mb-4">Login</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">

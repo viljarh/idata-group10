@@ -2,6 +2,7 @@ import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
+import Head from "next/head";
 
 const cars = [
   {
@@ -69,6 +70,9 @@ const cars = [
 export default function Home() {
   return (
     <Container>
+      <Head>
+        <link rel="icon" href="/logo/logo.ico" sizes="any" />
+      </Head>
       <div className="space-y-10 pb-10">
         <div className="p-4 sm:p-6 lg:p-8 rounded-lg overflow-hidden">
           <div

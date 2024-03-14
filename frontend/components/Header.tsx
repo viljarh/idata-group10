@@ -6,16 +6,17 @@ import { Menu, Moon, ShoppingCart, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 import ProfileButton from "./ui/ProfileButton";
+import Image from "next/image";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
   const routes = [
     {
-      href: "/",
+      href: "/search",
       label: "Search",
     },
     {
-      href: "login",
+      href: "/login",
       label: "Login",
     },
   ];
@@ -42,8 +43,14 @@ const Header = () => {
                 </nav>
               </SheetContent>
             </Sheet>
-            <Link href="/" className="ml-4 lg:ml-0">
-              <h1 className="text-xl font-bold">Rental Roulette</h1>
+            <Link href="/" className="ml-4 lg:ml-0 mt-3">
+              {/*<h1 className="text-xl font-bold">Rental Roulette</h1> */}
+              <Image
+                src="/logo/rentalroulette.png"
+                alt="logo"
+                height={180}
+                width={180}
+              />
             </Link>
           </div>
 
@@ -68,8 +75,10 @@ const Header = () => {
               className="mr-2"
               aria-label="Shopping Cart"
             >
-              <ShoppingCart className="h-6 w-6" />
-              <span className="sr-only classNamesr-only">Shopping Cart</span>
+              <Link href="/dashboard/cart">
+                <ShoppingCart className="h-6 w-6" />
+                <span className="sr-only classNamesr-only">Shopping Cart</span>
+              </Link>
             </Button>
 
             <Button
