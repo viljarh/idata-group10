@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import {
   DropdownMenu,
@@ -20,8 +21,15 @@ const ProfileButton = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <Link href="/dashboard/profile">
+          <DropdownMenuItem className="cursor-pointer">
+            Profile
+          </DropdownMenuItem>
+        </Link>
+
+        <Link href="/dashboard/orders">
+          <DropdownMenuItem>My Orders</DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">Log Out</DropdownMenuItem>
       </DropdownMenuContent>

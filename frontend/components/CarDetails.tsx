@@ -3,14 +3,12 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
-import { Input } from "./ui/input";
 import { CarProps } from "@/types";
 
 interface CarDetailsProps {

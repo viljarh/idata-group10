@@ -34,9 +34,9 @@ const Header = () => {
                   {routes.map((route, i) => (
                     <Link href={route.href} key={i}>
                       {route.label === "Login" ? (
-                        <a className="block px-2 py-1 text-lg">{route.label}</a>
+                        <p className="block px-2 py-1 text-lg">{route.label}</p>
                       ) : (
-                        <a className="block px-2 py-1 text-lg">{route.label}</a>
+                        <p className="block px-2 py-1 text-lg">{route.label}</p>
                       )}
                     </Link>
                   ))}
@@ -56,7 +56,7 @@ const Header = () => {
 
           <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 hidden md:block">
             {routes.map((route, i) => (
-              <Button asChild variant="ghost">
+              <Button asChild variant="ghost" key={i}>
                 <Link
                   key={i}
                   href={route.href}
@@ -75,7 +75,7 @@ const Header = () => {
               className="mr-2"
               aria-label="Shopping Cart"
             >
-              <Link href="/dashboard/cart">
+              <Link href="/dashboard/cart" passHref>
                 <ShoppingCart className="h-6 w-6" />
                 <span className="sr-only classNamesr-only">Shopping Cart</span>
               </Link>
