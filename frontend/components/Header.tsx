@@ -12,8 +12,8 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
   const routes = [
     {
-      href: "/search",
-      label: "Search",
+      href: "/about",
+      label: "About",
     },
     {
       href: "/login",

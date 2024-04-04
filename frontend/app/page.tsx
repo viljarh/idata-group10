@@ -1,5 +1,7 @@
 "use client";
+import Footer from "@/components/Footer";
 import ProductList from "@/components/ProductList";
+import SearchBar from "@/components/Search";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
@@ -110,7 +112,6 @@ export default function Home() {
           {/* Implement search functionality here */}
           <div className="w-full h-full flex justify-center items-center">
             <form onSubmit={handleSearch} className="flex gap-4">
-              {/* Input fields for search criteria */}
               <input
                 type="text"
                 placeholder="Car Size"
@@ -130,7 +131,7 @@ export default function Home() {
                 onChange={(e) => setEndDate(e.target.value)}
               />
               <Button type="submit">Search</Button>
-            </form>
+            </form> 
           </div>
         </div>
         <div
@@ -143,6 +144,8 @@ export default function Home() {
           <ProductList items={cars} />
         </div>
       </div>
+      <Footer />
+
     </Container>
   );
 }
