@@ -1,8 +1,10 @@
+"use client";
 import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import Head from "next/head";
+import { useState } from "react";
 
 const cars = [
   {
@@ -68,6 +70,12 @@ const cars = [
 ];
 
 export default function Home() {
+  const [carSize, setCarSize] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const handleSearch = () => {
+    console.log("Search criteria:", { carSize, startDate, endDate });
+  };
   return (
     <Container>
       <Head>
@@ -82,14 +90,47 @@ export default function Home() {
             <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
               <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black dark:text-white bg-secondary/60 p-4 rounded-lg">
                 {/*Find the cheapest cars to rent in Ålesund*/}
-                <a href="#popular-cars" className="block w-full">
-                  <Button size="lg" className="w-full py-6 text-xl">
+                <a href="#search-cars" className="block w-full">
+                  <Button size="lg" className="w-full py-8 text-xl">
                     <ShoppingBag className="mr-2" />
                     Rent A Car Now
                   </Button>
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+        <div
+          id="search-cars"
+          className="w-full h-full flex justify-center items-center"
+        >
+          <h1 className="font-bold text-2xl">Search for cars</h1>
+        </div>
+        <div className="w-full h-full flex justify-center items-center">
+          {/* Implement search functionality here */}
+          <div className="w-full h-full flex justify-center items-center">
+            <form onSubmit={handleSearch} className="flex gap-4">
+              {/* Input fields for search criteria */}
+              <input
+                type="text"
+                placeholder="Car Size"
+                value={carSize}
+                onChange={(e) => setCarSize(e.target.value)}
+              />
+              <input
+                type="date"
+                placeholder="Start Date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <input
+                type="date"
+                placeholder="End Date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+              <Button type="submit">Search</Button>
+            </form>
           </div>
         </div>
         <div
