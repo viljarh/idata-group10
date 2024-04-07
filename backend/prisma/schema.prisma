@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// prisma/schema.prisma
+
+model Customer {
+  customerId        Int             @id @unique
+  username          String
+  emailAddress      String
+  password          String
+  firstName         String
+  lastName          String
+  driverLicenseId   Int
+  telephoneNumber   Int
+  customerAddressId Int
+  customerAddress   CustomerAddress @relation(fields: [customerAddressId], references: [customerAddressId])
+  customerType      String
+  Rental            Rental[]
+}
+
+model CustomerAddress {
+  customerAddressId Int        @id
+  address           String
+  city              String
+  country           String
+  postcode          Int
+  Customer          Customer[]
+}
+
+model Vehicle {
+  vehicleId           Int                   @id @unique
+  manufacture         String
+  modelType           String
+  modelYear           String
+  vehicleCategory     String
+  transmissionType    String
+  fuelType            String
+  passengerCapacity   Int
+  luggageCapacity     Int
+  extraFeatures       String
+  mileage             Float
+  image               String // Change 'image' to 'String' if you're storing image paths
+  dailyPrice          Float
+  weeklyPrice         Float
+  monthlyPrice        Float
+  Rental              Rental[]
+  VehicleAvailability VehicleAvailability[]
+}
+
+model Location {
+  locationId Int      @id
+  city       String
+  country    String
+  address    String
+  postcode   Int
+  Rental     Rental[]
+}
+
+model Rental {
+  rentalId         Int          @id @unique
+  customerId       Int
+  vehicleId        Int
+  rentalLocationId Int
+  rentalDateFrom   DateTime
+  rentalDateTo     DateTime
+  distanceDriven   Float
+  totalPrice       Float
+  rentalStatusId   Int
+  customer         Customer     @relation(fields: [customerId], references: [customerId])
+  vehicle          Vehicle      @relation(fields: [vehicleId], references: [vehicleId])
+  rentalLocation   Location     @relation(fields: [rentalLocationId], references: [locationId])
+  rentalStatus     RentalStatus @relation(fields: [rentalStatusId], references: [statusId])
+}
+
+model VehicleAvailability {
+  availabilityId Int          @id
+  vehicleId      Int
+  rentalDateFrom DateTime
+  rentalDateTo   DateTime
+  rentalStatusId Int
+  vehicle        Vehicle      @relation(fields: [vehicleId], references: [vehicleId])
+  rentalStatus   RentalStatus @relation(fields: [rentalStatusId], references: [statusId])
+}
+
+model RentalStatus {
+  statusId            Int                   @id
+  statusName          String                @unique
+  Rental              Rental[]
+  VehicleAvailability VehicleAvailability[]
+}
+
+model User {
+  userId           Int      @id
+  username         String   @unique
+  password         String
+  email            String   @unique
+  userRole         String
+  firstName        String
+  lastName         String
+  phoneNumber      Int
+  registrationDate DateTime
+}
