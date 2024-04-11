@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+import { UserRound } from "lucide-react";
 
 const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   if (isLoggedIn) {
@@ -16,8 +17,8 @@ const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            <AvatarImage src="img/user-icon.png" />
-            <AvatarFallback>USER</AvatarFallback>
+            <UserRound size={25} height={40}/>
+           {/* <AvatarFallback>USER</AvatarFallback> */}
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
