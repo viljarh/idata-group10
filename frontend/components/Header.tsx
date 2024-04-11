@@ -5,16 +5,18 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Menu, Moon, ShoppingCart, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
+import ProfileButton from "./ui/ProfileButton";
+import Image from "next/image";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
   const routes = [
     {
-      href: "/",
-      label: "Available Cars",
+      href: "/about",
+      label: "About",
     },
     {
-      href: "/",
+      href: "/login",
       label: "Login",
     },
   ];
@@ -30,25 +32,31 @@ const Header = () => {
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col gap-4">
                   {routes.map((route, i) => (
-                    <Link
-                      key={i}
-                      href={route.href}
-                      className="block px-2 py-1 text-lg"
-                    >
-                      {route.label}
+                    <Link href={route.href} key={i}>
+                      {route.label === "Login" ? (
+                        <p className="block px-2 py-1 text-lg">{route.label}</p>
+                      ) : (
+                        <p className="block px-2 py-1 text-lg">{route.label}</p>
+                      )}
                     </Link>
                   ))}
                 </nav>
               </SheetContent>
             </Sheet>
-            <Link href="/" className="ml-4 lg:ml-0">
-              <h1 className="text-xl font-bold">Rental Roulette</h1>
+            <Link href="/" className="ml-4 lg:ml-0 mt-3">
+              {/*<h1 className="text-xl font-bold">Rental Roulette</h1> */}
+              <Image
+                src="/logo/rentalroulette.png"
+                alt="logo"
+                height={180}
+                width={180}
+              />
             </Link>
           </div>
 
           <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 hidden md:block">
             {routes.map((route, i) => (
-              <Button asChild variant="ghost">
+              <Button asChild variant="ghost" key={i}>
                 <Link
                   key={i}
                   href={route.href}
@@ -67,8 +75,10 @@ const Header = () => {
               className="mr-2"
               aria-label="Shopping Cart"
             >
-              <ShoppingCart className="h-6 w-6" />
-              <span className="sr-only classNamesr-only">Shopping Cart</span>
+              <Link href="/dashboard/cart" passHref>
+                <ShoppingCart className="h-6 w-6" />
+                <span className="sr-only classNamesr-only">Shopping Cart</span>
+              </Link>
             </Button>
 
             <Button
@@ -82,6 +92,7 @@ const Header = () => {
               <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle Theme</span>
             </Button>
+            <ProfileButton />
           </div>
         </div>
       </Container>
