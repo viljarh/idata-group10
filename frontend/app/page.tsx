@@ -3,77 +3,18 @@ import Footer from "@/components/Footer";
 import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
+import { cars } from "@/constants";
 import { ShoppingBag } from "lucide-react";
 import Head from "next/head";
 import { useState } from "react";
 
-const cars = [
-  {
-    id: "1",
-    category: "Electric",
-    name: "Tesla Model 3",
-    price: "200NOK",
-    images: ["/img/teslamod3.jpeg"],
-  },
 
-  {
-    id: "2",
-    category: "Gas",
-    name: "VW Golf",
-    price: "300NOK",
-    images: ["/img/teslamod3.jpeg"],
-  },
-
-  {
-    id: "3",
-    category: "Electric",
-    name: "Tesla Model Y",
-    price: "400NOK",
-    images: ["/img/teslamod3.jpeg"],
-  },
-
-  {
-    id: "4",
-    category: "Gas",
-    name: "BMW M3",
-    price: "900NOK",
-    images: ["/img/teslamod3.jpeg"],
-  },
-
-  {
-    id: "5",
-    category: "Gas",
-    name: "Citroen C3",
-    price: "200NOK",
-    images: ["/img/teslamod3.jpeg"],
-  },
-  {
-    id: "6",
-    category: "Gas",
-    name: "BMW iX",
-    price: "500NOK",
-    images: ["/img/teslamod3.jpeg"],
-  },
-  {
-    id: "7",
-    category: "Electric",
-    name: "BMW i3",
-    price: "420NOK",
-    images: ["/img/teslamod3.jpeg"],
-  },
-  {
-    id: "8",
-    category: "Gas",
-    name: "Peugeot 3008",
-    price: "20NOK",
-    images: ["/img/teslamod3.jpeg"],
-  },
-];
 
 export default function Home() {
   const [carSize, setCarSize] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const carType = ["Sedan", "Van", "SUV", "Coupe", "Electric"];
   const handleSearch = () => {
     console.log("Search criteria:", { carSize, startDate, endDate });
   };
@@ -85,11 +26,11 @@ export default function Home() {
       <div className="space-y-10 pb-10">
         <div className="p-4 sm:p-6 lg:p-8 rounded-lg overflow-hidden">
           <div
-            style={{ backgroundImage: `url(/img/aalesund.jpg)` }}
+            style={{ backgroundImage: `url(/img/aalesund-1.jpg)` }}
             className="rounded-lg relative aspect-square md:aspect-[2.4/1] overflow-hidden bg-cover"
           >
             <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
-              <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black dark:text-white bg-secondary/60 p-4 rounded-lg">
+              <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black dark:text-white bg-secondary/75 p-4 rounded-lg">
                 {/*Find the cheapest cars to rent in Ålesund*/}
                 <a href="#search-cars" className="block w-full">
                   <Button size="lg" className="w-full py-8 text-xl">
@@ -111,12 +52,18 @@ export default function Home() {
           {/* Implement search functionality here */}
           <div className="w-full h-full flex justify-center items-center">
             <form onSubmit={handleSearch} className="flex gap-4">
-              <input
-                type="text"
-                placeholder="Car Size"
+              <select
                 value={carSize}
                 onChange={(e) => setCarSize(e.target.value)}
-              />
+                className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              >
+                <option value="">Select Car Type</option>
+                {carType.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
               <input
                 type="date"
                 placeholder="Start Date"
@@ -130,7 +77,7 @@ export default function Home() {
                 onChange={(e) => setEndDate(e.target.value)}
               />
               <Button type="submit">Search</Button>
-            </form> 
+            </form>
           </div>
         </div>
         <div
@@ -144,7 +91,6 @@ export default function Home() {
         </div>
       </div>
       <Footer />
-
     </Container>
   );
 }

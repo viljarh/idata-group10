@@ -29,3 +29,73 @@ export const fuels = [
   { title: "Gas", value: "Gas" },
   { title: "Electricity", value: "Electricity" },
 ];
+
+export const cars = [
+  {
+    id: "1",
+    category: "Electric",
+    name: "Tesla Model 3",
+    price: "200NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+
+  {
+    id: "2",
+    category: "Gas",
+    name: "VW Golf",
+    price: "300NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+
+  {
+    id: "3",
+    category: "Electric",
+    name: "Tesla Model Y",
+    price: "400NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+
+  {
+    id: "4",
+    category: "Gas",
+    name: "BMW M3",
+    price: "900NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+
+  {
+    id: "5",
+    category: "Gas",
+    name: "Citroen C3",
+    price: "200NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+  {
+    id: "6",
+    category: "Gas",
+    name: "BMW iX",
+    price: "500NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+  {
+    id: "7",
+    category: "Electric",
+    name: "BMW i3",
+    price: "420NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+  {
+    id: "8",
+    category: "Gas",
+    name: "Peugeot 3008",
+    price: "20NOK",
+    images: ["/img/teslamod3.jpeg"],
+  },
+];
+
+export const dummyUser = {
+  id: 1,
+  username: "dummyUser",
+  email: "dummy@rentalroulette.com",
+  password: "rentalroulette"
+}

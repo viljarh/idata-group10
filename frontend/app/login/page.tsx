@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 const LoginPage: React.FC = () => {
@@ -12,8 +13,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto m-5">
-      <h1 className="text-2xl font-bold mb-4">Login</h1>
+    <div className="w-full h-full flex flex-col justify-center items-center">
+      <h1 className="text-2xl font-bold mb-4 m-5">Login</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="username" className="block mb-2">
@@ -41,10 +42,15 @@ const LoginPage: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
         >
           Login
         </button>
+        <div>
+          <Link href="/login/forgot-password">
+            <p className="py-2 text-[12px]">Forgot Password?</p>
+          </Link>
+        </div>
       </form>
     </div>
   );

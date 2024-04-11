@@ -12,12 +12,20 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
   const routes = [
     {
+      href: "/",
+      label: "Home",
+    },
+    {
+      href: "/cars",
+      label: "Cars",
+    },
+    {
       href: "/about",
       label: "About",
     },
     {
-      href: "/login",
-      label: "Login",
+      href: "/contact-us",
+      label: "Contact Us",
     },
   ];
   return (
@@ -92,7 +100,7 @@ const Header = () => {
               <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle Theme</span>
             </Button>
-            <ProfileButton />
+            <ProfileButton isLoggedIn={true}/>
           </div>
         </div>
       </Container>
