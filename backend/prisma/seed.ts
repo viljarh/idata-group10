@@ -19,17 +19,31 @@ async function main() {
       transmissionType: 'Manual',
       fuelType: 'Diesel',
       passengerCapacity: 5,
-      luggageCapacity: 1,
       extraFeatures: 'Bluetooth, DAB radio, warming in the chairs',
       mileage: 0,
       image: 'path/to/image', // Provide path to image or store image in database
       dailyPrice: 600, // Price in NOK
-      weeklyPrice: 4200, // Assuming weekly price is 7 times daily price
-      monthlyPrice: 18000, // Assuming monthly price is 30 times daily price
     },
   });
-  console.log(vehicle);
+
+
+  const customer = await prisma.customer.upsert({
+    where: { customerId: 1 },
+    update: {},
+    create: {
+      customerId: 1,
+      username: 'johndoe',
+      password: '$2b$10',
+      firstName: 'John',
+      lastName: 'Doe',
+      emailAddress: 'john@doe.com',
+      telephoneNumber: 12345678,
+      customerType:'REGISTRATED'    
+  },
+  });
+  console.log(vehicle, customer);
 }
+
 
 // execute the main function
 main()

@@ -11,7 +11,6 @@ export class VehicleEntity{
     @ApiProperty()
     modelType: string;
 
-
     @ApiProperty()
     modelYear: string;
 
@@ -26,9 +25,6 @@ export class VehicleEntity{
 
     @ApiProperty()
     passengerCapacity: number;
-
-    @ApiProperty()
-    luggageCapacity: number;
 
     @ApiProperty()
     extraFeatures: string;
