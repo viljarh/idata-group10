@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 const aboutPage = () => {
   return (
     <Container>
-      <div className="w-full h-full py-6 px-7">
+      <div className="w-full h-full flex flex-col justify-center items-center min-h-screen">
         <h1 className="font-bold text-4xl py-6">About Us</h1>
         <p>
           Rental Roulette is a car rental service that allows you to rent cars

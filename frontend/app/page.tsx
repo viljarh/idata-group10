@@ -90,7 +90,7 @@ export default function Home() {
           <ProductList items={cars} />
         </div>
       </div>
-      <Footer />
+     
     </Container>
   );
 }
