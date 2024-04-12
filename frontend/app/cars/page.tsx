@@ -1,6 +1,7 @@
 import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { cars } from "@/constants";
+import VehiclesList from "@/components/database/VehiclesList";
 
 const carPage = () => {
   return (
@@ -10,7 +11,7 @@ const carPage = () => {
       </div>
       <div className="space-y-10 pb-10">
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-            <ProductList items={cars} />
+            <ProductList vehicle={VehiclesList()} />
         </div>
       </div>
     </Container>

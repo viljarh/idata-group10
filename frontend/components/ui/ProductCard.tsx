@@ -7,7 +7,7 @@ import { useState } from "react";
 import CarDetails from "../CarDetails";
 
 interface ProductCard {
-  data: Product;
+  data: VehicleProps;
 }
 
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
