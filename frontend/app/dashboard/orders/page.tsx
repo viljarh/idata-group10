@@ -21,7 +21,7 @@ const orders = () => {
         <h1 className="font-bold text-4xl">My Orders</h1>
       </div>
 
-      <div className="flex-col px-7">
+      <div className="flex-col px-7 min-h-screen">
         {orders.length > 0 ? (
           <ul>
             {orders.map((order) => (

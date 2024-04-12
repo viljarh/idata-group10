@@ -25,7 +25,7 @@ const Profile = () => {
         <h1 className="font-bold text-4xl">My Profile</h1>
       </div>
 
-      <div className="py-6 px-7">
+      <div className="py-6 px-7 min-h-screen">
         {profile ? (
           <div>
             <p>Name: {profile.name}</p>

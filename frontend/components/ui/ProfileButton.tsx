@@ -18,7 +18,6 @@ const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         <DropdownMenuTrigger>
           <Avatar>
             <UserRound size={25} height={40}/>
-           {/* <AvatarFallback>USER</AvatarFallback> */}
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>

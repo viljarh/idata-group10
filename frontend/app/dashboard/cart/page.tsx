@@ -29,7 +29,7 @@ const ShoppingCart = () => {
         <h1 className="font-bold text-4xl">Shopping Cart</h1>
       </div>
 
-      <div className="py-6 px-7">
+      <div className="py-6 px-7 min-h-screen">
         {cartItems.length > 0 ? (
           <div>
             <ul>
