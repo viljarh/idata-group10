@@ -13,20 +13,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Customer {
-  customerId   Int      @id @default(autoincrement())
-  username     String   @unique
-  emailAddress String   @unique
+model User {
+  userId       Int       @id @default(autoincrement())
+  username     String    @unique
+  emailAddress String    @unique
   password     String
   firstName    String
   lastName     String
   phoneNumber  Int
-  customerType userRole @default(VISITOR)
+  customerType userRole? @default(VISITOR)
   Rental       Rental[]
 }
 
 model Vehicle {
-  vehicleId         Int      @id @unique
+  vehicleId         Int      @id @unique @default(autoincrement())
   manufacturer      String
   model             String
   year              String
@@ -34,25 +34,25 @@ model Vehicle {
   transmission      String
   fuel              String
   passengerCapacity Int
-  extraFeatures     String
+  extraFeatures     String?
   mileage           Float
-  image             String
+  image             String?
   dailyPrice        Float
   Rental            Rental[]
 }
 
 model Rental {
-  rentalId           Int      @id @default(autoincrement())
-  customerId         Customer @relation(fields: [customerCustomerId], references: [customerId])
-  vehicleId          Vehicle  @relation(fields: [vehicleVehicleId], references: [vehicleId])
-  rentalConfirmed    DateTime @default(now())
-  rentalDateFrom     DateTime
-  rentalDateTo       DateTime
-  distanceDriven     Float
-  totalPrice         Float
-  rentalStatusId     Int
-  customerCustomerId Int
-  vehicleVehicleId   Int
+  rentalId         Int      @id @default(autoincrement())
+  userId           User     @relation(fields: [userUserId], references: [userId])
+  vehicleId        Vehicle  @relation(fields: [vehicleVehicleId], references: [vehicleId])
+  rentalConfirmed  DateTime @default(now())
+  rentalDateFrom   DateTime
+  rentalDateTo     DateTime
+  distanceDriven   Float
+  totalPrice       Float
+  rentalStatusId   Int
+  vehicleVehicleId Int
+  userUserId       Int
 }
 
 enum userRole {

@@ -2,7 +2,9 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+
 async function main() {
+
   const car1 = await prisma.vehicle.upsert({
     where: { vehicleId: 1 },
     update: {},
@@ -22,11 +24,11 @@ async function main() {
     },
   });
 
-  const customer = await prisma.customer.upsert({
-    where: { customerId: 1 },
+  const user = await prisma.user.upsert({
+    where: { userId: 1 },
     update: {},
     create: {
-      customerId: 1,
+      userId: 1,
       username: 'johndoe',
       password: 'password',
       firstName: 'John',
@@ -37,13 +39,5 @@ async function main() {
     },
   });
 
-  console.log({car1, customer});
+  console.log(car1, user);
 }
-
-main().catch((e)=> {
-    console.error(e);
-    process.exit(1);
-})
-.finally(async()=> {
-    await prisma.$disconnect();
-})

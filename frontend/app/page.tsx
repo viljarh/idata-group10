@@ -1,5 +1,4 @@
 "use client";
-import Footer from "@/components/Footer";
 import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";

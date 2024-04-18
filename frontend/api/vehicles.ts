@@ -5,7 +5,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const response = await fetch("http://localhost:5432/vehicles");
+    console.log('Fetching vehicles')
+    const response = await fetch("http://localhost:8080/vehicles");
+    console.log(response)
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {
