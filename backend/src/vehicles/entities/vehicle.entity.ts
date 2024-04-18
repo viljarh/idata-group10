@@ -1,27 +1,27 @@
-import { Vehicle } from "@prisma/client";
 import { ApiProperty } from "@nestjs/swagger";
+import { Vehicle } from "@prisma/client";
 
-export class VehicleEntity{
+export class VehicleEntity implements Vehicle {
     @ApiProperty()
     vehicleId: number;
 
     @ApiProperty()
-    manufacture: string;
+    manufacturer: string;
 
     @ApiProperty()
-    modelType: string;
+    model: string;
 
     @ApiProperty()
-    modelYear: string;
+    year: string;
 
     @ApiProperty()
     vehicleCategory: string;
 
     @ApiProperty()
-    transmissionType: string;
+    transmission: string;
 
     @ApiProperty()
-    fuelType: string;
+    fuel: string;
 
     @ApiProperty()
     passengerCapacity: number;
@@ -37,5 +37,4 @@ export class VehicleEntity{
 
     @ApiProperty()
     dailyPrice: number;
-
 }

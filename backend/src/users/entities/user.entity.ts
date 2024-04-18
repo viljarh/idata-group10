@@ -1,31 +1,33 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Customer } from "@prisma/client";
+import { ApiProperty } from '@nestjs/swagger';
+import { $Enums, User } from '@prisma/client';
+import { Exclude } from 'class-transformer';
 
-export class User {
-    @ApiProperty()
-    customerId: number;
+export class UserEntity implements User {
+  constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
 
-    @ApiProperty()
-    username : string;
+  @ApiProperty()
+  userId: number;
 
-    @ApiProperty()
-    emailAddress : string;
+  @ApiProperty()
+  username: string;
 
-    @ApiProperty()
-    password : string;
+  @ApiProperty()
+  emailAddress: string;
 
-    @ApiProperty()
-    firstName : string;
+  @Exclude()
+  password: string;
 
-    @ApiProperty()
-    lastName : string;
+  @ApiProperty()
+  firstName: string;
 
-    @ApiProperty()
-    telephoneNumber : number;
+  @ApiProperty()
+  lastName: string;
 
-    @ApiProperty()
-    customerType : Customer;
+  @ApiProperty()
+  phoneNumber: number;
 
-
-
+  @ApiProperty()
+  customerType: $Enums.userRole;
 }
