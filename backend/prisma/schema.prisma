@@ -13,35 +13,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// prisma/schema.prisma
-
 model Customer {
-  customerId      Int      @id @default(autoincrement())
-  username        String   @unique
-  emailAddress    String   @unique
-  password        String
-  firstName       String
-  lastName        String
-  telephoneNumber Int
-  customerType    userRole @default(VISITOR)
-  Rental          Rental[]
+  customerId   Int      @id @default(autoincrement())
+  username     String   @unique
+  emailAddress String   @unique
+  password     String
+  firstName    String
+  lastName     String
+  phoneNumber  Int
+  customerType userRole @default(VISITOR)
+  Rental       Rental[]
 }
 
 model Vehicle {
   vehicleId         Int      @id @unique
-  manufacture       String
-  modelType         String
-  modelYear         String
+  manufacturer      String
+  model             String
+  year              String
   vehicleCategory   String
-  transmissionType  String
-  fuelType          String
+  transmission      String
+  fuel              String
   passengerCapacity Int
   extraFeatures     String
   mileage           Float
-  image             String // Change 'image' to 'String' if you're storing image paths
+  image             String
   dailyPrice        Float
   Rental            Rental[]
-  //VehicleAvailability VehicleAvailability[]
 }
 
 model Rental {
@@ -54,40 +51,9 @@ model Rental {
   distanceDriven     Float
   totalPrice         Float
   rentalStatusId     Int
-  //rentalLocation   Location     @relation(fields: [rentalLocationId], references: [locationId])
-  //rentalStatus       RentalStatus @relation(fields: [rentalStatusId], references: [statusId])
   customerCustomerId Int
   vehicleVehicleId   Int
 }
-
-// model VehicleAvailability {
-//   availabilityId Int      @id
-//   vehicleId      Int
-//   rentalDateFrom DateTime
-//   rentalDateTo   DateTime
-//   rentalStatusId Int
-//   vehicle        Vehicle  @relation(fields: [vehicleId], references: [vehicleId])
-//   //rentalStatus   RentalStatus @relation(fields: [rentalStatusId], references: [statusId])
-// }
-
-// model RentalStatus {
-//   statusId            Int                   @id
-//   statusName          String                @unique
-//   Rental              Rental[]
-//   VehicleAvailability VehicleAvailability[]
-// }
-
-// model User {
-//   userId           Int      @id
-//   username         String   @unique
-//   password         String
-//   email            String   @unique
-//   userRole         String
-//   firstName        String
-//   lastName         String
-//   phoneNumber      Int
-//   registrationDate DateTime
-// }
 
 enum userRole {
   VISITOR
