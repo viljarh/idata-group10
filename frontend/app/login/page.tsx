@@ -1,59 +1,33 @@
 "use client";
-import Link from "next/link";
-import { useState } from "react";
+import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
-const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+export default function LoginPage() {
+  const router = useRouter();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // Here you can add your login logic, e.g., send a request to your backend
-    // After successful login, redirect the user to the dashboard page
-  };
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (response.ok) {
+      router.push("/profile");
+    }
+  }
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
-      <h1 className="text-2xl font-bold mb-4 m-5">Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="username" className="block mb-2">
-            Username:
-          </label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="border p-2"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block mb-2">
-            Password:
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="border p-2"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
-        >
-          Login
-        </button>
-        <div>
-          <Link href="/login/forgot-password">
-            <p className="py-2 text-[12px]">Forgot Password?</p>
-          </Link>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className="flex flex-col w-full items-center py-8">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit" className="">Login</button>
+    </form>
   );
-};
-
-export default LoginPage;
+}

@@ -1,24 +1,22 @@
+"use client";
 import { useEffect, useState } from "react";
 
-export function Vehicles() {
-  const [vehicle, setVehicle] = useState(null)
-  const [isLoading, setLoading] = useState(true)
-
+export function useVehicles() {
+  const [vehicles, setVehicles] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('localhost:8080/api/vehicles')
+    fetch("localhost:8080/vehicles")
       .then((res) => res.json())
-      .then((vehicle) => {
-        setVehicle(vehicle)
-        setLoading(false)
+      .then((data) => {
+        setVehicles(data);
+        setLoading(false);
       })
-  }, [])
+      .catch((error) => {
+        console.error("Error fetching vehicles:", error);
+        setLoading(false);
+      });
+  }, []);
 
-  if (isLoading) {
-    console.log('Loading...')
-  }
-
-  if (!vehicle) {
-    console.log('No vehicle data')
-  }
+  return { vehicles, isLoading };
 }

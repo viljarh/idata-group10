@@ -17,12 +17,12 @@ export interface CarProps {
 
 export interface VehicleProps {
   vehicleId: number;
-  manufacture: string;
-  modelType: string;
-  modelYear: string;
+  manufacturer: string;
+  model: string;
+  year: string;
   vehicleCategory: string;
-  transmissionType: string;
-  fuelType: string;
+  transmission: string;
+  fuel: string;
   passengerCapacity: number;
   extraFeatures: string;
   mileage: number;

@@ -16,8 +16,8 @@ const Header = () => {
       label: "Home",
     },
     {
-      href: "/cars",
-      label: "Cars",
+      href: "/vehicles",
+      label: "Vehicles",
     },
     {
       href: "/about",
@@ -100,7 +100,7 @@ const Header = () => {
               <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle Theme</span>
             </Button>
-            <ProfileButton isLoggedIn={true} />
+            <ProfileButton isLoggedIn={false} />
           </div>
         </div>
       </Container>

@@ -1,9 +1,19 @@
 import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
-import { cars } from "@/constants";
-import VehiclesList from "@/components/database/VehiclesList";
+import { useVehicles } from "@/api/vehicles";
 
-const carPage = () => {
+const vehiclePage = () => {
+  const { vehicles, isLoading } = useVehicles();
+
+  let content;
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  } else if (vehicles) {
+    content = <ProductList vehicles={vehicles} />;
+  } else {
+    content = <p>No vehicles available</p>;
+  }
+
   return (
     <Container>
       <div className="p-5 h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
@@ -11,11 +21,11 @@ const carPage = () => {
       </div>
       <div className="space-y-10 pb-10">
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-            <ProductList vehicle={VehiclesList()} />
+          {content}
         </div>
       </div>
     </Container>
   );
 };
 
-export default carPage;
+export default vehiclePage;

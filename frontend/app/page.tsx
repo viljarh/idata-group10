@@ -86,7 +86,7 @@ export default function Home() {
           <h1 className="font-bold text-2xl">Popular Cars</h1>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <ProductList items={cars} />
+          <ProductList vehicles={cars} />
         </div>
       </div>
      
