@@ -12,7 +12,7 @@ const AdminPage = () => {
         <div className="border-neutral-400 mt-5 p-4 rounded-lg bg-gray-100">
           <ul className="list-none">
             <li>
-              <Link href="/manage-post">
+              <Link href="/manage-post/create">
                 <p className="text-blue-500 hover:underline">Create Post</p>
               </Link>
             </li>

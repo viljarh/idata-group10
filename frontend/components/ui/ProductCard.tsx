@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardFooter } from "./card";
 import { useState } from "react";
@@ -13,10 +12,10 @@ interface ProductCard {
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleViewMoreClick = (event: MouseEvent<HTMLAnchorElement>) => {
+  const handleViewMoreClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
-    setIsOpen(true);
-  };
+    setIsOpen(true)
+  }
   return (
     <Link
       href="/"
@@ -26,12 +25,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
       <Card className="rounded-lg border-2">
         <CardContent className="pt-4">
           <div className="aspect-square relative bg-foreground/5 dark:bg-background rounded-lg">
-            {/* <Image
-              src={data.image?.[0]}
-              alt=""
-              fill
-              className="aspect-square object-cover rounded-lg transition-all duration-300 hover:scale-105"
-            /> */}
+            {data.image}
           </div>
         </CardContent>
 
@@ -46,7 +40,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
           <CarDetails
             isOpen={isOpen}
             closeModal={() => setIsOpen(false)}
-            data={data}
+            vehicle={data}
           />
         </CardFooter>
       </Card>

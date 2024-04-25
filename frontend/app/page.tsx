@@ -1,5 +1,5 @@
 "use client";
-import { fetchVehicles } from "@/api/vehicles";
+import { fetchVehicles } from "@/api/vehicles/fetchVehicles";
 import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";

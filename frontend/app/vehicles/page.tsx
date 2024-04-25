@@ -4,7 +4,7 @@ import Container from '@/components/ui/Container';
 import ProductList from '@/components/ProductList';
 import CarDetails from '@/components/CarDetails';
 import { VehicleProps } from '@/types';
-import { fetchVehicles } from '@/api/vehicles'; // Import the fetchVehicles function
+import { fetchVehicles } from '@/api/vehicles/fetchVehicles'; // Import the fetchVehicles function
 
 const VehiclePage = () => {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
