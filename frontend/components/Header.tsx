@@ -27,6 +27,10 @@ const Header = () => {
       href: "/contact-us",
       label: "Contact Us",
     },
+    {
+      href: "/admin",
+      label: "Admin"
+    }
   ];
   return (
     <header className="sm:flex sm:justify-between py-3 px-4 border-b">
@@ -52,7 +56,6 @@ const Header = () => {
               </SheetContent>
             </Sheet>
             <Link href="/" className="ml-4 lg:ml-0 mt-3">
-              {/*<h1 className="text-xl font-bold">Rental Roulette</h1> */}
               <Image
                 src="/logo/rentalroulette.png"
                 alt="logo"

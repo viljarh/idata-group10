@@ -12,10 +12,12 @@ interface ProductCard {
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleViewMoreClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleViewMoreClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     event.preventDefault();
-    setIsOpen(true)
-  }
+    setIsOpen(true);
+  };
   return (
     <Link
       href="/"
@@ -31,11 +33,15 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
 
         <CardFooter className="flex-col items-start">
           <div>
-            <p className="font-semibold text-lg">{data.manufacturer}</p>
+            <p className="font-semibold text-lg">
+              {data.manufacturer} {data.model}
+            </p>
             <p className="text-sm text-primary/80">{data.vehicleCategory}</p>
           </div>
 
-          <div className="flex items-center justify-between">{data?.dailyPrice}</div>
+          <div className="flex items-center justify-between">
+            {data?.dailyPrice} /day
+          </div>
 
           <CarDetails
             isOpen={isOpen}

@@ -6,22 +6,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const { manufacturer, model, year, fuel, transmission, passengerCapacity, extraFeatures, dailyPrice }: VehicleProps = req.body;
 
-      if (!manufacturer || !model || !year || !fuel || !transmission || !passengerCapacity || !dailyPrice) {
-        return res.status(400).json({ message: 'Please provide all required fields' });
-      }
-
-      console.log('New vehicle data:', {
-        manufacturer,
-        model,
-        year,
-        fuel,
-        transmission,
-        passengerCapacity,
-        extraFeatures,
-        dailyPrice,
+      // Assuming you have an API endpoint for creating a vehicle on your backend server
+      const response = await fetch('http://localhost:8080/vehicles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          manufacturer,
+          model,
+          year,
+          fuel,
+          transmission,
+          passengerCapacity,
+          extraFeatures,
+          dailyPrice,
+        }),
       });
 
-      res.status(201).json({ message: 'Vehicle created successfully' });
+      // Check if the request was successful
+      if (response.ok) {
+        const data = await response.json();
+        // Return the response from the backend server
+        return res.status(201).json(data);
+      } else {
+        // If the request failed, return an error message
+        return res.status(500).json({ message: 'Failed to create vehicle on the server' });
+      }
     } catch (error) {
       console.error('Error creating vehicle:', error);
       res.status(500).json({ message: 'Failed to create vehicle' });

@@ -5,7 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class VehiclesService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   create(createVehicleDto: CreateVehicleDto) {
     return this.prisma.vehicle.create({ data: createVehicleDto });
@@ -26,7 +26,12 @@ export class VehiclesService {
     });
   }
 
-  remove(id: number) {
-    this.prisma.vehicle.delete({ where: { vehicleId: id } });
+  remove(id: number): Promise<void> {
+    return this.prisma.vehicle
+      .delete({ where: { vehicleId: id } })
+      .then(() => {})
+      .catch((error) => {
+        throw new Error(`Failed to delete vehicle with ID ${id}: ${error}`);
+      });
   }
 }

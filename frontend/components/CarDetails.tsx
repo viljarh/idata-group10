@@ -18,7 +18,7 @@ interface CarDetailsProps {
 }
 
 const CarDetails = ({ isOpen, closeModal, vehicle }: CarDetailsProps) => {
-  if(!vehicle){
+  if (!vehicle) {
     return null;
   }
 

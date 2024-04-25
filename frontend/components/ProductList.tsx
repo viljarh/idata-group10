@@ -3,7 +3,7 @@ import ProductCard from "./ui/ProductCard";
 
 interface ProductListProps {
   vehicles: VehicleProps[];
-  onCarDetailsOpen?: (car: VehicleProps) => void; 
+  onCarDetailsOpen?: (car: VehicleProps) => void;
 }
 
 const ProductList: React.FC<ProductListProps> = ({ vehicles }) => {

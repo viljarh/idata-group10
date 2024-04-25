@@ -1,21 +1,21 @@
+"use client";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Container from "@/components/ui/Container";
-import { Button } from "@/components/ui/button";
+import CarForm from "@/components/CarForm";
 
-const CreatePostPage = () => {
+const AddVehiclePage = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
+    // Initialize form fields here
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (formData: FormData) => {
     try {
-      // Send POST request to your API endpoint (/api/vehicles/create) with formData
       const res = await fetch("/api/vehicles/create", {
         method: "POST",
         headers: {
@@ -24,7 +24,6 @@ const CreatePostPage = () => {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        // Redirect to a success page or back to admin page
         router.push("/admin");
       } else {
         console.error("Failed to create post");
@@ -34,15 +33,16 @@ const CreatePostPage = () => {
     }
   };
 
+  if (typeof window === "undefined") {
+    return null;
+  }
+
   return (
     <Container>
-      <h1>Create Post</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Render form fields here */}
-        <Button type="submit">Submit</Button>
-      </form>
+      <h1>Add Vehicle</h1>
+      <CarForm onSubmit={handleSubmit} />
     </Container>
   );
 };
 
-export default CreatePostPage;
+export default AddVehiclePage;
