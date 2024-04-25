@@ -1,15 +1,14 @@
 "use client";
+import { fetchVehicles } from "@/api/vehicles";
 import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
-import { cars } from "@/constants";
 import { ShoppingBag } from "lucide-react";
-import Head from "next/head";
-import { useState } from "react";
-
-
+import { useEffect, useState } from "react";
+import { VehicleProps } from "@/types";
 
 export default function Home() {
+  const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
   const [carSize, setCarSize] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -17,11 +16,20 @@ export default function Home() {
   const handleSearch = () => {
     console.log("Search criteria:", { carSize, startDate, endDate });
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const vehiclesData = await fetchVehicles();
+        setVehicles(vehiclesData);
+      } catch (error) {
+        console.error("Error fetching vehicles:", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <Container>
-      <Head>
-        <link rel="icon" href="/logo/logo.ico" sizes="any" />
-      </Head>
       <div className="space-y-10 pb-10">
         <div className="p-4 sm:p-6 lg:p-8 rounded-lg overflow-hidden">
           <div
@@ -86,10 +94,9 @@ export default function Home() {
           <h1 className="font-bold text-2xl">Popular Cars</h1>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <ProductList vehicles={cars} />
+          <ProductList vehicles={vehicles} />
         </div>
       </div>
-     
     </Container>
   );
 }

@@ -1,18 +1,37 @@
-import ProductList from "@/components/ProductList";
-import Container from "@/components/ui/Container";
-import { useVehicles } from "@/api/vehicles";
+"use client"
+import { useState, useEffect } from 'react';
+import Container from '@/components/ui/Container';
+import ProductList from '@/components/ProductList';
+import CarDetails from '@/components/CarDetails';
+import { VehicleProps } from '@/types';
+import { fetchVehicles } from '@/api/vehicles'; // Import the fetchVehicles function
 
-const vehiclePage = () => {
-  const { vehicles, isLoading } = useVehicles();
+const VehiclePage = () => {
+  const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
+  const [isCarDetailsOpen, setIsCarDetailsOpen] = useState(false);
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleProps | null>(null);
 
-  let content;
-  if (isLoading) {
-    content = <p>Loading...</p>;
-  } else if (vehicles) {
-    content = <ProductList vehicles={vehicles} />;
-  } else {
-    content = <p>No vehicles available</p>;
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const vehiclesData = await fetchVehicles();
+        setVehicles(vehiclesData);
+      } catch (error) {
+        console.error('Error fetching vehicles:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleCarDetailsOpen = (car: VehicleProps) => {
+    setSelectedVehicle(car);
+    setIsCarDetailsOpen(true);
+  };
+
+  const handleCarDetailsClose = () => {
+    setIsCarDetailsOpen(false);
+  };
 
   return (
     <Container>
@@ -21,11 +40,14 @@ const vehiclePage = () => {
       </div>
       <div className="space-y-10 pb-10">
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          {content}
+          <ProductList vehicles={vehicles} onCarDetailsOpen={handleCarDetailsOpen} />
         </div>
       </div>
+      {isCarDetailsOpen && selectedVehicle && (
+        <CarDetails isOpen={isCarDetailsOpen} closeModal={handleCarDetailsClose} vehicle={selectedVehicle} />
+      )}
     </Container>
   );
 };
 
-export default vehiclePage;
+export default VehiclePage;

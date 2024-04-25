@@ -1,22 +1,15 @@
-"use client";
-import { useEffect, useState } from "react";
+import { VehicleProps } from "@/types";
 
-export function useVehicles() {
-  const [vehicles, setVehicles] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("localhost:8080/vehicles")
-      .then((res) => res.json())
-      .then((data) => {
-        setVehicles(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching vehicles:", error);
-        setLoading(false);
-      });
-  }, []);
-
-  return { vehicles, isLoading };
+export async function fetchVehicles(): Promise<VehicleProps[]> {
+  try {
+    const response = await fetch('http://localhost:8080/vehicles');
+    if (!response.ok) {
+      throw new Error('Failed to fetch vehicles');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching vehicles:', error);
+    return [];
+  }
 }

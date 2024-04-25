@@ -9,15 +9,19 @@ import {
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
-import { CarProps } from "@/types";
+import { VehicleProps } from "@/types";
 
 interface CarDetailsProps {
   isOpen: boolean;
   closeModal: () => void;
-  car: CarProps;
+  vehicle: VehicleProps;
 }
 
-const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
+const CarDetails = ({ isOpen, closeModal, vehicle }: CarDetailsProps) => {
+  if(!vehicle){
+    return null;
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -36,21 +40,21 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-2 items-center gap-x-4">
             <Label htmlFor="name">Car Maker</Label>
-            <p className="font-medium">Car Maker</p>
+            <p className="font-medium">{vehicle.manufacturer}</p>
             <Label>Car Model</Label>
-            <p className="font-medium">Car Model</p>
+            <p className="font-medium">{vehicle.model}</p>
             <Label>Year</Label>
-            <p className="font-medium">Year</p>
+            <p className="font-medium">{vehicle.year}</p>
             <Label>Fuel Type</Label>
-            <p className="font-medium">Fuel Type</p>
+            <p className="font-medium">{vehicle.fuel}</p>
             <Label>Transmission type</Label>
-            <p className="font-medium">Transmission Type</p>
+            <p className="font-medium">{vehicle.transmission}</p>
             <Label>Number Of Seats</Label>
-            <p className="font-medium">Number Of Seats</p>
+            <p className="font-medium">{vehicle.passengerCapacity}</p>
             <Label>Extra Features</Label>
-            <p className="font-medium">Extra Features</p>
+            <p className="font-medium">{vehicle.extraFeatures}</p>
             <Label>Price</Label>
-            <p className="font-medium">Price</p>
+            <p className="font-medium">{vehicle.dailyPrice}</p>
           </div>
         </div>
 

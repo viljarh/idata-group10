@@ -2,7 +2,8 @@ import { VehicleProps } from "@/types";
 import ProductCard from "./ui/ProductCard";
 
 interface ProductListProps {
-  vehicles: VehicleProps[]; 
+  vehicles: VehicleProps[];
+  onCarDetailsOpen?: (car: VehicleProps) => void; 
 }
 
 const ProductList: React.FC<ProductListProps> = ({ vehicles }) => {
