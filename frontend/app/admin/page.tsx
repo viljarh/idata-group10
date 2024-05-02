@@ -1,52 +1,21 @@
-import Container from "@/components/ui/Container";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import React from "react";
 
-const AdminPage = () => {
+const AdminDashboard = () => {
   return (
-    <div className="flex flex-col min-h-screen m-5">
-      <div className="flex flex-col h-full w-full justify-center items-center">
-        <Container>
-          <div>
-            <h1 className="font-bold text-3xl">Admin</h1>
-          </div>
-          <div className="border-neutral-400 mt-5 p-4 rounded-lg bg-gray-100">
-            <ul className="list-none">
-              <li>
-                <Link href="/admin/add-vehicle">
-                  <p className="text-blue-500 hover:underline">Add Vehicle</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <p className="text-blue-500 hover:underline">Edit Vehicle</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/manage-post">
-                  <p className="text-blue-500 hover:underline">Delete Vehicle</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/users">
-                  <p className="text-blue-500 hover:underline">Manage Users</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <p className="text-blue-500 hover:underline">Settings</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <p className="text-blue-500 hover:underline">Order History</p>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </Container>
+    <div className="flex flex-col justify-center items-center">
+      <h1 className="text-2xl m-5">Admin Dashboard</h1>
+      <div className="m-10">
+        <Button variant="link">
+          <Link href="/admin/vehicles">Vehicles</Link>
+        </Button>
+        <Button variant="link">
+          <Link href="/admin/users">Users</Link>
+        </Button>
       </div>
     </div>
   );
 };
 
-export default AdminPage;
+export default AdminDashboard;

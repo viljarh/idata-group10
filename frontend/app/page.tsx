@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
