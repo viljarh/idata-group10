@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
           </div>
 
           <div className="flex items-center justify-between">
-            {data?.dailyPrice} /day
+            {data?.dailyPrice} NOK /day
           </div>
 
           <CarDetails

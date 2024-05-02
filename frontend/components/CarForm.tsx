@@ -45,6 +45,7 @@ const CarForm: React.FC<FormProps> = ({ onSubmit }) => {
           name="manufacturer"
           value={formData.manufacturer}
           onChange={handleChange}
+          className="bg-gray-300"
         />
       </div>
 
@@ -56,6 +57,7 @@ const CarForm: React.FC<FormProps> = ({ onSubmit }) => {
           name="model"
           value={formData.model}
           onChange={handleChange}
+          className="bg-gray-300"
         />
       </div>
 
@@ -67,6 +69,7 @@ const CarForm: React.FC<FormProps> = ({ onSubmit }) => {
           name="year"
           value={formData.year}
           onChange={handleChange}
+          className="bg-gray-300"
         />
       </div>
 
@@ -78,6 +81,7 @@ const CarForm: React.FC<FormProps> = ({ onSubmit }) => {
           value={formData.vehicleCategory}
           onChange={handleChange}
         >
+          <option value="Choose Category">Choose Category</option>
           <option value="SUV">SUV</option>
           <option value="Sedan">Sedan</option>
           <option value="Van">Van</option>
@@ -97,6 +101,7 @@ const CarForm: React.FC<FormProps> = ({ onSubmit }) => {
           name="dailyPrice"
           value={formData.dailyPrice}
           onChange={handleChange}
+          className="bg-gray-300"
         />
       </div>
 
