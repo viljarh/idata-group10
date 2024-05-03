@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
-import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
@@ -57,8 +56,8 @@ export default function Home() {
           <h1 className="font-bold text-2xl">Search for cars</h1>
         </div>
         <div className="w-full h-full flex justify-center items-center">
-          {/* Implement search functionality here */}
-          <div className="w-full h-full flex justify-center items-center">
+          {/* TODO IMPLEMENT SEARCH FUNCTION */}
+          <div className="flex justify-center items-center border">
             <form onSubmit={handleSearch} className="flex gap-4">
               <select
                 value={carSize}

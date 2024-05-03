@@ -8,7 +8,7 @@ interface ProductListProps {
 
 const ProductList: React.FC<ProductListProps> = ({ vehicles }) => {
   if (!vehicles || vehicles.length === 0) {
-    return <p>No vehicles available</p>;
+    return <p className="from-neutral-800 font-mono">No vehicles available...</p>;
   }
   return (
     <div className="space-y-4">

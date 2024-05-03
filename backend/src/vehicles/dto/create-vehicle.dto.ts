@@ -51,7 +51,7 @@ export class CreateVehicleDto {
   @IsString()
   @IsOptional()
   @ApiProperty({required: false})
-  image: string;
+  image?: string;
 
   @IsNotEmpty()
   @IsNumber()

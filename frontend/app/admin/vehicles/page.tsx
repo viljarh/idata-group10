@@ -18,7 +18,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRouter } from "next/navigation";
 
 export default function AdminVehiclePage() {
   const [vehicles, setVehicles] = useState([]);
@@ -43,8 +42,8 @@ export default function AdminVehiclePage() {
 
   return (
     <>
-      <div className="flex justify-between items-center gap-4">
-        <Button asChild className=" m-5">
+      <div className="flex justify-center items-center gap-4">
+        <Button asChild className=" m-5 w-1/4">
           <Link href="/admin/vehicles/new">Add Vehicle</Link>
         </Button>
       </div>
@@ -54,7 +53,7 @@ export default function AdminVehiclePage() {
 }
 
 function VehiclesTable({ vehicles }: Readonly<{ vehicles: any[] }>) {
-  if (vehicles.length === 0) return <p>No vehicles found</p>;
+  if (vehicles.length === 0) return <p className="p-4 from-neutral-800 font-mono">No vehicles found...</p>;
   return (
     <Table>
       <TableHeader>

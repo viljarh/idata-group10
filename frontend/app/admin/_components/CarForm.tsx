@@ -24,15 +24,22 @@ export function CarForm() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleChange = (e: { target: { name: any; value: any } }) => {
+  function handleChange(e: { target: { name: any; value: any } }) {
     const { name, value } = e.target;
-    setVehicle((prev) => ({ ...prev, [name]: value }));
-  };
+    const isNumberField = ["passengerCapacity", "mileage", "dailyPrice"].includes(name);
+    setVehicle(prevVehicle => ({
+      ...prevVehicle,
+      [name]: isNumberField ? Number(value) : value,
+    }));
+  }
+  
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    console.log("Submitting vehicle with data:", vehicle);
 
     try {
       const response = await fetch("http://localhost:8080/vehicles", {
@@ -41,7 +48,14 @@ export function CarForm() {
         body: JSON.stringify(vehicle),
       });
 
-      if (!response.ok) throw new Error("Failed to create vehicle");
+      if (!response.ok) {
+        const errorBody = await response.json();
+        console.error("Failed to create vehicle:", errorBody);
+        setError(
+          `Error creating vehicle: ${errorBody.message || "Unknown error"}`
+        );
+        throw new Error("Failed to create vehicle");
+      }
       const result = await response.json();
       console.log("Vehicle created:", result);
       router.push("/admin/vehicles");
@@ -51,7 +65,7 @@ export function CarForm() {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
     <form
@@ -59,8 +73,11 @@ export function CarForm() {
       className="flex flex-col justify-center p-6 py-10 mb-2"
     >
       <div className="space-y-2">
-        <Label htmlFor="manufacturer">Manufacturer</Label>
+        <Label htmlFor="manufacturer" className="from-neutral-800 font-mono">
+          Manufacturer
+        </Label>
         <Input
+          placeholder="Manufacturer"
           type="text"
           id="manufacturer"
           name="manufacturer"
@@ -70,8 +87,11 @@ export function CarForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="model">Model</Label>
+        <Label htmlFor="model" className="from-neutral-800 font-mono">
+          Model
+        </Label>
         <Input
+          placeholder="Model"
           type="text"
           id="model"
           name="model"
@@ -81,8 +101,11 @@ export function CarForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="year">Year</Label>
+        <Label htmlFor="year" className="from-neutral-800 font-mono">
+          Year
+        </Label>
         <Input
+          placeholder="Year"
           type="text"
           id="year"
           name="year"
@@ -92,14 +115,16 @@ export function CarForm() {
         />
       </div>
       <div className="space-y-2 space-x-2">
-        <Label htmlFor="vehicleCategory">Category</Label>
+        <Label htmlFor="vehicleCategory" className="from-neutral-800 font-mono">
+          Category
+        </Label>
         <select
           id="vehicleCategory"
           name="vehicleCategory"
           required
           value={vehicle.vehicleCategory}
           onChange={handleChange}
-          className="form-select"
+          className="form-select border"
         >
           <option value="">Select a category</option>
           <option value="compact">Compact</option>
@@ -109,14 +134,16 @@ export function CarForm() {
         </select>
       </div>
       <div className="space-y-2 space-x-2">
-        <Label htmlFor="transmission">Transmission</Label>
+        <Label htmlFor="transmission" className="from-neutral-800 font-mono">
+          Transmission
+        </Label>
         <select
           id="transmission"
           name="transmission"
           required
           value={vehicle.transmission}
           onChange={handleChange}
-          className="form-select"
+          className="form-select border"
         >
           <option value="">Select transmission type</option>
           <option value="manual">Manual</option>
@@ -124,14 +151,16 @@ export function CarForm() {
         </select>
       </div>
       <div className="space-y-2 space-x-2">
-        <Label htmlFor="fuel">Fuel</Label>
+        <Label htmlFor="fuel" className="from-neutral-800 font-mono">
+          Fuel
+        </Label>
         <select
           id="fuel"
           name="fuel"
           required
           value={vehicle.fuel}
           onChange={handleChange}
-          className="form-select"
+          className="form-select border"
         >
           <option value="">Select fuel type</option>
           <option value="petrol">Petrol</option>
@@ -140,7 +169,12 @@ export function CarForm() {
         </select>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="passengerCapacity">Passenger Capacity</Label>
+        <Label
+          htmlFor="passengerCapacity"
+          className="from-neutral-800 font-mono"
+        >
+          Passenger Capacity
+        </Label>
         <Input
           type="number"
           id="passengerCapacity"
@@ -151,7 +185,9 @@ export function CarForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="mileage">Mileage</Label>
+        <Label htmlFor="mileage" className="from-neutral-800 font-mono">
+          Mileage
+        </Label>
         <Input
           type="number"
           id="mileage"
@@ -162,7 +198,9 @@ export function CarForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="dailyPrice">Daily Price</Label>
+        <Label htmlFor="dailyPrice" className="from-neutral-800 font-mono">
+          Daily Price
+        </Label>
         <Input
           type="number"
           id="dailyPrice"
@@ -173,8 +211,18 @@ export function CarForm() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="image">Image</Label>
-        <Input type="file" id="image" name="image" onChange={handleChange} />
+        <Label htmlFor="model" className="from-neutral-800 font-mono">
+          Image
+        </Label>
+        <Input
+          placeholder="Image URL"
+          type="text"
+          id="image"
+          name="image"
+          value={vehicle.image}
+          onChange={handleChange}
+          required
+        ></Input>
       </div>
       <SubmitButton />
     </form>
@@ -182,9 +230,9 @@ export function CarForm() {
 }
 
 function SubmitButton() {
-  const { pending } = useFormStatus(); // You will need to handle form status similarly.
+  const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending} className="p-4 py-4">
+    <Button type="submit" disabled={pending} className="mt-5">
       {pending ? "Adding..." : "Add Vehicle"}
     </Button>
   );

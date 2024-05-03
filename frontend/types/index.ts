@@ -26,6 +26,6 @@ export interface VehicleProps {
   passengerCapacity: number;
   extraFeatures: string;
   mileage: number;
-  image: string;
+  imageUrl: string;
   dailyPrice: number;
 }
