@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import { Card, CardContent, CardFooter } from "./card";
 import { useState } from "react";
-import CarDetails from "../CarDetails";
 import { VehicleProps } from "@/types";
 import Image from "next/image";
+import { Card, CardContent, CardFooter } from "./ui/card";
+import CarDetails from "./CarDetails";
 
 interface ProductCard {
   data: VehicleProps;
@@ -12,6 +12,7 @@ interface ProductCard {
 
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [imgSrc, setImgSrc] = useState(data.imageUrl)
 
   const handleViewMoreClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -28,11 +29,9 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
       <Card className="rounded-lg border-2">
         <CardContent className="pt-4">
           <div className="aspect-square relative bg-foreground/5 dark:bg-background rounded-lg">
-            {data.imageUrl ? (
-              <Image src={data.imageUrl} alt="image" fill />
-            ) : (
-              <div className="w-full aspect-square bg-gray-200 animate-pulse" />
-            )}
+
+            <Image src={imgSrc} alt={`Image of ${data.model}`} layout="fill" objectFit="cover" onError={() => setImgSrc('img/fallback.svg')} />
+
           </div>
         </CardContent>
 

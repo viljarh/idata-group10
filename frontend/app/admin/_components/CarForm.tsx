@@ -32,7 +32,7 @@ export function CarForm() {
       [name]: isNumberField ? Number(value) : value,
     }));
   }
-  
+
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();

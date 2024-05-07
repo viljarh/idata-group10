@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,16 +7,30 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from "./ui/dropdown-menu";
 import { UserRound } from "lucide-react";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import LoginDialog from "./LoginDialog";
+import { Button } from "./ui/button";
 
 const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+  const [isLoginOpen, setLoginOpen] = useState(false)
+
+  const handleLoginClick = () => {
+    setLoginOpen(true)
+  }
+
+  const closeLoginDialog = () => {
+    setLoginOpen(false)
+  }
+
+
   if (isLoggedIn) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            <UserRound size={25} height={40}/>
+            <UserRound size={25} height={40} />
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -38,18 +51,9 @@ const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     );
   } else {
     return (
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Avatar>
-            <AvatarFallback />
-          </Avatar>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <Link href="/login">
-            <DropdownMenuItem className="cursor-pointer">Log In</DropdownMenuItem>
-          </Link>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="">
+        <LoginDialog isOpen={isLoginOpen} closeModal={closeLoginDialog} />
+      </div>
     );
   }
 };

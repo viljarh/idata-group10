@@ -1,5 +1,5 @@
 import { VehicleProps } from "@/types";
-import ProductCard from "./ui/ProductCard";
+import ProductCard from "./ProductCard";
 
 interface ProductListProps {
   vehicles: VehicleProps[];

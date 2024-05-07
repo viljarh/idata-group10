@@ -17,7 +17,7 @@ export default async function handler(
         passengerCapacity,
         mileage,
         dailyPrice,
-        image,
+        imageUrl,
       }: VehicleProps = req.body;
 
       const response = await fetch("http://localhost:8080/vehicles", {
@@ -33,7 +33,7 @@ export default async function handler(
           passengerCapacity,
           mileage,
           dailyPrice,
-          image,
+          imageUrl,
         }),
       });
 
