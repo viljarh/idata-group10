@@ -38,12 +38,13 @@ const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
           <Label htmlFor="password">Password</Label>
           <Input id="password" type="password" placeholder="Enter your password" className="mb-4" />
 
-          <Button onClick={closeModal} className="w-full">
+          <Button
+            onClick={closeModal} className="w-full">
             Log In
           </Button>
         </div>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   );
 };
 
