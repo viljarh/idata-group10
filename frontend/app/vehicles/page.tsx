@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import Container from "@/components/ui/Container";
-import ProductList from "@/components/ProductList";
 import CarDetails from "@/components/CarDetails";
 import { VehicleProps } from "@/types";
 import { fetchVehicles } from "@/api/vehicles/fetchVehicles"; // Import the fetchVehicles function
+import CarList from "@/components/CarList";
 
 const VehiclePage = () => {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
@@ -42,7 +42,7 @@ const VehiclePage = () => {
       </div>
       <div className="space-y-10 pb-10">
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <ProductList
+          <CarList
             vehicles={vehicles}
             onCarDetailsOpen={handleCarDetailsOpen}
           />

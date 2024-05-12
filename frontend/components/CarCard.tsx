@@ -6,11 +6,11 @@ import Image from "next/image";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import CarDetails from "./CarDetails";
 
-interface ProductCard {
+interface CarCard {
   data: VehicleProps;
 }
 
-const ProductCard: React.FC<ProductCard> = ({ data }) => {
+const CarCard: React.FC<CarCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(data.imageUrl)
 
@@ -58,4 +58,4 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   );
 };
 
-export default ProductCard;
+export default CarCard;

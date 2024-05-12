@@ -51,7 +51,7 @@ const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     );
   } else {
     return (
-      <div>
+      <div className="">
         <LoginDialog isOpen={isLoginOpen} closeModal={closeLoginDialog} />
       </div>
     );

@@ -20,7 +20,7 @@ const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
   return (
     <Dialog isOpen={isOpen} onDismiss={closeModal}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="mt-4">
+        <Button variant="default" className="">
           Log In
         </Button>
       </DialogTrigger>
@@ -39,7 +39,8 @@ const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
           <Input id="password" type="password" placeholder="Enter your password" className="mb-4" />
 
           <Button
-            onClick={closeModal} className="w-full">
+            onClick={closeModal} className="w-full"
+          >
             Log In
           </Button>
         </div>

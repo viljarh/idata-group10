@@ -1,11 +1,11 @@
 "use client";
 import { fetchVehicles } from "@/api/vehicles/fetchVehicles";
-import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
+import CarList from "@/components/CarList";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
@@ -93,7 +93,7 @@ export default function Home() {
           <h1 className="font-bold text-2xl">Popular Cars</h1>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <ProductList vehicles={vehicles} />
+          <CarList vehicles={vehicles} />
         </div>
       </div>
     </Container>

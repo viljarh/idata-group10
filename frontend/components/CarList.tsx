@@ -1,12 +1,12 @@
 import { VehicleProps } from "@/types";
-import ProductCard from "./ProductCard";
+import CarCard from "./CarCard";
 
-interface ProductListProps {
+interface CarListProps {
   vehicles: VehicleProps[];
   onCarDetailsOpen?: (car: VehicleProps) => void;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ vehicles }) => {
+const CarList: React.FC<CarListProps> = ({ vehicles }) => {
   if (!vehicles || vehicles.length === 0) {
     return <p className="from-neutral-800 font-mono">No vehicles available...</p>;
   }
@@ -14,11 +14,11 @@ const ProductList: React.FC<ProductListProps> = ({ vehicles }) => {
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {vehicles.map((item) => (
-          <ProductCard key={item.vehicleId} data={item} />
+          <CarCard key={item.vehicleId} data={item} />
         ))}
       </div>
     </div>
   );
 };
 
-export default ProductList;
+export default CarList;
