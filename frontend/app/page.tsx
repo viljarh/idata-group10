@@ -13,10 +13,7 @@ export default function Home() {
   const [carSize, setCarSize] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const carType = ["Sedan", "Van", "SUV", "Coupe", "Electric"];
-  const handleSearch = () => {
-    console.log("Search criteria:", { carSize, startDate, endDate });
-  };
+  const carType = ["Sedan", "Van", "SUV", "Coupe", "Electric","Compact"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +26,14 @@ export default function Home() {
     };
     fetchData();
   }, []);
+
+const handleSearch = (event) => {
+  event?.preventDefault();
+  console.log("Search criteria:", { carSize, startDate, endDate });
+};
+
+const filteredVehicles = vehicles.filter(vehicle=> !carSize || vehicle.vehicleCategory.toLowerCase() === carSize.toLowerCase());
+
   return (
     <Container>
       <div className="space-y-10 pb-10">
@@ -84,7 +89,7 @@ export default function Home() {
           <h1 className="font-bold text-2xl">Popular Cars</h1>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <ProductList vehicles={vehicles} />
+          <ProductList vehicles={filteredVehicles} />
         </div>
       </div>
     </Container>
