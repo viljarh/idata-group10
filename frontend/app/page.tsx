@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
+import { DatePickerWithRange } from "@/components/DatePicker";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
@@ -71,18 +72,7 @@ export default function Home() {
                   </option>
                 ))}
               </select>
-              <input
-                type="date"
-                placeholder="Start Date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-              />
-              <input
-                type="date"
-                placeholder="End Date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-              />
+              <DatePickerWithRange/>
               <Button type="submit">Search</Button>
             </form>
           </div>
