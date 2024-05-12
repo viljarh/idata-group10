@@ -4,13 +4,13 @@ import { useState } from "react";
 import { VehicleProps } from "@/types";
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "./ui/card";
-import CarDetails from "./CarDetails";
+import VehicleDetails from "./VehicleDetails";
 
-interface CarCard {
+interface VehicleCard {
   data: VehicleProps;
 }
 
-const CarCard: React.FC<CarCard> = ({ data }) => {
+const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(data.imageUrl)
 
@@ -47,7 +47,7 @@ const CarCard: React.FC<CarCard> = ({ data }) => {
             {data?.dailyPrice} NOK /day
           </div>
 
-          <CarDetails
+          <VehicleDetails
             isOpen={isOpen}
             closeModal={() => setIsOpen(false)}
             vehicle={data}
@@ -58,4 +58,4 @@ const CarCard: React.FC<CarCard> = ({ data }) => {
   );
 };
 
-export default CarCard;
+export default VehicleCard;

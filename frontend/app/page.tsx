@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
-import CarList from "@/components/CarList";
+import VehicleList from "@/components/VehicleList";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
@@ -93,7 +93,7 @@ export default function Home() {
           <h1 className="font-bold text-2xl">Popular Cars</h1>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <CarList vehicles={vehicles} />
+          <VehicleList vehicles={vehicles} />
         </div>
       </div>
     </Container>

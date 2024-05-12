@@ -11,13 +11,13 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { VehicleProps } from "@/types";
 
-interface CarDetailsProps {
+interface VehicleDetailsProps {
   isOpen: boolean;
   closeModal: () => void;
   vehicle: VehicleProps;
 }
 
-const CarDetails = ({ isOpen, closeModal, vehicle }: CarDetailsProps) => {
+const VehicleDetails = ({ isOpen, closeModal, vehicle }: VehicleDetailsProps) => {
   if (!vehicle) {
     return null;
   }
@@ -64,4 +64,4 @@ const CarDetails = ({ isOpen, closeModal, vehicle }: CarDetailsProps) => {
   );
 };
 
-export default CarDetails;
+export default VehicleDetails;
