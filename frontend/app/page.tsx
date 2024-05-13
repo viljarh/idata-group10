@@ -9,13 +9,6 @@ import VehicleList from "@/components/VehicleList";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
-  const [carSize, setCarSize] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const carType = ["Sedan", "Van", "SUV", "Coupe", "Electric"];
-  const handleSearch = () => {
-    console.log("Search criteria:", { carSize, startDate, endDate });
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +31,7 @@ export default function Home() {
           >
             <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
               <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black dark:text-white bg-secondary/75 p-4 rounded-lg">
-                <a href="#search-cars" className="block w-full">
+                <a className="block w-full">
                   <Button size="lg" className="w-full py-8 text-xl">
                     <ShoppingBag className="mr-2" />
                     Rent A Car Now
@@ -48,44 +41,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div
-          id="search-cars"
-          className="w-full h-full flex justify-center items-center"
-        >
-          <h1 className="font-bold text-2xl">Search for cars</h1>
-        </div>
-        <div className="w-full h-full flex justify-center items-center">
-          {/* TODO IMPLEMENT SEARCH FUNCTION */}
-          <div className="flex justify-center items-center border">
-            <form onSubmit={handleSearch} className="flex gap-4">
-              <select
-                value={carSize}
-                onChange={(e) => setCarSize(e.target.value)}
-                className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              >
-                <option value="">Select Car Type</option>
-                {carType.map((size) => (
-                  <option key={size} value={size}>
-                    {size}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="date"
-                placeholder="Start Date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-              />
-              <input
-                type="date"
-                placeholder="End Date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-              />
-              <Button type="submit">Search</Button>
-            </form>
-          </div>
-        </div>
+
         <div
           id="popular-cars"
           className="w-full h-full flex justify-center items-center"

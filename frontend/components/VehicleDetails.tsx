@@ -27,7 +27,7 @@ const VehicleDetails = ({ isOpen, closeModal, vehicle }: VehicleDetailsProps) =>
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="w-full p-6 py-[16px] rounded-full bg-primary items-center text-white"
+          className="w-full p-6 py-[16px] bg-primary items-center text-white dark:text-black"
         >
           View More
         </Button>
