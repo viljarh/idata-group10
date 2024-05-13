@@ -5,8 +5,8 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Menu, Moon, ShoppingCart, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
-import ProfileButton from "./ui/ProfileButton";
 import Image from "next/image";
+import ProfileButton from "./ProfileButton";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();

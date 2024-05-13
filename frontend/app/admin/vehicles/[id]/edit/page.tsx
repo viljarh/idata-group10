@@ -208,7 +208,7 @@ export default function EditVehicle() {
           Update Vehicle
         </Button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p className="font-mono">{error}</p>}
     </div>
   );
 }

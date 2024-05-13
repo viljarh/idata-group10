@@ -1,17 +1,18 @@
 "use client";
 import Link from "next/link";
-import { Card, CardContent, CardFooter } from "./card";
 import { useState } from "react";
-import CarDetails from "../CarDetails";
 import { VehicleProps } from "@/types";
 import Image from "next/image";
+import { Card, CardContent, CardFooter } from "./ui/card";
+import VehicleDetails from "./VehicleDetails";
 
-interface ProductCard {
+interface VehicleCard {
   data: VehicleProps;
 }
 
-const ProductCard: React.FC<ProductCard> = ({ data }) => {
+const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [imgSrc, setImgSrc] = useState(data.imageUrl)
 
   const handleViewMoreClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -28,11 +29,9 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
       <Card className="rounded-lg border-2">
         <CardContent className="pt-4">
           <div className="aspect-square relative bg-foreground/5 dark:bg-background rounded-lg">
-            {data.imageUrl ? (
-              <Image src={data.imageUrl} alt="image" fill />
-            ) : (
-              <div className="w-full aspect-square bg-gray-200 animate-pulse" />
-            )}
+
+            <Image src={imgSrc} alt={`Image of ${data.model}`} layout="fill" objectFit="cover" onError={() => setImgSrc('img/fallback.svg')} />
+
           </div>
         </CardContent>
 
@@ -48,7 +47,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
             {data?.dailyPrice} NOK /day
           </div>
 
-          <CarDetails
+          <VehicleDetails
             isOpen={isOpen}
             closeModal={() => setIsOpen(false)}
             vehicle={data}
@@ -59,4 +58,4 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   );
 };
 
-export default ProductCard;
+export default VehicleCard;

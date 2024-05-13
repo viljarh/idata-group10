@@ -1,19 +1,21 @@
 "use client";
 import { fetchVehicles } from "@/api/vehicles/fetchVehicles";
-import ProductList from "@/components/ProductList";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
-import { DatePickerWithRange } from "@/components/DatePicker";
+import VehicleList from "@/components/VehicleList";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
   const [carSize, setCarSize] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const carType = ["Sedan", "Van", "SUV", "Coupe", "Electric","Compact"];
+  const carType = ["Sedan", "Van", "SUV", "Coupe", "Electric"];
+  const handleSearch = () => {
+    console.log("Search criteria:", { carSize, startDate, endDate });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,14 +28,6 @@ export default function Home() {
     };
     fetchData();
   }, []);
-
-const handleSearch = (event) => {
-  event?.preventDefault();
-  console.log("Search criteria:", { carSize, startDate, endDate });
-};
-
-const filteredVehicles = vehicles.filter(vehicle=> !carSize || vehicle.vehicleCategory.toLowerCase() === carSize.toLowerCase());
-
   return (
     <Container>
       <div className="space-y-10 pb-10">
@@ -44,7 +38,6 @@ const filteredVehicles = vehicles.filter(vehicle=> !carSize || vehicle.vehicleCa
           >
             <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
               <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black dark:text-white bg-secondary/75 p-4 rounded-lg">
-                {/*Find the cheapest cars to rent in Ålesund*/}
                 <a href="#search-cars" className="block w-full">
                   <Button size="lg" className="w-full py-8 text-xl">
                     <ShoppingBag className="mr-2" />
@@ -77,7 +70,18 @@ const filteredVehicles = vehicles.filter(vehicle=> !carSize || vehicle.vehicleCa
                   </option>
                 ))}
               </select>
-              <DatePickerWithRange/>
+              <input
+                type="date"
+                placeholder="Start Date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <input
+                type="date"
+                placeholder="End Date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
               <Button type="submit">Search</Button>
             </form>
           </div>
@@ -89,7 +93,7 @@ const filteredVehicles = vehicles.filter(vehicle=> !carSize || vehicle.vehicleCa
           <h1 className="font-bold text-2xl">Popular Cars</h1>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <ProductList vehicles={filteredVehicles} />
+          <VehicleList vehicles={vehicles} />
         </div>
       </div>
     </Container>
