@@ -1,3 +1,4 @@
+
 const Footer = () => {
   return (
     <div className="flex p-4 items-center justify-center bottom-0">

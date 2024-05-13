@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useFormStatus } from "react-dom"; // Assuming you have an equivalent vehicle management hooks
+import { useFormStatus } from "react-dom";
 
 export function CarForm() {
   const [vehicle, setVehicle] = useState({

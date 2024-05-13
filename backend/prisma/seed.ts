@@ -1,43 +1,39 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient();
 
 
 async function main() {
+  const hashedPassword = await bcrypt.hash('adminPassword', 10)
 
-  const car1 = await prisma.vehicle.upsert({
-    where: { vehicleId: 1 },
-    update: {},
-    create: {
-      vehicleId: 1,
-      manufacturer: 'Volkswagen',
-      model: 'Golf',
-      year: '2007',
-      vehicleCategory: 'Compact',
-      transmission: 'Manual',
-      fuel: 'Diesel',
-      passengerCapacity: 5,
-      extraFeatures: 'Bluetooth, DAB Radio, Heated seats',
-      mileage: 20000,
-      image: 'path/to/image',
-      dailyPrice: 600,
-    },
+  const existingUser = await prisma.user.findUnique({
+    where: { emailAddress: 'admin@rentalroulette.com' },
   });
 
-  const user = await prisma.user.upsert({
-    where: { userId: 1 },
-    update: {},
-    create: {
-      userId: 1,
-      username: 'johndoe',
-      password: 'password',
-      firstName: 'John',
-      lastName: 'Doe',
-      emailAddress: 'john@doe.com',
-      phoneNumber: 8008135,
-      customerType: 'REGISTRATED',
-    },
-  });
-
-  console.log(car1, user);
+  if (!existingUser) {
+    const newUser = await prisma.user.create({
+      data: {
+        username: 'admin',
+        password: hashedPassword,
+        firstName: 'Admin',
+        lastName: 'User',
+        emailAddress: 'admin@rentalroulette.com',
+        phoneNumber: 8008135,
+        customerType: 'ADMIN',
+      },
+    });
+    console.log('Admin user created:', newUser);
+  } else {
+    console.log('Admin user already exists:', existingUser);
+  }
 }
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
