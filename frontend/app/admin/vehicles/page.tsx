@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SidebarNavigation from "@/components/SideBarNavigation";
 
 export default function AdminVehiclePage() {
   const [vehicles, setVehicles] = useState([]);
@@ -41,14 +42,21 @@ export default function AdminVehiclePage() {
   }, []);
 
   return (
-    <>
+    <div className="flex min-h-screen">
+      <div className="w-14 sm:w-64 fixed inset-y-0 left-0 z-10">
+        <SidebarNavigation/>
+        </div>
+        <div className="flex flex-col flex-1 ml-14 sm:ml-64">
       <div className="flex justify-center items-center gap-4">
         <Button asChild className=" m-5 w-1/4">
           <Link href="/admin/vehicles/new">Add Vehicle</Link>
         </Button>
       </div>
+      <div className="p-4">
       <VehiclesTable vehicles={vehicles} />
-    </>
+    </div>
+    </div>
+    </div>
   );
 }
 
