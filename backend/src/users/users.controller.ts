@@ -24,7 +24,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   @ApiCreatedResponse({ type: UserEntity })
@@ -57,8 +57,8 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    await this.usersService.update(id, updateUserDto);
-    return await this.usersService.findOne(id);
+    const updatedUser = await this.usersService.update(id, updateUserDto);
+    return new UserEntity(updatedUser)
   }
 
   @Delete(':id')
