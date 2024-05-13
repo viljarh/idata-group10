@@ -17,7 +17,7 @@ const VehiclePage = () => {
   const [carSize, setCarSize] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const carType = ["Sedan", "Van", "SUV", "Coupe", "Electric", "Compact"];
+  const carType = ["Sedan", "Van", "SUV", "Coupe", "Compact"];
 
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
@@ -55,7 +55,6 @@ const VehiclePage = () => {
       </div>
 
       <div className="w-full h-full flex justify-center items-center p-5">
-        {/* TODO IMPLEMENT SEARCH FUNCTION */}
         <div className="flex justify-center items-center">
           <form onSubmit={handleSearch} className="flex gap-4">
             <select

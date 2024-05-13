@@ -41,7 +41,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         <div
           id="popular-cars"
           className="w-full h-full flex justify-center items-center"
