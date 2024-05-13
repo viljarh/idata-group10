@@ -43,7 +43,7 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
             <p className="text-sm text-primary/80">{data.vehicleCategory}</p>
           </div>
 
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-2 font-semibold">
             {data?.dailyPrice} NOK /day
           </div>
 
