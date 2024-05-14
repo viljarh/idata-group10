@@ -52,7 +52,7 @@ export default function Home() {
               <Button onClick={logout}>Logout</Button>
             </div>
           ) : (
-            <p>Please log in to rent a car.</p>
+            <p className="font-mono">Please log in to rent a car.</p>
           )}
         </div>
         <div

@@ -22,21 +22,24 @@ interface LoginDialogProps {
 const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
   const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await login(email, password)
-    closeModal()
+    setError(null)
+
+    try {
+      await login(email, password)
+      closeModal()
+    } catch (err) {
+      setError('Login failed, please try again')
+      console.error('Login failed', err)
+    }
   }
 
   return (
-    <Dialog isOpen={isOpen} onDismiss={closeModal}>
-      <DialogTrigger asChild>
-        <Button variant="default">
-          Log In
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={closeModal}>
       <DialogContent className="sm:max-w-md p-6">
         <DialogHeader>
           <DialogTitle className='text-2xl'>Login</DialogTitle>
@@ -58,6 +61,7 @@ const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
             </div>
             <Input id="password" type="password" placeholder='Enter your password' required value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
           <Button type="submit" className="w-full">
             Login
           </Button>
@@ -69,7 +73,7 @@ const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
           </Link>
         </div>
       </DialogContent>
-    </Dialog >
+    </Dialog>
   );
 };
 
