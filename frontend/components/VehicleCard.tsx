@@ -29,8 +29,7 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
       <Card className="rounded-lg border-2">
         <CardContent className="pt-4">
           <div className="aspect-square relative bg-foreground/5 dark:bg-background rounded-lg">
-
-            <Image src={imgSrc} alt={`Image of ${data.model}`} layout="fill" objectFit="cover" onError={() => setImgSrc('img/fallback.svg')} />
+            <Image src={imgSrc} alt={`Image of ${data.model}`} layout="fill" objectFit="cover" className="rounded-md" onError={() => setImgSrc('img/fallback.svg')} />
 
           </div>
         </CardContent>

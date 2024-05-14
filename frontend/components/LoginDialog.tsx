@@ -11,6 +11,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface LoginDialogProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
@@ -46,12 +48,13 @@ const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
       })
 
       const data = await response.json();
-      if (!response.ok) {
+      if (response.ok) {
+        router.push('/')
+        localStorage.setItem('token', data.accessToken)
+        closeModal()
+      } else {
         throw new Error(data.message || "Something went wrong")
       }
-
-      localStorage.setItem('token', data.accessToken)
-      closeModal()
     } catch (error) {
       setError(error.message)
       console.error('Login failed:', error)
