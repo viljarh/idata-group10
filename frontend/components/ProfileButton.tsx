@@ -9,9 +9,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { UserRound } from "lucide-react";
-import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Avatar } from "./ui/avatar";
 import LoginDialog from "./LoginDialog";
-import { Button } from "./ui/button";
 
 const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const [isLoginOpen, setLoginOpen] = useState(false)
@@ -23,7 +22,6 @@ const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const closeLoginDialog = () => {
     setLoginOpen(false)
   }
-
 
   if (isLoggedIn) {
     return (

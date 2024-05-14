@@ -7,8 +7,18 @@ export interface VehicleProps {
   transmission: string;
   fuel: string;
   passengerCapacity: number;
-  extraFeatures: string;
+  extraFeatures?: string;
   mileage: number;
-  imageUrl: string;
+  imageUrl?: string;
   dailyPrice: number;
+}
+
+export interface UserProps {
+  userId: number;
+  username: string;
+  emailAddress: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: number;
+  customerType: string;
 }

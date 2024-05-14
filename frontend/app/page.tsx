@@ -6,9 +6,11 @@ import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
 import VehicleList from "@/components/VehicleList";
+import { useAuth } from "@/components/context/AuthContext";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
+  const { user, logout } = useAuth()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +23,7 @@ export default function Home() {
     };
     fetchData();
   }, []);
+
   return (
     <Container>
       <div className="space-y-10 pb-10">
@@ -42,6 +45,16 @@ export default function Home() {
           </div>
         </div>
 
+        <div className="w-full flex justify-center items-center p-5">
+          {user ? (
+            <div>
+              <p>Welcome, {user.firstName}!</p>
+              <Button onClick={logout}>Logout</Button>
+            </div>
+          ) : (
+            <p>Please log in to rent a car.</p>
+          )}
+        </div>
         <div
           id="popular-cars"
           className="w-full h-full flex justify-center items-center"
