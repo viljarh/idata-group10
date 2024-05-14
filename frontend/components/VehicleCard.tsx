@@ -37,10 +37,10 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
 
         <CardFooter className="flex-col items-start">
           <div>
-            <p className="font-semibold text-lg">
+            <p className="font-semibold text-lg uppercase">
               {data.manufacturer} {data.model}
             </p>
-            <p className="text-sm text-primary/80">{data.vehicleCategory}</p>
+            <p className="text-sm text-primary/80 uppercase">{data.vehicleCategory}</p>
           </div>
 
           <div className="flex items-center justify-between mb-2 font-semibold">

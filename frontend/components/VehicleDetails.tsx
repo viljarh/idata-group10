@@ -34,27 +34,26 @@ const VehicleDetails = ({ isOpen, closeModal, vehicle }: VehicleDetailsProps) =>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Car Details</DialogTitle>
-          <DialogDescription>Details about the car here.</DialogDescription>
+          <DialogTitle className="uppercase">{vehicle.manufacturer} {vehicle.model}</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-2 items-center gap-x-4">
             <Label htmlFor="name">Car Maker</Label>
-            <p className="font-medium">{vehicle.manufacturer}</p>
+            <p className="uppercase">{vehicle.manufacturer}</p>
             <Label>Car Model</Label>
-            <p className="font-medium">{vehicle.model}</p>
+            <p className=" uppercase">{vehicle.model}</p>
             <Label>Year</Label>
-            <p className="font-medium">{vehicle.year}</p>
+            <p className="uppercase">{vehicle.year}</p>
             <Label>Fuel Type</Label>
-            <p className="font-medium">{vehicle.fuel}</p>
+            <p className="uppercase">{vehicle.fuel}</p>
             <Label>Transmission type</Label>
-            <p className="font-medium">{vehicle.transmission}</p>
+            <p className="uppercase">{vehicle.transmission}</p>
             <Label>Number Of Seats</Label>
-            <p className="font-medium">{vehicle.passengerCapacity}</p>
+            <p className="uppercase">{vehicle.passengerCapacity}</p>
             <Label>Extra Features</Label>
-            <p className="font-medium">{vehicle.extraFeatures}</p>
+            <p className="uppercase">{vehicle.extraFeatures}</p>
             <Label>Price</Label>
-            <p className="font-medium">{vehicle.dailyPrice}</p>
+            <p className="uppercase">{vehicle.dailyPrice}</p>
           </div>
         </div>
 
