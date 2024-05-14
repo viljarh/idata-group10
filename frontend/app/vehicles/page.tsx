@@ -8,6 +8,7 @@ import VehicleDetails from "@/components/VehicleDetails";
 import { DatePickerWithRange } from "@/components/DatePicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Fuel } from "lucide-react";
 
 const VehiclePage = () => {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
@@ -19,6 +20,8 @@ const VehiclePage = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const carType = ["Sedan", "Van", "SUV", "Coupe", "Compact"];
+  const [carEngine, setCarEngineType] = useState("");
+  const carFuelType = ["Petrol", "Diesel", "Electric"];
   const [inputVehicleType, setInputVehicleType] = useState("");
 
 
@@ -28,8 +31,8 @@ const VehiclePage = () => {
   };
   const filteredVehicles = vehicles.filter(vehicle => 
     (!carSize || vehicle.vehicleCategory.toLowerCase() === carSize.toLowerCase()) &&
-    (!inputVehicleType.toLowerCase() || vehicle.model.toLowerCase().includes(inputVehicleType.toLowerCase())|| vehicle.manufacturer.toLowerCase().includes(inputVehicleType.toLowerCase()))
-  );
+    (!inputVehicleType.toLowerCase() || vehicle.model.toLowerCase().includes(inputVehicleType.toLowerCase())|| vehicle.manufacturer.toLowerCase().includes(inputVehicleType.toLowerCase()))&& 
+    (!carEngine || vehicle.fuel.toLowerCase() === carEngine.toLowerCase()));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,12 +68,22 @@ const VehiclePage = () => {
             <select
               value={carSize}
               onChange={(e) => setCarSize(e.target.value)}
-              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            >
+              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
               <option value="">Select Car Type</option>
               {carType.map((size) => (
                 <option key={size} value={size}>
                   {size}
+                </option>
+              ))}
+            </select>
+            <select
+              value={carEngine}
+              onChange={(e) => setCarEngineType(e.target.value)}
+              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+              <option value="">Select Fuel</option>
+              {carFuelType.map((fuel) => (
+                <option key={fuel} value={fuel}>
+                  {fuel}
                 </option>
               ))}
             </select>
