@@ -2,7 +2,7 @@ import { UserProps } from "@/types";
 
 export async function fetchUsers(token: string): Promise<UserProps[]> {
 	try {
-		const response = await fetch('/api/users', {
+		const response = await fetch('@/api/users', {
 			headers: {
 				'Authorization': `Bearer ${token}`,
 			},

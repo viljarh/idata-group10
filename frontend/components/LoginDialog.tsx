@@ -12,7 +12,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import Link from 'next/link';
-import { useAuth } from './context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 interface LoginDialogProps {
   isOpen: boolean;

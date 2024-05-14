@@ -2,7 +2,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import Container from "@/components/ui/Container";
 import { VehicleProps } from "@/types";
-import { fetchVehicles } from "@/api/vehicles/fetchVehicles";
+import { fetchVehicles } from "@/app/api/vehicles/fetchVehicles";
 import VehicleList from "@/components/VehicleList";
 import VehicleDetails from "@/components/VehicleDetails";
 import { DatePickerWithRange } from "@/components/DatePicker";

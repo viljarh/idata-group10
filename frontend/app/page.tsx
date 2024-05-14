@@ -1,12 +1,12 @@
 "use client";
-import { fetchVehicles } from "@/api/vehicles/fetchVehicles";
+import { fetchVehicles } from "@/app/api/vehicles/fetchVehicles";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
 import VehicleList from "@/components/VehicleList";
-import { useAuth } from "@/components/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
