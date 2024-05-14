@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Table,
   TableBody,
@@ -12,12 +13,35 @@ import {
 } from "@/components/ui/table";
 import { CheckCircle2, MoreVertical } from "lucide-react";
 import {
+  File,
+  Home,
+  LineChart,
+  ListFilter,
+  Package,
+  Package2,
+  PanelLeft,
+  Search,
+  Settings,
+  ShoppingCart,
+  Users2,
+} from "lucide-react";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SidebarNavigation from "@/components/SideBarNavigation";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function AdminVehiclePage() {
   const [vehicles, setVehicles] = useState([]);
@@ -41,14 +65,39 @@ export default function AdminVehiclePage() {
   }, []);
 
   return (
-    <>
-      <div className="flex justify-center items-center gap-4">
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+        <SidebarNavigation/>
+        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <Breadcrumb className="hidden md:flex">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="./">Dashboard</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Vehicles</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </header>
+      </div>
+        
+        <div className="flex flex-col flex-1 ml-14 sm:ml-">
+      <div className="flex justify-center items-center gap-4 p-4">
         <Button asChild className=" m-5 w-1/4">
           <Link href="/admin/vehicles/new">Add Vehicle</Link>
         </Button>
       </div>
+      <div className="px-4 py-2">
       <VehiclesTable vehicles={vehicles} />
-    </>
+    </div>
+    </div>
+    </div>
   );
 }
 
