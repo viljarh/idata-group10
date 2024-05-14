@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
 import VehicleList from "@/components/VehicleList";
 import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
@@ -34,12 +35,12 @@ export default function Home() {
           >
             <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
               <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black dark:text-white bg-secondary/75 p-4 rounded-lg">
-                <a className="block w-full">
+                <Link href="/vehicles" className="block w-full">
                   <Button size="lg" className="w-full py-8 text-xl">
                     <ShoppingBag className="mr-2" />
                     Rent A Car Now
                   </Button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

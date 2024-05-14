@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { UserProps } from '@/types';
 
@@ -15,27 +15,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProps | null>(null);
   const router = useRouter();
 
-  const login = async (email: string, password: string) => {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+  }, [])
 
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem('token', data.accessToken);
-      setUser(data.user);
-      router.push('/');
-    } else {
-      console.error('Login failed');
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login Failed')
+      }
+
+      const data = await response.json()
+      localStorage.setItem('token', data.accessToken)
+      localStorage.setItem('user', JSON.stringify(data.user))
+      setUser(data.user)
+      router.push('/')
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
     }
   };
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user')
     setUser(null);
     router.push('/login');
   };

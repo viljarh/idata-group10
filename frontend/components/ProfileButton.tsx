@@ -12,9 +12,11 @@ import { UserRound } from "lucide-react";
 import { Avatar } from "./ui/avatar";
 import LoginDialog from "./LoginDialog";
 import { Button } from "./ui/button";
+import { useAuth } from "@/context/AuthContext";
 
-const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const ProfileButton = () => {
   const [isLoginOpen, setLoginOpen] = useState(false)
+  const { user, logout } = useAuth()
 
   const handleLoginClick = () => {
     setLoginOpen(true)
@@ -26,7 +28,7 @@ const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
   return (
     <div>
-      {isLoggedIn ? (
+      {user ? (
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar>
@@ -43,7 +45,7 @@ const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
               <DropdownMenuItem>My Orders</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">Log Out</DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" onClick={logout}>Log Out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
