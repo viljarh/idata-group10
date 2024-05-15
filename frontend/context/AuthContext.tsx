@@ -38,10 +38,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
       if (!response.ok) {
         throw new Error("Login Failed");
       }
+
+      const data = await response.json();
+      if (!data.accessToken || !data.user) {
+        throw new Error("Invalid response from server");
+      }
+
       localStorage.setItem("token", data.accessToken);
       localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
@@ -56,7 +61,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-    router.push("/login");
+    router.push("/");
   };
 
   return (

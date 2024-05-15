@@ -49,8 +49,8 @@ export default function Home() {
         <div className="w-full flex justify-center items-center p-5">
           {user ? (
             <div>
-              <p>Welcome, {user.firstName}!</p>
-              <Button onClick={logout}>Logout</Button>
+              <p className="text-3xl font-bold ">Welcome back, {user.firstName}!</p>
+              <Button onClick={logout} className="w-full">Logout</Button>
             </div>
           ) : (
             <p className="font-mono">Please log in to rent a car.</p>

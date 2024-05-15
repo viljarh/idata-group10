@@ -15,47 +15,40 @@ import { Button } from "./ui/button";
 import { useAuth } from "@/context/AuthContext";
 
 const ProfileButton = () => {
-  const [isLoginOpen, setLoginOpen] = useState(false)
-  const { user, logout } = useAuth()
+  const [isLoginOpen, setLoginOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   const handleLoginClick = () => {
-    setLoginOpen(true)
-  }
+    setLoginOpen(true);
+  };
 
   const closeLoginDialog = () => {
-    setLoginOpen(false)
-  }
+    setLoginOpen(false);
+  };
 
-  return (
-    <div>
-      {user ? (
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Avatar>
-              <UserRound size={25} height={40} />
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <Link href="/dashboard/profile">
-              <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
-            </Link>
-            <Link href="/dashboard/orders">
-              <DropdownMenuItem>My Orders</DropdownMenuItem>
-            </Link>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer" onClick={logout}>Log Out</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ) : (
-        <div>
-          <Button onClick={handleLoginClick}>Log In</Button>
-          <LoginDialog isOpen={isLoginOpen} closeModal={closeLoginDialog} />
-        </div>
-      )}
-    </div>
-  );
-}
+  if (user) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Avatar>
+            <UserRound size={25} height={40} />
+          </Avatar>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={logout}>Log Out</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  } else {
+    return (
+      <div>
+        <Button onClick={handleLoginClick}>Log In</Button>
+        <LoginDialog isOpen={isLoginOpen} closeModal={closeLoginDialog} />
+      </div>
+    );
+  }
+};
 
 export default ProfileButton;
