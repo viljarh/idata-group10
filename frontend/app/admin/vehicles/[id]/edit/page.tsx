@@ -75,7 +75,9 @@ export default function EditVehicle() {
 
   return (
     <div>
-      <h1 className="flex items-center justify-center text-2xl mt-4">Edit Vehicle</h1>
+      <h1 className="flex items-center justify-center text-2xl mt-4">
+        Edit Vehicle
+      </h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-center p-6 py-10 mb-2"

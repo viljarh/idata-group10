@@ -1,23 +1,10 @@
 import Link from "next/link";
 import {
   File,
-  Home,
-  LineChart,
   ListFilter,
-  Package,
-  Package2,
   PanelLeft,
-  Search,
-  Settings,
-  ShoppingCart,
-  Users2,
 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,8 +12,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Input } from "@/components/ui/input";
 import {
