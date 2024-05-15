@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { UserProps, UserTableProps } from "@/types";
 import { useAuth } from "@/context/AuthContext";
+import axiosInstance from "@/axios/axiosInstance";
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserProps[]>([]);
   const { user } = useAuth();
@@ -38,24 +39,12 @@ export default function AdminUsersPage() {
       if (!user) return;
 
       try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:8080/users", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setUsers(data);
-        } else {
-          console.error("Failed to fetch users:", response.statusText);
-        }
+        const response = await axiosInstance.get("/users");
+        setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
-
     fetchUsers();
   }, [user]);
 
@@ -63,19 +52,7 @@ export default function AdminUsersPage() {
     if (!confirm("Are you sure you want to delete this user?")) return;
 
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:8080/users/${userId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.ok) {
-        setUsers(users.filter((user) => user.userId !== userId));
-      } else {
-        console.error("Failed to delete user:", response.statusText);
-      }
+      await axiosInstance.delete(`/users/${userId}`);
     } catch (error) {
       console.error("Error deleting user:", error);
     }

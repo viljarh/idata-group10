@@ -8,6 +8,7 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { UserProps } from "@/types";
+import axiosInstance from "@/axios/axiosInstance";
 
 interface AuthContextProps {
   user: UserProps | null;
@@ -30,29 +31,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      const response = await axiosInstance.post("/auth/login", {
+        email,
+        password,
       });
-
-      if (!response.ok) {
-        throw new Error("Login Failed");
-      }
-
-      const data = await response.json();
-      if (!data.accessToken || !data.user) {
-        throw new Error("Invalid response from server");
-      }
-
-      localStorage.setItem("token", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      setUser(data.user);
+      const { accessToken, user } = response.data;
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
+      setUser(user);
       router.push("/");
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error", error);
       throw error;
     }
   };
