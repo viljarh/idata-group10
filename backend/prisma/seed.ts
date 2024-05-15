@@ -1,43 +1,33 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
-
 async function main() {
+  const hashedPassword = await bcrypt.hash('adminPassword', 10);
 
-  const car1 = await prisma.vehicle.upsert({
-    where: { vehicleId: 1 },
+  const adminUser = await prisma.user.upsert({
+    where: { emailAddress: 'admin@rentalroulette.com' },
     update: {},
     create: {
-      vehicleId: 1,
-      manufacturer: 'Volkswagen',
-      model: 'Golf',
-      year: '2007',
-      vehicleCategory: 'Compact',
-      transmission: 'Manual',
-      fuel: 'Diesel',
-      passengerCapacity: 5,
-      extraFeatures: 'Bluetooth, DAB Radio, Heated seats',
-      mileage: 20000,
-      image: 'path/to/image',
-      dailyPrice: 600,
+      username: 'admin',
+      password: hashedPassword,
+      firstName: 'Admin',
+      lastName: 'User',
+      emailAddress: 'admin@rentalroulette.com',
+      phoneNumber: 1234567890,
+      customerType: 'ADMIN',
     },
   });
 
-  const user = await prisma.user.upsert({
-    where: { userId: 1 },
-    update: {},
-    create: {
-      userId: 1,
-      username: 'johndoe',
-      password: 'password',
-      firstName: 'John',
-      lastName: 'Doe',
-      emailAddress: 'john@doe.com',
-      phoneNumber: 8008135,
-      customerType: 'REGISTRATED',
-    },
-  });
-
-  console.log(car1, user);
+  console.log({ adminUser });
 }
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
