@@ -35,7 +35,10 @@ const ProfileButton = () => {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{user.firstName}</DropdownMenuLabel>
+          <Link href="/dashboard/profile">
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={logout}>Log Out</DropdownMenuItem>
         </DropdownMenuContent>

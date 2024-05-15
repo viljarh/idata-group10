@@ -22,3 +22,13 @@ export interface UserProps {
   phoneNumber: number;
   customerType: string;
 }
+
+export interface VehicleTableProps {
+  vehicles: VehicleProps[];
+  onDelete: (vehicleId: number) => void;
+}
+
+export interface UserTableProps {
+  users: UserProps[];
+  onDelete: (userId: number) => void
+}
