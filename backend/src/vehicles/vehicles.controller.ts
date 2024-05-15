@@ -8,6 +8,7 @@ import {
   Delete,
   ParseIntPipe,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
@@ -34,8 +35,8 @@ export class VehiclesController {
 
   @Get(':id')
   @ApiOkResponse({ type: VehicleEntity })
-  async findOne(@Param('id') id: number) {
-    const vehicle = await this.vehiclesService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const vehicle = await this.vehiclesService.findOne(id);
     if (!vehicle) {
       throw new NotFoundException(`Vehicle with ${id} does not exist.`);
     }
@@ -44,16 +45,36 @@ export class VehiclesController {
 
   @Patch(':id')
   @ApiOkResponse({ type: VehicleEntity })
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateVehicleDto: UpdateVehicleDto,
   ) {
-    return this.vehiclesService.update(id, updateVehicleDto);
+    try {
+      const updatedVehicle = await this.vehiclesService.update(
+        id,
+        updateVehicleDto,
+      );
+      if (!updatedVehicle) {
+        throw new NotFoundException(`Vehicle with ID ${id} does not exist`);
+      }
+      return updatedVehicle;
+    } catch (error) {
+      throw new BadRequestException(
+        `Failed to update vehicle with ID ${id}: ${error.message}`,
+      );
+    }
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: VehicleEntity })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.vehiclesService.remove(id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    try {
+      await this.vehiclesService.remove(id);
+      return { message: `Vehicle with ID ${id} deleted successfully` };
+    } catch (error) {
+      throw new BadRequestException(
+        `Failed to delete vehicle with ID ${id}: ${error.message}`,
+      );
+    }
   }
 }

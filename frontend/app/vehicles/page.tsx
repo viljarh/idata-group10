@@ -8,7 +8,6 @@ import VehicleDetails from "@/components/VehicleDetails";
 import { DatePickerWithRange } from "@/components/DatePicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Fuel } from "lucide-react";
 
 const VehiclePage = () => {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);

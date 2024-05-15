@@ -1,5 +1,6 @@
 "use client";
 
+import axiosInstance from "@/axios/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,13 +27,16 @@ export function CarForm() {
 
   function handleChange(e: { target: { name: any; value: any } }) {
     const { name, value } = e.target;
-    const isNumberField = ["passengerCapacity", "mileage", "dailyPrice"].includes(name);
-    setVehicle(prevVehicle => ({
+    const isNumberField = [
+      "passengerCapacity",
+      "mileage",
+      "dailyPrice",
+    ].includes(name);
+    setVehicle((prevVehicle) => ({
       ...prevVehicle,
       [name]: isNumberField ? Number(value) : value,
     }));
   }
-
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -42,26 +46,19 @@ export function CarForm() {
     console.log("Submitting vehicle with data:", vehicle);
 
     try {
-      const response = await fetch("http://localhost:8080/vehicles", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(vehicle),
-      });
-
-      if (!response.ok) {
-        const errorBody = await response.json();
-        console.error("Failed to create vehicle:", errorBody);
+      const response = await axiosInstance.post("/vehicles", vehicle);
+      if (!response.data) {
         setError(
-          `Error creating vehicle: ${errorBody.message || "Unknown error"}`
+          `Error creating vehicle: ${response.statusText || "Unknown error"}`
         );
         throw new Error("Failed to create vehicle");
       }
-      const result = await response.json();
-      console.log("Vehicle created:", result);
-      router.push("/admin/vehicles");
+
+      console.log("Vehicle created:", response.data);
+      router.push("admin/vehicles");
     } catch (error) {
       console.error("Error submitting form:", error);
-      setError("Error creating vehicle.");
+      setError("Error creating vehicle");
     } finally {
       setLoading(false);
     }
