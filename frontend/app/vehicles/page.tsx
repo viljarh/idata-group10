@@ -12,26 +12,37 @@ import { Input } from "@/components/ui/input";
 const VehiclePage = () => {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
   const [isCarDetailsOpen, setIsCarDetailsOpen] = useState(false);
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleProps | null>(
-    null
-  );
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleProps | null>(null);
   const [carSize, setCarSize] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [sortVehiclesAfterPrice, setSortVehiclesAfterPrice] = useState("");
   const carType = ["Sedan", "Van", "SUV", "Coupe", "Compact"];
   const [carEngine, setCarEngineType] = useState("");
   const carFuelType = ["Petrol", "Diesel", "Electric"];
   const [inputVehicleType, setInputVehicleType] = useState("");
 
 
+
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
-    console.log("Search criteria:", { carSize, startDate, endDate, inputVehicleType });
+    console.log("Search criteria:", { carSize, startDate, endDate, inputVehicleType, sortVehiclesAfterPrice });
   };
   const filteredVehicles = vehicles.filter(vehicle => 
     (!carSize || vehicle.vehicleCategory.toLowerCase() === carSize.toLowerCase()) &&
     (!inputVehicleType.toLowerCase() || vehicle.model.toLowerCase().includes(inputVehicleType.toLowerCase())|| vehicle.manufacturer.toLowerCase().includes(inputVehicleType.toLowerCase()))&& 
-    (!carEngine || vehicle.fuel.toLowerCase() === carEngine.toLowerCase()));
+    (!carEngine || vehicle.fuel.toLowerCase() === carEngine.toLowerCase())).sort((a,b)=>{
+      if(sortVehiclesAfterPrice === "asc") {
+        return a.dailyPrice - b.dailyPrice;
+      }
+      else if (sortVehiclesAfterPrice === "desc"){
+        return b.dailyPrice - a.dailyPrice;
+      }
+      else {
+        return 0;
+      }
+    
+    });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +96,14 @@ const VehiclePage = () => {
                   {fuel}
                 </option>
               ))}
+            </select>
+            <select
+              value={sortVehiclesAfterPrice}
+              onChange={(e) => setSortVehiclesAfterPrice(e.target.value)}
+              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+              <option value= "">Sort by Price</option>
+              <option value="asc">Price: Low to High</option>
+              <option value="desc">Price: High to Low</option>
             </select>
             <DatePickerWithRange />
             <Button type="submit">Search</Button>
