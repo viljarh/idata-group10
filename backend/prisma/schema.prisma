@@ -14,19 +14,20 @@ datasource db {
 }
 
 model User {
-  userId       Int       @id @default(autoincrement())
-  username     String    @unique
-  emailAddress String    @unique
+  userId       Int        @id @default(autoincrement())
+  username     String     @unique
+  emailAddress String     @unique
   password     String
   firstName    String
   lastName     String
   phoneNumber  Int
-  customerType userRole? @default(VISITOR)
+  customerType userRole?  @default(VISITOR)
   Rental       Rental[]
+  favorites    Favorite[]
 }
 
 model Vehicle {
-  vehicleId         Int      @id @unique @default(autoincrement())
+  vehicleId         Int        @id @unique @default(autoincrement())
   manufacturer      String
   model             String
   year              String
@@ -39,6 +40,7 @@ model Vehicle {
   image             String?
   dailyPrice        Float
   Rental            Rental[]
+  Favorite          Favorite[]
 }
 
 model Rental {
@@ -59,4 +61,12 @@ enum userRole {
   VISITOR
   REGISTRATED
   ADMIN
+}
+
+model Favorite {
+  favoriteId Int     @id @default(autoincrement())
+  user       User    @relation(fields: [userId], references: [userId])
+  userId     Int
+  vehicle    Vehicle @relation(fields: [vehicleId], references: [vehicleId])
+  vehicleId  Int
 }

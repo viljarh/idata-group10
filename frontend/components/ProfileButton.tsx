@@ -15,15 +15,15 @@ import { Button } from "./ui/button";
 import { useAuth } from "@/context/AuthContext";
 
 const ProfileButton = () => {
-  const [isLoginOpen, setLoginOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const { user, logout } = useAuth();
 
   const handleLoginClick = () => {
-    setLoginOpen(true);
+    setIsLoginOpen(true);
   };
 
   const closeLoginDialog = () => {
-    setLoginOpen(false);
+    setIsLoginOpen(false);
   };
 
   if (user) {
