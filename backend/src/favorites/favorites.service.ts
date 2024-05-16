@@ -29,4 +29,14 @@ export class FavoritesService {
       include: { vehicle: true },
     });
   }
+
+  async checkFavorite(userId: string, vehicleId: string) {
+    const favorite = await this.prisma.favorite.findFirst({
+      where: {
+        userId: +userId,
+        vehicleId: +vehicleId,
+      },
+    });
+    return { isFavorite: !!favorite };
+  }
 }

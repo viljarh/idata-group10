@@ -5,6 +5,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -34,5 +35,10 @@ export class FavoritesController {
   @Get()
   async getFavorites(@Param('userId') userId: number) {
     return this.favoritesService.getFavorites(userId);
+  }
+
+  @Get('check')
+  checkFavorite(@Query('userId') userId: string, @Query('vehicleId') vehicleId: string) {
+    return this.favoritesService.checkFavorite(userId, vehicleId)
   }
 }
