@@ -1,39 +1,33 @@
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
-
 async function main() {
-  const hashedPassword = await bcrypt.hash('adminPassword', 10)
+  const hashedPassword = await bcrypt.hash('adminPassword', 10);
 
-  const existingUser = await prisma.user.findUnique({
+  const adminUser = await prisma.user.upsert({
     where: { emailAddress: 'admin@rentalroulette.com' },
+    update: {},
+    create: {
+      username: 'admin',
+      password: hashedPassword,
+      firstName: 'Admin',
+      lastName: 'User',
+      emailAddress: 'admin@rentalroulette.com',
+      phoneNumber: 1234567890,
+      customerType: 'ADMIN',
+    },
   });
 
-  if (!existingUser) {
-    const newUser = await prisma.user.create({
-      data: {
-        username: 'admin',
-        password: hashedPassword,
-        firstName: 'Admin',
-        lastName: 'User',
-        emailAddress: 'admin@rentalroulette.com',
-        phoneNumber: 8008135,
-        customerType: 'ADMIN',
-      },
-    });
-    console.log('Admin user created:', newUser);
-  } else {
-    console.log('Admin user already exists:', existingUser);
-  }
+  console.log({ adminUser });
 }
+
 main()
-  .then(async () => {
-    await prisma.$disconnect()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
   })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

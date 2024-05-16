@@ -7,8 +7,28 @@ export interface VehicleProps {
   transmission: string;
   fuel: string;
   passengerCapacity: number;
-  extraFeatures: string;
+  extraFeatures?: string;
   mileage: number;
-  imageUrl: string;
+  imageUrl?: string;
   dailyPrice: number;
+}
+
+export interface UserProps {
+  userId: number;
+  username: string;
+  emailAddress: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: number;
+  customerType: string;
+}
+
+export interface VehicleTableProps {
+  vehicles: VehicleProps[];
+  onDelete: (vehicleId: number) => void;
+}
+
+export interface UserTableProps {
+  users: UserProps[];
+  onDelete: (userId: number) => void
 }

@@ -11,20 +11,22 @@ import {
 import { UserRound } from "lucide-react";
 import { Avatar } from "./ui/avatar";
 import LoginDialog from "./LoginDialog";
+import { Button } from "./ui/button";
+import { useAuth } from "@/context/AuthContext";
 
-const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
-  const [isLoginOpen, setLoginOpen] = useState(false)
+const ProfileButton = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   const handleLoginClick = () => {
-    setLoginOpen(true)
-  }
+    setIsLoginOpen(true);
+  };
 
   const closeLoginDialog = () => {
-    setLoginOpen(false)
-  }
+    setIsLoginOpen(false);
+  };
 
-
-  if (isLoggedIn) {
+  if (user) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger>
@@ -33,24 +35,19 @@ const ProfileButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
+          <DropdownMenuLabel>{user.firstName}</DropdownMenuLabel>
           <Link href="/dashboard/profile">
-            <DropdownMenuItem className="cursor-pointer">
-              Profile
-            </DropdownMenuItem>
-          </Link>
-          <Link href="/dashboard/orders">
-            <DropdownMenuItem>My Orders</DropdownMenuItem>
+            <DropdownMenuItem>Profile</DropdownMenuItem>
           </Link>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="cursor-pointer">Log Out</DropdownMenuItem>
+          <DropdownMenuItem onClick={logout}>Log Out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
   } else {
     return (
-      <div className="">
+      <div>
+        <Button onClick={handleLoginClick}>Log In</Button>
         <LoginDialog isOpen={isLoginOpen} closeModal={closeLoginDialog} />
       </div>
     );

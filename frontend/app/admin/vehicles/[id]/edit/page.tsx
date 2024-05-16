@@ -1,14 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import axiosInstance from "@/axios/axiosInstance";
 
 export default function EditVehicle() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const vehicleId = searchParams.get("vehicleId");
+  const params = useParams();
+  const vehicleId = params.id;
+
   const [vehicle, setVehicle] = useState({
     manufacturer: "",
     model: "",
@@ -27,19 +29,19 @@ export default function EditVehicle() {
   useEffect(() => {
     if (vehicleId) {
       fetchVehicle(vehicleId);
+    } else {
+      setError("Invalid vehicle ID.");
     }
   }, [vehicleId]);
 
   async function fetchVehicle(id: string | string[]) {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8080/vehicles/${id}`);
-      if (!response.ok) throw new Error("Failed to fetch vehicle");
-      const data = await response.json();
-      setVehicle(data);
+      const response = await axiosInstance.get(`/vehicles/${id}`);
+      setVehicle(response.data);
     } catch (error) {
       console.error("Fetch vehicle failed:", error);
-      setError("Failed to load vehicle data.");
+      setError("Failed to load vehicle data");
     } finally {
       setLoading(false);
     }
@@ -47,22 +49,21 @@ export default function EditVehicle() {
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
+    if (!vehicleId) {
+      setError("Invalid vehicle ID");
+      return;
+    }
     setLoading(true);
     try {
-      const response = await fetch(
-        `http://localhost:8080/vehicles/${vehicleId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(vehicle),
-        }
+      const response = await axiosInstance.put(
+        `/vehicles/${vehicleId}`,
+        vehicle
       );
-      if (!response.ok) throw new Error("Failed to update vehicle");
       alert("Vehicle updated successfully");
       router.push("/admin/vehicles");
     } catch (error) {
       console.error("Update vehicle failed:", error);
-      setError("Failed to update vehicle.");
+      setError("Failed to update vehicle");
     } finally {
       setLoading(false);
     }
@@ -75,7 +76,9 @@ export default function EditVehicle() {
 
   return (
     <div>
-      <h1 className="flex items-center justify-center text-2xl mt-4">Edit Vehicle</h1>
+      <h1 className="flex items-center justify-center text-2xl mt-4">
+        Edit Vehicle
+      </h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-center p-6 py-10 mb-2"

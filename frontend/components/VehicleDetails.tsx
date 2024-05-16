@@ -11,13 +11,24 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { VehicleProps } from "@/types";
 
+function capitalizeWords(str: string) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
 interface VehicleDetailsProps {
   isOpen: boolean;
   closeModal: () => void;
   vehicle: VehicleProps;
 }
 
-const VehicleDetails = ({ isOpen, closeModal, vehicle }: VehicleDetailsProps) => {
+const VehicleDetails = ({
+  isOpen,
+  closeModal,
+  vehicle,
+}: VehicleDetailsProps) => {
   if (!vehicle) {
     return null;
   }
@@ -34,27 +45,28 @@ const VehicleDetails = ({ isOpen, closeModal, vehicle }: VehicleDetailsProps) =>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Car Details</DialogTitle>
-          <DialogDescription>Details about the car here.</DialogDescription>
+          <DialogTitle className="capitalize">
+            {capitalizeWords(`${vehicle.manufacturer} ${vehicle.model}`)}
+          </DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-2 items-center gap-x-4">
             <Label htmlFor="name">Car Maker</Label>
-            <p className="font-medium">{vehicle.manufacturer}</p>
+            <p className="capitalize">{capitalizeWords(`${vehicle.manufacturer}`)}</p>
             <Label>Car Model</Label>
-            <p className="font-medium">{vehicle.model}</p>
+            <p className="capitalize">{capitalizeWords(`${vehicle.model}`)}</p>
             <Label>Year</Label>
-            <p className="font-medium">{vehicle.year}</p>
+            <p className="capitalize">{capitalizeWords(`${vehicle.year}`)}</p>
             <Label>Fuel Type</Label>
-            <p className="font-medium">{vehicle.fuel}</p>
+            <p className="capitalize">{capitalizeWords(`${vehicle.fuel}`)}</p>
             <Label>Transmission type</Label>
-            <p className="font-medium">{vehicle.transmission}</p>
+            <p className="capitalize">{capitalizeWords(`${vehicle.transmission}`)}</p>
             <Label>Number Of Seats</Label>
-            <p className="font-medium">{vehicle.passengerCapacity}</p>
+            <p className="capitalize">{capitalizeWords(`${vehicle.passengerCapacity}`)}</p>
             <Label>Extra Features</Label>
-            <p className="font-medium">{vehicle.extraFeatures}</p>
+            <p className="capitalize">{capitalizeWords(`${vehicle.extraFeatures}`)}</p>
             <Label>Price</Label>
-            <p className="font-medium">{vehicle.dailyPrice}</p>
+            <p className="capitalize">{capitalizeWords(`${vehicle.dailyPrice}`)}</p>
           </div>
         </div>
 

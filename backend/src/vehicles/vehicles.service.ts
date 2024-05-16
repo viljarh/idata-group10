@@ -19,19 +19,32 @@ export class VehiclesService {
     return this.prisma.vehicle.findUnique({ where: { vehicleId: id } });
   }
 
-  update(id: number, updateVehicleDto: UpdateVehicleDto) {
-    return this.prisma.vehicle.update({
-      where: { vehicleId: id },
-      data: updateVehicleDto,
-    });
+  async update(id: number, updateVehicleDto: UpdateVehicleDto) {
+    try {
+      const vehicle = await this.prisma.vehicle.findUnique({
+        where: { vehicleId: id },
+      });
+      if (!vehicle) {
+        throw new Error(`Vehicle with ID ${id} not found`);
+      }
+      return this.prisma.vehicle.update({
+        where: { vehicleId: id },
+        data: updateVehicleDto,
+      });
+    } catch (error) {
+      throw new Error(
+        `Failed to update vehicle with ID ${id}: ${error.message}`,
+      );
+    }
   }
 
-  remove(id: number): Promise<void> {
-    return this.prisma.vehicle
-      .delete({ where: { vehicleId: id } })
-      .then(() => {})
-      .catch((error) => {
-        throw new Error(`Failed to delete vehicle with ID ${id}: ${error}`);
-      });
+  async remove(id: number): Promise<void> {
+    try {
+      await this.prisma.vehicle.delete({ where: { vehicleId: id } });
+    } catch (error) {
+      throw new Error(
+        `Failed to delete vehicle with ID ${id}: ${error.message}`,
+      );
+    }
   }
 }

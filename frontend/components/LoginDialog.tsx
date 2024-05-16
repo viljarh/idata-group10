@@ -1,17 +1,17 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+"use client";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogTrigger,
-} from './ui/dialog';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+} from "./ui/dialog";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import Link from "next/link";
+import { useAuth } from "../context/AuthContext";
 
 interface LoginDialogProps {
   isOpen: boolean;
@@ -19,93 +19,78 @@ interface LoginDialogProps {
 }
 
 const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const { login } = useAuth();
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value)
-  }
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value)
-  }
-
-  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true)
-    setError(null)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
 
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password })
-      })
-
-      const data = await response.json();
-      if (response.ok) {
-        router.push('/')
-        localStorage.setItem('token', data.accessToken)
-        closeModal()
-      } else {
-        throw new Error(data.message || "Something went wrong")
-      }
-    } catch (error) {
-      setError(error.message)
-      console.error('Login failed:', error)
-    } finally {
-      setIsLoading(false)
+      await login(email, password);
+      closeModal();
+    } catch (err) {
+      setError("Login failed, please try again");
+      console.error("Login failed", err);
     }
-  }
+  };
+
   return (
-    <Dialog isOpen={isOpen} onDismiss={closeModal}>
-      <DialogTrigger asChild>
-        <Button variant="default" className="">
-          Log In
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={closeModal}>
       <DialogContent className="sm:max-w-md p-6">
         <DialogHeader>
-          <DialogTitle className='text-2xl'>Login</DialogTitle>
+          <DialogTitle className="text-2xl">Login</DialogTitle>
           <DialogDescription>
             Enter your details to log in to your account.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4">
-          <form onSubmit={handleLogin}>
-            <div className='grid gap-2 mb-4'>
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="Enter your email" required onChange={handleEmailChange} />
+        <form onSubmit={handleSubmit} className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="grid gap-2">
+            <div className="flex items-center">
+              <Label htmlFor="password">Password</Label>
+              <Link
+                href="/auth/forgot-password"
+                className="ml-auto inline-block text-sm underline"
+              >
+                Forgot your password?
+              </Link>
             </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link href="#" className="ml-auto inline-block text-sm underline">
-                  Forgot your password?
-                </Link>
-              </div>
-              <Input id="password" type="password" placeholder='Enter your password' required onChange={handlePasswordChange} />
-            </div>
-            <Button type="submit" className="w-full mt-4" disabled={isLoading}>
-              {isLoading ? 'Logging in...' : 'Login'}
-            </Button>
-          </form>
-        </div>
+            <Input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <Button type="submit" className="w-full">
+            Login
+          </Button>
+        </form>
         <div className="mt-4 text-center text-sm">
           Don't have an account?{" "}
-          <Link href="#" className="underline">
+          <Link href="/auth/signup" className="underline">
             Sign up
           </Link>
         </div>
       </DialogContent>
-    </Dialog >
+    </Dialog>
   );
 };
 
 export default LoginDialog;
-

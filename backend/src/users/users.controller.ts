@@ -8,6 +8,7 @@ import {
   Delete,
   ParseIntPipe,
   UseGuards,
+  BadRequestException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -24,12 +25,17 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   @ApiCreatedResponse({ type: UserEntity })
   async create(@Body() createUserDto: CreateUserDto) {
-    return new UserEntity(await this.usersService.create(createUserDto));
+    try {
+      return new UserEntity(await this.usersService.create(createUserDto));
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw new BadRequestException('Failed to create user: ' + error.message);
+    }
   }
 
   @Get()
@@ -58,7 +64,7 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     const updatedUser = await this.usersService.update(id, updateUserDto);
-    return new UserEntity(updatedUser)
+    return new UserEntity(updatedUser);
   }
 
   @Delete(':id')

@@ -1,14 +1,17 @@
 "use client";
-import { fetchVehicles } from "@/api/vehicles/fetchVehicles";
+import { fetchVehicles } from "@/app/api/vehicles/fetchVehicles";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
 import VehicleList from "@/components/VehicleList";
+import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
+  const { user, logout } = useAuth()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +24,7 @@ export default function Home() {
     };
     fetchData();
   }, []);
+
   return (
     <Container>
       <div className="space-y-10 pb-10">
@@ -31,15 +35,26 @@ export default function Home() {
           >
             <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
               <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs text-black dark:text-white bg-secondary/75 p-4 rounded-lg">
-                <a className="block w-full" href="/vehicles">
+                <Link href="/vehicles" className="block w-full">
                   <Button size="lg" className="w-full py-8 text-xl">
                     <ShoppingBag className="mr-2" />
                     Rent A Car Now
                   </Button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="w-full flex justify-center items-center p-5">
+          {user ? (
+            <div>
+              <p className="text-3xl font-bold ">Welcome back, {user.firstName}!</p>
+              <Button onClick={logout} className="w-full">Logout</Button>
+            </div>
+          ) : (
+            <p className="font-mono">Please log in to rent a car.</p>
+          )}
         </div>
         <div
           id="popular-cars"

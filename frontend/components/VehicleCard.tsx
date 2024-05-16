@@ -10,6 +10,14 @@ interface VehicleCard {
   data: VehicleProps;
 }
 
+function capitalizeWords(str: string) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+
 const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(data.imageUrl)
@@ -29,17 +37,18 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
       <Card className="rounded-lg border-2">
         <CardContent className="pt-4">
           <div className="aspect-square relative bg-foreground/5 dark:bg-background rounded-lg">
-            <Image src={imgSrc} alt={`Image of ${data.model}`} layout="fill" objectFit="cover" className="rounded-md" onError={() => setImgSrc('img/fallback.svg')} />
+
+            <Image src={imgSrc || 'img/fallback.svg'} alt={`Image of ${data.model}`} layout="fill" objectFit="cover" onError={() => setImgSrc('img/fallback.svg')} />
 
           </div>
         </CardContent>
 
         <CardFooter className="flex-col items-start">
           <div>
-            <p className="font-semibold text-lg">
-              {data.manufacturer} {data.model}
+            <p className="font-semibold text-lg capitalize">
+            {capitalizeWords(`${data.manufacturer} ${data.model}`)}
             </p>
-            <p className="text-sm text-primary/80">{data.vehicleCategory}</p>
+            <p className="text-sm text-primary/80 capitalize"> {capitalizeWords(`${data.vehicleCategory}`)}</p>
           </div>
 
           <div className="flex items-center justify-between mb-2 font-semibold">

@@ -1,7 +1,8 @@
+// pages/admin/users.tsx
 "use client";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -26,50 +27,34 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { VehicleProps, VehicleTableProps } from "@/types";
-
-export default function AdminVehiclePage() {
-  const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
+import { UserProps, UserTableProps } from "@/types";
+import { useAuth } from "@/context/AuthContext";
+import axiosInstance from "@/axios/axiosInstance";
+export default function AdminUsersPage() {
+  const [users, setUsers] = useState<UserProps[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    const fetchVehicles = async () => {
+    const fetchUsers = async () => {
+      if (!user) return;
+
       try {
-        const response = await fetch("http://localhost:8080/vehicles");
-        if (response.ok) {
-          const data = await response.json();
-          setVehicles(data);
-        } else {
-          console.error("Failed to fetch vehicles:", response.statusText);
-        }
+        const response = await axiosInstance.get("/users");
+        setUsers(response.data);
       } catch (error) {
-        console.error("Error fetching vehicles:", error);
+        console.error("Error fetching users:", error);
       }
     };
+    fetchUsers();
+  }, [user]);
 
-    fetchVehicles();
-  }, []);
+  const handleDelete = async (userId: number) => {
+    if (!confirm("Are you sure you want to delete this user?")) return;
 
-  const handleDelete = async (vehicleId: number) => {
-    console.log("Deleting vehicle with ID:", vehicleId);
-
-    if (!confirm("Are you sure you want to delete this vehicle?")) return;
     try {
-      const response = await fetch(
-        `http://localhost:8080/vehicles/${vehicleId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (response.ok) {
-        console.log("Vehicle deleted successfully");
-        setVehicles(
-          vehicles.filter((vehicle) => vehicle.vehicleId !== vehicleId)
-        );
-      } else {
-        console.error("Failed to delete vehicle:", response.statusText);
-      }
+      await axiosInstance.delete(`/users/${userId}`);
     } catch (error) {
-      console.error("Error deleting vehicle:", error);
+      console.error("Error deleting user:", error);
     }
   };
 
@@ -88,7 +73,7 @@ export default function AdminVehiclePage() {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Vehicles</Link>
+                  <Link href="#">Users</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -99,22 +84,20 @@ export default function AdminVehiclePage() {
       <div className="flex flex-col flex-1 ml-14 sm:ml-">
         <div className="flex justify-center items-center gap-4 p-4">
           <Button asChild className=" m-5 w-1/4">
-            <Link href="/admin/vehicles/new">Add Vehicle</Link>
+            <Link href="/admin/users/new">Add User</Link>
           </Button>
         </div>
         <div className="px-4 py-2">
-          <VehiclesTable vehicles={vehicles} onDelete={handleDelete} />
+          <UsersTable users={users} onDelete={handleDelete} />
         </div>
       </div>
     </div>
   );
 }
 
-function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
-  if (vehicles.length === 0)
-    return (
-      <p className="p-4 from-neutral-800 font-mono">No vehicles found...</p>
-    );
+function UsersTable({ users, onDelete }: UserTableProps) {
+  if (users.length === 0)
+    return <p className="p-4 from-neutral-800 font-mono">No users found...</p>;
   return (
     <Table>
       <TableHeader>
@@ -122,28 +105,30 @@ function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
           <TableHead className="w-0">
             <span className="sr-only">Availability</span>
           </TableHead>
-          <TableHead>Manufacturer</TableHead>
-          <TableHead>Model</TableHead>
-          <TableHead>Year</TableHead>
-          <TableHead>Price</TableHead>
+          <TableHead>Username</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>First Name</TableHead>
+          <TableHead>Last Name</TableHead>
+          <TableHead>Customer Type</TableHead>
           <TableHead className="w-0">
             <span className="sr-only">Actions</span>
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {vehicles.map((vehicle) => (
-          <TableRow key={vehicle.vehicleId}>
+        {users.map((user) => (
+          <TableRow key={user.userId}>
             <TableCell>
               <>
                 <span className="sr-only">Available</span>
                 <CheckCircle2 className="stroke-green-400" />
               </>
             </TableCell>
-            <TableCell>{vehicle.manufacturer}</TableCell>
-            <TableCell>{vehicle.model}</TableCell>
-            <TableCell>{vehicle.year}</TableCell>
-            <TableCell>{vehicle.dailyPrice}</TableCell>
+            <TableCell>{user.username}</TableCell>
+            <TableCell>{user.emailAddress}</TableCell>
+            <TableCell>{user.firstName}</TableCell>
+            <TableCell>{user.lastName}</TableCell>
+            <TableCell>{user.customerType}</TableCell>
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -152,15 +137,13 @@ function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <Link href={`/admin/vehicles/${vehicle.vehicleId}/edit`}>
-                      Edit
-                    </Link>
+                    <Link href={`/admin/users/${user.userId}/edit`}>Edit</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <Button
                       onClick={() => {
-                        onDelete(vehicle.vehicleId);
+                        onDelete(user.userId);
                       }}
                       className="w-full"
                     >
