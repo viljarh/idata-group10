@@ -1,9 +1,6 @@
+"use client";
 import Link from "next/link";
-import {
-  File,
-  ListFilter,
-  PanelLeft,
-} from "lucide-react";
+import { File, ListFilter, PanelLeft } from "lucide-react";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -13,7 +10,6 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
 } from "@/components/ui/breadcrumb";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -42,11 +38,27 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SidebarNavigation from "@/components/SideBarNavigation";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useAuth } from "@/auth/AuthContext";
 
 export default function AdminDashboard() {
+  const { isAdmin } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAdmin) {
+      router.push("/");
+    }
+  }, [isAdmin, router]);
+
+  if (!isAdmin) {
+    return <p>Redirecting...</p>;
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
-        <SidebarNavigation/>
+      <SidebarNavigation />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
@@ -56,9 +68,7 @@ export default function AdminDashboard() {
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="sm:max-w-xs">
-              
-            </SheetContent>
+            <SheetContent side="left" className="sm:max-w-xs"></SheetContent>
           </Sheet>
           <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>
@@ -350,8 +360,7 @@ export default function AdminDashboard() {
               </TabsContent>
             </Tabs>
           </div>
-          <div>
-          </div>
+          <div></div>
         </main>
       </div>
     </div>

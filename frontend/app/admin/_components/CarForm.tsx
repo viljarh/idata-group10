@@ -67,7 +67,7 @@ export function CarForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center p-6 py-10 mb-2"
+      className="flex flex-col justify-center items-center"
     >
       <div className="space-y-2">
         <Label htmlFor="manufacturer" className="from-neutral-800 font-mono">

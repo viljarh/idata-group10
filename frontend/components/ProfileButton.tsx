@@ -12,7 +12,7 @@ import { UserRound } from "lucide-react";
 import { Avatar } from "./ui/avatar";
 import LoginDialog from "./LoginDialog";
 import { Button } from "./ui/button";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/auth/AuthContext";
 
 const ProfileButton = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);

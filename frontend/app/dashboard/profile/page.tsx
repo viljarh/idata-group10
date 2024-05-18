@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Container from "@/components/ui/Container";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/auth/AuthContext";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

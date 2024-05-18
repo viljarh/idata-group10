@@ -30,11 +30,11 @@ export class FavoritesService {
     });
   }
 
-  async checkFavorite(userId: string, vehicleId: string) {
+  async checkFavorite(userId: number, vehicleId: number) {
     const favorite = await this.prisma.favorite.findFirst({
       where: {
-        userId: +userId,
-        vehicleId: +vehicleId,
+        userId,
+        vehicleId,
       },
     });
     return { isFavorite: !!favorite };

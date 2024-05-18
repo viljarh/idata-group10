@@ -9,11 +9,13 @@ import {
 import { useRouter } from "next/navigation";
 import { UserProps } from "@/types";
 import axiosInstance from "@/axios/axiosInstance";
+import { decode } from "jsonwebtoken";
 
 interface AuthContextProps {
   user: UserProps | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -23,9 +25,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser && storedUser != "undefined") {
-      setUser(JSON.parse(storedUser));
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decoded: any = decode(token);
+        setUser(decoded);
+      } catch (error) {
+        console.error("Failed to decode token", error);
+      }
     }
   }, []);
 
@@ -53,8 +60,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     router.push("/");
   };
 
+  const isAdmin = user?.customerType === "ADMIN";
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );

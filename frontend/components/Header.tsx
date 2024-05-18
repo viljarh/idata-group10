@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import ProfileButton from "./ProfileButton";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/auth/AuthContext";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();

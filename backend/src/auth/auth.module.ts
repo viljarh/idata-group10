@@ -23,5 +23,6 @@ export const jwtSecret = process.env.JWT_SECRET;
     }),
     UsersModule,
   ],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

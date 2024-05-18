@@ -1,6 +1,4 @@
-import {
-  Injectable,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
@@ -25,7 +23,7 @@ export class AuthService {
   }
 
   generateAccessToken(user: User) {
-    const payload = { userId: user.userId };
+    const payload = { userId: user.userId, roles: user.customerType };
     return this.jwtService.sign(payload);
   }
 }

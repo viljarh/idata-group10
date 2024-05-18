@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,7 +10,8 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { VehicleProps } from "@/types";
 import { StarIcon } from "lucide-react";
-import axiosInstance from "@/axios/axiosInstance"; // Import your axios instance
+import axiosInstance from "@/axios/axiosInstance";
+import jwt from "jsonwebtoken";
 
 function capitalizeWords(str: string) {
   return str
@@ -25,52 +26,75 @@ interface VehicleDetailsProps {
   vehicle: VehicleProps;
 }
 
+interface MyJwtPayload {
+  userId: number;
+}
+
 const VehicleDetails = ({
   isOpen,
   closeModal,
   vehicle,
 }: VehicleDetailsProps) => {
+  // const [isFavorite, setIsFavorite] = useState(false);
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     const decoded = jwt.decode(token) as MyJwtPayload;
+  //     const userId = decoded.userId;
+
+  //     axiosInstance
+  //       .get(`/favorites/check?vehicleId=${vehicle.vehicleId}`, {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       })
+  //       .then((response) => {
+  //         setIsFavorite(response.data.isFavorite);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Failed to check favorite status:", error);
+  //       });
+  //   }
+  // }, [vehicle]);
+
+  // const toggleFavorite = () => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     const decoded = jwt.decode(token) as MyJwtPayload;
+  //     const userId = decoded.userId;
+
+  //     if (isFavorite) {
+  //       axiosInstance
+  //         .delete(`/favorites/${vehicle.vehicleId}`, {
+  //           headers: { Authorization: `Bearer ${token}` },
+  //         })
+  //         .then((response) => {
+  //           setIsFavorite(false);
+  //         })
+  //         .catch((error) => {
+  //           console.error("Failed to remove favorite:", error);
+  //         });
+  //     } else {
+  //       axiosInstance
+  //         .post(
+  //           `/favorites/${vehicle.vehicleId}`,
+  //           {},
+  //           {
+  //             headers: { Authorization: `Bearer ${token}` },
+  //           }
+  //         )
+  //         .then((response) => {
+  //           setIsFavorite(true);
+  //         })
+  //         .catch((error) => {
+  //           console.error("Failed to add favorite:", error);
+  //         });
+  //     }
+  //   }
+  // };
+
   if (!vehicle) {
     return null;
   }
-  if (!vehicle) {
-    return null;
-  }
-
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
-    const fetchFavoriteStatus = async () => {
-      try {
-        const userId = "user-id";
-        const response = await axiosInstance.get(`/favorites/check`, {
-          params: { userId, vehicleId: vehicle.vehicleId },
-        });
-        setIsFavorite(response.data.isFavorite);
-      } catch (error) {
-        console.error("Error fetching favorite status", error);
-      }
-    };
-
-    if (vehicle.vehicleId) {
-      fetchFavoriteStatus();
-    }
-  }, [vehicle]);
-
-  const toggleFavorite = async () => {
-    try {
-      if (isFavorite) {
-        await axiosInstance.delete(`/favorites/${vehicle.vehicleId}`);
-      } else {
-        await axiosInstance.post("/favorites", {
-          vehicleId: vehicle.vehicleId,
-        });
-      }
-      setIsFavorite(!isFavorite);
-    } catch (error) {
-      console.error("Error updating favorite status", error);
-    }
-  };
 
   return (
     <Dialog>
@@ -86,13 +110,6 @@ const VehicleDetails = ({
         <DialogHeader>
           <DialogTitle className="capitalize flex flex-row items-center">
             {capitalizeWords(`${vehicle.manufacturer} ${vehicle.model}`)}
-            <StarIcon
-              size={20}
-              className={`ml-2 cursor-pointer ${
-                isFavorite ? "text-yellow-500" : ""
-              }`}
-              onClick={toggleFavorite}
-            />
           </DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
