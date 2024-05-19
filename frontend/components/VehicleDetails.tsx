@@ -44,7 +44,7 @@ const VehicleDetails = ({
 
         await axiosInstance.post(
           "/cart/add",
-          { userId, vehicleId: vehicle.vehicleId, quantity: 1 },
+          { vehicleId: vehicle.vehicleId, quantity: 1 },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         alert("Vehicle added to the cart");

@@ -8,6 +8,7 @@ import {
 } from "@/app/api/cart/cart";
 import { Button } from "@/components/ui/button";
 import { VehicleProps } from "@/types";
+import Container from "@/components/ui/Container";
 
 interface CartItemProps {
   cartItemId: number;
@@ -59,22 +60,52 @@ const Cart = () => {
   };
 
   return (
-    <div>
-      <h2>Cart</h2>
-      {cartItems.map((item) => (
-        <div key={item.cartItemId}>
-          <p>
-            {item.vehicle.manufacturer} {item.vehicle.model}
-          </p>
-          <p>Quantity: {item.quantity}</p>
-          <Button onClick={() => handleRemoveItem(item.cartItemId)}>
-            Remove
-          </Button>
+    <Container>
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-md">
+          <h2 className="text-3xl font-bold mb-8 text-center">Cart</h2>
+          {cartItems.length === 0 ? (
+            <p className="text-center text-gray-500">Your cart is empty</p>
+          ) : (
+            <div className="space-y-6">
+              {cartItems.map((item) => (
+                <div
+                  key={item.cartItemId}
+                  className="p-4 border rounded-lg flex items-center justify-between"
+                >
+                  <div>
+                    <p className="font-bold text-lg">
+                      {item.vehicle.manufacturer} {item.vehicle.model}
+                    </p>
+                    <p>Quantity: {item.quantity}</p>
+                  </div>
+                  <Button
+                    onClick={() => handleRemoveItem(item.cartItemId)}
+                    className="bg-red-500 hover:bg-red-600 text-white"
+                  >
+                    Remove
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="mt-8 flex justify-between">
+            <Button
+              onClick={handleCheckout}
+              className="w-full hover:bg-green-600 text-white mr-2"
+            >
+              Checkout
+            </Button>
+            <Button
+              onClick={handleClearCart}
+              className="w-full bg-gray-500 hover:bg-gray-600 text-white ml-2"
+            >
+              Clear Cart
+            </Button>
+          </div>
         </div>
-      ))}
-      <Button onClick={handleCheckout}>Checkout</Button>
-      <Button onClick={handleClearCart}>Clear Cart</Button>
-    </div>
+      </div>
+    </Container>
   );
 };
 
