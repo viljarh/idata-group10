@@ -6,7 +6,7 @@ import {
   Delete,
   Param,
   UseGuards,
-  Req,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { GetUser } from '../auth/get-user.decorator';
@@ -20,10 +20,8 @@ export class CartController {
   @Post('add')
   async addToCart(
     @Body() addToCartDto: { vehicleId: number; quantity: number },
-    @Req() req: any,
+    @GetUser('userId') userId: number,
   ) {
-    const user = req.user;
-    const userId = user.userId;
     return this.cartService.addToCart({
       userId,
       vehicleId: addToCartDto.vehicleId,
@@ -31,17 +29,14 @@ export class CartController {
     });
   }
 
-  @Get()  
+  @Get()
   getCartItems(@GetUser('userId') userId: number) {
     return this.cartService.getCartItems(userId);
   }
 
-  @Delete('remove/:vehicleId')
-  removeCartItem(
-    @GetUser('userId') userId: number,
-    @Param('vehicleId') vehicleId: number,
-  ) {
-    return this.cartService.removeCartItem(userId, vehicleId);
+  @Delete('remove/:cartItemId')
+  removeCartItem(@Param('cartItemId', ParseIntPipe) cartItemId: number) {
+    return this.cartService.removeCartItem(cartItemId);
   }
 
   @Delete('clear')

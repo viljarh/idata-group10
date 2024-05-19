@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { VehicleProps } from "@/types";
 import Container from "@/components/ui/Container";
+import { useAuth } from "@/context/authContext";
 
 interface CartItemProps {
   cartItemId: number;
@@ -18,6 +19,7 @@ interface CartItemProps {
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchCartItems();
@@ -45,6 +47,7 @@ const Cart = () => {
     try {
       await createOrder();
       fetchCartItems();
+      alert("Order created successfully");
     } catch (error) {
       console.error("Failed to checkout", error);
     }
@@ -63,7 +66,9 @@ const Cart = () => {
     <Container>
       <div className="flex justify-center items-center min-h-screen">
         <div className="w-full max-w-4xl p-8 bg-white rounded-lg shadow-md">
-          <h2 className="text-3xl font-bold mb-8 text-center">Cart</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">
+            {user?.firstName}'s Cart
+          </h2>
           {cartItems.length === 0 ? (
             <p className="text-center text-gray-500">Your cart is empty</p>
           ) : (
@@ -81,7 +86,7 @@ const Cart = () => {
                   </div>
                   <Button
                     onClick={() => handleRemoveItem(item.cartItemId)}
-                    className="bg-red-500 hover:bg-red-600 text-white"
+                    className="bg-red-500 hover:bg-red-600"
                   >
                     Remove
                   </Button>
@@ -92,13 +97,14 @@ const Cart = () => {
           <div className="mt-8 flex justify-between">
             <Button
               onClick={handleCheckout}
-              className="w-full hover:bg-green-600 text-white mr-2"
+              className="w-full hover:bg-green-600 mr-2"
             >
               Checkout
             </Button>
             <Button
               onClick={handleClearCart}
-              className="w-full bg-gray-500 hover:bg-gray-600 text-white ml-2"
+              className="w-full ml-2"
+              variant="ghost"
             >
               Clear Cart
             </Button>

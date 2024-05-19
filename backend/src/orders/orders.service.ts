@@ -33,7 +33,7 @@ export class OrdersService {
     return order;
   }
 
-  async getOrders(userId: number) {
+  async getOrderItems(userId: number) {
     return this.prisma.order.findMany({
       where: { userId },
       include: {

@@ -76,12 +76,12 @@ model Favorite {
 }
 
 model CartItem {
-  orderId   Int     @id @default(autoincrement())
-  user      User    @relation(fields: [userId], references: [userId])
-  userId    Int
-  vehicle   Vehicle @relation(fields: [vehicleId], references: [vehicleId])
-  vehicleId Int
-  quantity  Int
+  cartItemId Int     @id @default(autoincrement())
+  user       User    @relation(fields: [userId], references: [userId])
+  userId     Int
+  vehicle    Vehicle @relation(fields: [vehicleId], references: [vehicleId])
+  vehicleId  Int
+  quantity   Int
 }
 
 model Order {

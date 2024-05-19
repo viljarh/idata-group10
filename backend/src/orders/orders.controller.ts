@@ -14,7 +14,7 @@ export class OrdersController {
   }
 
   @Get()
-  getOrders(@GetUser('userId') userId: number) {
-    return this.ordersService.getOrders(userId);
+  getOrderItems(@GetUser('userId') userId: number) {
+    return this.ordersService.getOrderItems(userId);
   }
 }

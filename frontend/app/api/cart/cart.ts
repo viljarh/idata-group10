@@ -8,18 +8,18 @@ export async function getCartItems() {
 
 // Remove Cart Item
 export async function removeCartItem(cartItemId: number) {
-  const response = await axiosInstance.delete(`/cart/${cartItemId}`);
+  const response = await axiosInstance.delete(`/cart/remove/${cartItemId}`);
   return response.data;
 }
 
 // Create Order (Checkout)
 export async function createOrder() {
-  const response = await axiosInstance.post("/orders");
+  const response = await axiosInstance.post("/orders/create");
   return response.data;
 }
 
 // Clear Cart
 export async function clearCart() {
-  const response = await axiosInstance.delete("/cart");
+  const response = await axiosInstance.delete("/cart/clear");
   return response.data;
 }
