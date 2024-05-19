@@ -9,13 +9,14 @@ import { DatePickerWithRange } from "@/components/DatePicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Filter, Menu} from "lucide-react";
-
+import { Filter, Menu } from "lucide-react";
 
 const VehiclePage = () => {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
   const [isCarDetailsOpen, setIsCarDetailsOpen] = useState(false);
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleProps | null>(null);
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleProps | null>(
+    null
+  );
   const [carSize, setCarSize] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -25,26 +26,38 @@ const VehiclePage = () => {
   const carFuelType = ["Petrol", "Diesel", "Electric"];
   const [inputVehicleType, setInputVehicleType] = useState("");
 
-
-
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
-    console.log("Search criteria:", { carSize, startDate, endDate, inputVehicleType, sortVehiclesAfterPrice });
+    console.log("Search criteria:", {
+      carSize,
+      startDate,
+      endDate,
+      inputVehicleType,
+      sortVehiclesAfterPrice,
+    });
   };
-  const filteredVehicles = vehicles.filter(vehicle => 
-    (!carSize || vehicle.vehicleCategory.toLowerCase() === carSize.toLowerCase()) &&
-    (!inputVehicleType.toLowerCase() || vehicle.model.toLowerCase().includes(inputVehicleType.toLowerCase())|| vehicle.manufacturer.toLowerCase().includes(inputVehicleType.toLowerCase()))&& 
-    (!carEngine || vehicle.fuel.toLowerCase() === carEngine.toLowerCase())).sort((a,b)=>{
-      if(sortVehiclesAfterPrice === "asc") {
+  const filteredVehicles = vehicles
+    .filter(
+      (vehicle) =>
+        (!carSize ||
+          vehicle.vehicleCategory.toLowerCase() === carSize.toLowerCase()) &&
+        (!inputVehicleType.toLowerCase() ||
+          vehicle.model
+            .toLowerCase()
+            .includes(inputVehicleType.toLowerCase()) ||
+          vehicle.manufacturer
+            .toLowerCase()
+            .includes(inputVehicleType.toLowerCase())) &&
+        (!carEngine || vehicle.fuel.toLowerCase() === carEngine.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortVehiclesAfterPrice === "asc") {
         return a.dailyPrice - b.dailyPrice;
-      }
-      else if (sortVehiclesAfterPrice === "desc"){
+      } else if (sortVehiclesAfterPrice === "desc") {
         return b.dailyPrice - a.dailyPrice;
-      }
-      else {
+      } else {
         return 0;
       }
-    
     });
 
   useEffect(() => {
@@ -79,91 +92,109 @@ const VehiclePage = () => {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" className="md:hidden">
-              <Filter className = "h-6 md:hidden w-6"/>
+                <Filter className="h-6 md:hidden w-6" />
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-            <form onSubmit={handleSearch} className="flex flex-col gap-4 justify-center">
-            <Input type="text" 
-            placeholder="Search for a Vehicle" 
-            value={inputVehicleType} onChange={(e) => setInputVehicleType(e.target.value)}
-            className="w-full"/>
-            <select
-              value={carSize}
-              onChange={(e) => setCarSize(e.target.value)}
-              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-              <option value="">Select Car Type</option>
-              {carType.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-            <select
-              value={carEngine}
-              onChange={(e) => setCarEngineType(e.target.value)}
-              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-              <option value="">Select Fuel</option>
-              {carFuelType.map((fuel) => (
-                <option key={fuel} value={fuel}>
-                  {fuel}
-                </option>
-              ))}
-            </select>
-            <select
-              value={sortVehiclesAfterPrice}
-              onChange={(e) => setSortVehiclesAfterPrice(e.target.value)}
-              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-              <option value= "">Sort by Price</option>
-              <option value="asc">Price: Low to High</option>
-              <option value="desc">Price: High to Low</option>
-            </select>
-            <DatePickerWithRange />
-            <Button type="submit">Search</Button>
-          </form>
-
-
+              <form
+                onSubmit={handleSearch}
+                className="flex flex-col gap-4 justify-center"
+              >
+                <Input
+                  type="text"
+                  placeholder="Search for a Vehicle"
+                  value={inputVehicleType}
+                  onChange={(e) => setInputVehicleType(e.target.value)}
+                  className="w-full"
+                />
+                <select
+                  value={carSize}
+                  onChange={(e) => setCarSize(e.target.value)}
+                  className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                >
+                  <option value="">Select Car Type</option>
+                  {carType.map((size) => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={carEngine}
+                  onChange={(e) => setCarEngineType(e.target.value)}
+                  className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                >
+                  <option value="">Select Fuel</option>
+                  {carFuelType.map((fuel) => (
+                    <option key={fuel} value={fuel}>
+                      {fuel}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={sortVehiclesAfterPrice}
+                  onChange={(e) => setSortVehiclesAfterPrice(e.target.value)}
+                  className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                >
+                  <option value="">Sort by Price</option>
+                  <option value="asc">Price: Low to High</option>
+                  <option value="desc">Price: High to Low</option>
+                </select>
+                <div className="flex w-full">
+                  <DatePickerWithRange />
+                </div>
+                <Button type="submit">Search</Button>
+              </form>
             </SheetContent>
           </Sheet>
           <div className="hidden md:flex">
-          <form onSubmit={handleSearch} className="flex flex-wrap gap-4 justify-center md:flex">
-            <Input type="text" 
-            placeholder="Search for a Vehicle" 
-            value={inputVehicleType} onChange={(e) => setInputVehicleType(e.target.value)}
-            className="w-full"/>
-            <select
-              value={carSize}
-              onChange={(e) => setCarSize(e.target.value)}
-              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-              <option value="">Select Car Type</option>
-              {carType.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-            <select
-              value={carEngine}
-              onChange={(e) => setCarEngineType(e.target.value)}
-              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-              <option value="">Select Fuel</option>
-              {carFuelType.map((fuel) => (
-                <option key={fuel} value={fuel}>
-                  {fuel}
-                </option>
-              ))}
-            </select>
-            <select
-              value={sortVehiclesAfterPrice}
-              onChange={(e) => setSortVehiclesAfterPrice(e.target.value)}
-              className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-              <option value= "">Sort by Price</option>
-              <option value="asc">Price: Low to High</option>
-              <option value="desc">Price: High to Low</option>
-            </select>
-            <DatePickerWithRange />
-            <Button type="submit">Search</Button>
-          </form>
+            <form
+              onSubmit={handleSearch}
+              className="flex flex-wrap gap-4 justify-center md:flex"
+            >
+              <Input
+                type="text"
+                placeholder="Search for a Vehicle"
+                value={inputVehicleType}
+                onChange={(e) => setInputVehicleType(e.target.value)}
+                className="w-full"
+              />
+              <select
+                value={carSize}
+                onChange={(e) => setCarSize(e.target.value)}
+                className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              >
+                <option value="">Select Car Type</option>
+                {carType.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={carEngine}
+                onChange={(e) => setCarEngineType(e.target.value)}
+                className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              >
+                <option value="">Select Fuel</option>
+                {carFuelType.map((fuel) => (
+                  <option key={fuel} value={fuel}>
+                    {fuel}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={sortVehiclesAfterPrice}
+                onChange={(e) => setSortVehiclesAfterPrice(e.target.value)}
+                className="p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              >
+                <option value="">Sort by Price</option>
+                <option value="asc">Price: Low to High</option>
+                <option value="desc">Price: High to Low</option>
+              </select>
+              <DatePickerWithRange />
+              <Button type="submit">Search</Button>
+            </form>
           </div>
         </div>
       </div>
