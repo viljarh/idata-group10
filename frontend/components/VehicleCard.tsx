@@ -20,7 +20,7 @@ function capitalizeWords(str: string) {
 
 const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [imgSrc, setImgSrc] = useState(data.imageUrl)
+  const [imgSrc, setImgSrc] = useState(`/img/${data.model}/${data.image}`)
 
   const handleViewMoreClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>

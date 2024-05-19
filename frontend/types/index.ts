@@ -11,6 +11,7 @@ export interface VehicleProps {
   mileage: number;
   imageUrl?: string;
   dailyPrice: number;
+  image? : string;
 }
 
 export interface UserProps {
