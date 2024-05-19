@@ -5,12 +5,16 @@ import { PrismaService } from '../prisma/prisma.service';
 export class CartService {
   constructor(private prisma: PrismaService) {}
 
-  async addToCart(userId: number, vehicleId: number, quantity: number) {
+  async addToCart(addToCartDto: {
+    userId: number;
+    vehicleId: number;
+    quantity: number;
+  }) {
     return this.prisma.cartItem.create({
       data: {
-        userId,
-        vehicleId,
-        quantity,
+        userId: addToCartDto.userId,
+        vehicleId: addToCartDto.vehicleId,
+        quantity: addToCartDto.quantity,
       },
     });
   }

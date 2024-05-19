@@ -55,7 +55,7 @@ export function CarForm() {
       }
 
       console.log("Vehicle created:", response.data);
-      router.push("admin/vehicles");
+      router.push("/vehicles");
     } catch (error) {
       console.error("Error submitting form:", error);
       setError("Error creating vehicle");

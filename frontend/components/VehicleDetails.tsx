@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+"use client";
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,9 +10,8 @@ import {
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { VehicleProps } from "@/types";
-import { StarIcon } from "lucide-react";
+import { decode } from "jsonwebtoken";
 import axiosInstance from "@/axios/axiosInstance";
-import jwt from "jsonwebtoken";
 
 function capitalizeWords(str: string) {
   return str
@@ -35,62 +35,25 @@ const VehicleDetails = ({
   closeModal,
   vehicle,
 }: VehicleDetailsProps) => {
-  // const [isFavorite, setIsFavorite] = useState(false);
+  const addToCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decoded = decode(token) as MyJwtPayload;
+        const userId = decoded.userId;
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     const decoded = jwt.decode(token) as MyJwtPayload;
-  //     const userId = decoded.userId;
-
-  //     axiosInstance
-  //       .get(`/favorites/check?vehicleId=${vehicle.vehicleId}`, {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       })
-  //       .then((response) => {
-  //         setIsFavorite(response.data.isFavorite);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Failed to check favorite status:", error);
-  //       });
-  //   }
-  // }, [vehicle]);
-
-  // const toggleFavorite = () => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     const decoded = jwt.decode(token) as MyJwtPayload;
-  //     const userId = decoded.userId;
-
-  //     if (isFavorite) {
-  //       axiosInstance
-  //         .delete(`/favorites/${vehicle.vehicleId}`, {
-  //           headers: { Authorization: `Bearer ${token}` },
-  //         })
-  //         .then((response) => {
-  //           setIsFavorite(false);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Failed to remove favorite:", error);
-  //         });
-  //     } else {
-  //       axiosInstance
-  //         .post(
-  //           `/favorites/${vehicle.vehicleId}`,
-  //           {},
-  //           {
-  //             headers: { Authorization: `Bearer ${token}` },
-  //           }
-  //         )
-  //         .then((response) => {
-  //           setIsFavorite(true);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Failed to add favorite:", error);
-  //         });
-  //     }
-  //   }
-  // };
+        await axiosInstance.post(
+          "/cart/add",
+          { userId, vehicleId: vehicle.vehicleId, quantity: 1 },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        alert("Vehicle added to the cart");
+      }
+    } catch (error) {
+      console.error("Failed to add vehicle to cart: ", error);
+      alert("Failed to add vehicle to cart");
+    }
+  };
 
   if (!vehicle) {
     return null;
@@ -143,7 +106,7 @@ const VehicleDetails = ({
           </div>
         </div>
 
-        <Button>Rent</Button>
+        <Button onClick={addToCart}>Rent</Button>
       </DialogContent>
     </Dialog>
   );
