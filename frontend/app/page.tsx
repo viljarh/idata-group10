@@ -6,12 +6,12 @@ import { ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 import { VehicleProps } from "@/types";
 import VehicleList from "@/components/VehicleList";
-import { useAuth } from "@/auth/AuthContext";
 import Link from "next/link";
+import { useAuth } from "@/context/authContext";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {

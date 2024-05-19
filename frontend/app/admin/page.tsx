@@ -40,7 +40,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SidebarNavigation from "@/components/SideBarNavigation";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useAuth } from "@/auth/AuthContext";
+import { useAuth } from "@/context/authContext";
 
 export default function AdminDashboard() {
   const { isAdmin } = useAuth();

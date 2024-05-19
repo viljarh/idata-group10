@@ -1,53 +1,80 @@
 "use client";
-import React, { useState } from "react";
-import Container from "@/components/ui/Container";
+import {
+  clearCart,
+  createOrder,
+  getCartItems,
+  removeCartItem,
+} from "@/app/api/cart/cart";
+import { Button } from "@/components/ui/button";
+import { VehicleProps } from "@/types";
+import React, { useEffect, useState } from "react";
 
-const ShoppingCart = () => {
-  // State to store cart items
+interface CartItemsProps {
+  vehicle: VehicleProps;
+  quantity: number;
+}
+
+const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Function to add an item to the cart
-  const addToCart = (item) => {
-    setCartItems([...cartItems, item]);
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
+
+  const fetchCartItems = async () => {
+    try {
+      const data = await getCartItems();
+      setCartItems(data);
+    } catch (error) {
+      console.error("Failed to fetch cart items", error);
+    }
   };
 
-  // Function to remove an item from the cart
-  const removeFromCart = (index) => {
-    const newCartItems = [...cartItems];
-    newCartItems.splice(index, 1);
-    setCartItems(newCartItems);
+  const handleRemoveItem = async (vehicleId: number) => {
+    try {
+      await removeCartItem(vehicleId);
+      fetchCartItems();
+    } catch (error) {
+      console.error("Failed to remove cart item", error);
+    }
   };
 
-  // Function to calculate total price of items in the cart
-  const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0);
+  const handleCheckout = async () => {
+    try {
+      await createOrder();
+      fetchCartItems();
+    } catch (error) {
+      console.error("Failed to checkout", error);
+    }
+  };
+
+  const handleClearCart = async () => {
+    try {
+      await clearCart();
+      fetchCartItems();
+    } catch (error) {
+      console.error("Failed to clear cart", error);
+    }
   };
 
   return (
-    <Container>
-      <div className="px-7 py-6">
-        <h1 className="font-bold text-4xl">Shopping Cart</h1>
-      </div>
-
-      <div className="py-6 px-7 min-h-screen">
-        {cartItems.length > 0 ? (
-          <div>
-            <ul>
-              {cartItems.map((item, index) => (
-                <li key={index}>
-                  <p>{item.name} - ${item.price}</p>
-                  <button onClick={() => removeFromCart(index)}>Remove</button>
-                </li>
-              ))}
-            </ul>
-            <p>Total Price: ${calculateTotalPrice()}</p>
-          </div>
-        ) : (
-          <p className="text-gray-500">Your cart is empty.</p>
-        )}
-      </div>
-    </Container>
+    <div>
+      <h2>Cart</h2>
+      {cartItems.map((item: CartItemsProps) => (
+        <div key={item.vehicle.vehicleId}>
+          <p>
+            {item.vehicle.manufacturer} {item.vehicle.model}
+          </p>
+          <p>Quantity: {item.quantity}</p>
+          <Button onClick={() => handleRemoveItem(item.vehicle.vehicleId)}>
+            Remove
+          </Button>
+        </div>
+      ))}
+      <Button onClick={handleCheckout}>Checkout</Button>
+      <Button onClick={handleClearCart}>Clear Cart</Button>
+    </div>
   );
 };
 
-export default ShoppingCart;
+export default Cart;

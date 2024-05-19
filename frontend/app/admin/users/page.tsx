@@ -28,8 +28,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { UserProps, UserTableProps } from "@/types";
-import { useAuth } from "@/auth/AuthContext";
 import axiosInstance from "@/axios/axiosInstance";
+import { useAuth } from "@/context/authContext";
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserProps[]>([]);
   const { user } = useAuth();

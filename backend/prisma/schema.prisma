@@ -18,10 +18,12 @@ model User {
   customerType userRole?  @default(VISITOR)
   Rental       Rental[]
   favorites    Favorite[]
+  CartItem     CartItem[]
+  Order        Order[]
 }
 
 model Vehicle {
-  vehicleId         Int        @id @unique @default(autoincrement())
+  vehicleId         Int         @id @unique @default(autoincrement())
   manufacturer      String
   model             String
   year              String
@@ -35,20 +37,21 @@ model Vehicle {
   dailyPrice        Float
   Rental            Rental[]
   Favorite          Favorite[]
+  CartItem          CartItem[]
+  OrderItem         OrderItem[]
 }
 
 model Rental {
-  rentalId         Int      @id @default(autoincrement())
-  userId           User     @relation(fields: [userUserId], references: [userId])
-  vehicleId        Vehicle  @relation(fields: [vehicleVehicleId], references: [vehicleId])
-  rentalConfirmed  DateTime @default(now())
-  rentalDateFrom   DateTime
-  rentalDateTo     DateTime
-  distanceDriven   Float
-  totalPrice       Float
-  rentalStatusId   Int
-  vehicleVehicleId Int
-  userUserId       Int
+  rentalId        Int          @id @default(autoincrement())
+  userId          Int
+  vehicleId       Int
+  rentalConfirmed DateTime     @default(now())
+  rentalDateFrom  DateTime
+  rentalDateTo    DateTime
+  totalPrice      Float
+  rentalStatus    RentalStatus @default(PENDING)
+  user            User         @relation(fields: [userId], references: [userId])
+  vehicle         Vehicle      @relation(fields: [vehicleId], references: [vehicleId])
 }
 
 enum userRole {
@@ -57,10 +60,46 @@ enum userRole {
   ADMIN
 }
 
+enum RentalStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELED
+}
+
 model Favorite {
   favoriteId Int     @id @default(autoincrement())
   user       User    @relation(fields: [userId], references: [userId])
   userId     Int
   vehicle    Vehicle @relation(fields: [vehicleId], references: [vehicleId])
   vehicleId  Int
+}
+
+model CartItem {
+  orderId   Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [userId])
+  userId    Int
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [vehicleId])
+  vehicleId Int
+  quantity  Int
+}
+
+model Order {
+  orderId     Int         @id @default(autoincrement())
+  user        User        @relation(fields: [userId], references: [userId])
+  userId      Int
+  createdAt   DateTime    @default(now())
+  orderStatus String
+  totalPrice  Float
+  OrderItems  OrderItem[]
+}
+
+model OrderItem {
+  orderItemId Int     @id @default(autoincrement())
+  Order       Order   @relation(fields: [orderId], references: [orderId])
+  orderId     Int
+  vehicle     Vehicle @relation(fields: [vehicleId], references: [vehicleId])
+  vehicleId   Int
+  quantity    Int
+  price       Float
 }
