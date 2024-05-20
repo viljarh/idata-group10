@@ -39,6 +39,7 @@ model Vehicle {
   Favorite          Favorite[]
   CartItem          CartItem[]
   OrderItem         OrderItem[]
+  rentalCount       Int         @default(0)
 }
 
 model Rental {

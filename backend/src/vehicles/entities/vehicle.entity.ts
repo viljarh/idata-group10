@@ -37,4 +37,7 @@ export class VehicleEntity implements Vehicle {
 
     @ApiProperty()
     dailyPrice: number;
+
+    @ApiProperty()
+    rentalCount: number;
 }

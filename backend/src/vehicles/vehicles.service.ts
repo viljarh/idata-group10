@@ -47,4 +47,11 @@ export class VehiclesService {
       );
     }
   }
+
+  async getPopularVehicles() {
+    return this.prisma.vehicle.findMany({
+      orderBy: { rentalCount: 'desc' },
+      take: 10,
+    });
+  }
 }

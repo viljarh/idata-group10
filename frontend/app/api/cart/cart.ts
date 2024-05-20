@@ -1,4 +1,5 @@
 import axiosInstance from "@/axios/axiosInstance";
+import { VehicleProps } from "@/types";
 
 // Get Cart Items
 export async function getCartItems() {
@@ -23,3 +24,4 @@ export async function clearCart() {
   const response = await axiosInstance.delete("/cart/clear");
   return response.data;
 }
+

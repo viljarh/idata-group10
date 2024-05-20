@@ -1,5 +1,5 @@
 "use client";
-import { fetchVehicles } from "@/app/api/vehicles/fetchVehicles";
+import { fetchVehicles, getPopularVehicles } from "@/app/api/vehicles/fetchVehicles";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
@@ -11,6 +11,7 @@ import { useAuth } from "@/context/authContext";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
+  const [popularVehicles, setPopularVehicles] = useState<VehicleProps[]>([]);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -18,6 +19,9 @@ export default function Home() {
       try {
         const vehiclesData = await fetchVehicles();
         setVehicles(vehiclesData);
+
+        const popularVehiclesData = await getPopularVehicles();
+        setPopularVehicles(popularVehiclesData);
       } catch (error) {
         console.error("Error fetching vehicles:", error);
       }
@@ -64,7 +68,7 @@ export default function Home() {
           <h1 className="font-bold text-2xl">Popular Cars</h1>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <VehicleList vehicles={vehicles} />
+          <VehicleList vehicles={popularVehicles} />
         </div>
       </div>
     </Container>

@@ -11,7 +11,10 @@ export class OrdersService {
       include: { vehicle: true },
     });
 
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.vehicle.dailyPrice * item.quantity, 0);
+    const totalPrice = cartItems.reduce(
+      (acc, item) => acc + item.vehicle.dailyPrice * item.quantity,
+      0,
+    );
 
     const order = await this.prisma.order.create({
       data: {
@@ -19,7 +22,7 @@ export class OrdersService {
         totalPrice,
         orderStatus: 'PENDING',
         OrderItems: {
-          create: cartItems.map(item => ({
+          create: cartItems.map((item) => ({
             vehicleId: item.vehicleId,
             quantity: item.quantity,
             price: item.vehicle.dailyPrice * item.quantity,
@@ -27,6 +30,13 @@ export class OrdersService {
         },
       },
     });
+
+    for (const item of cartItems) {
+      await this.prisma.vehicle.update({
+        where: { vehicleId: item.vehicleId },
+        data: { rentalCount: { increment: item.quantity } },
+      });
+    }
 
     await this.prisma.cartItem.deleteMany({ where: { userId } });
 
