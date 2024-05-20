@@ -1,5 +1,4 @@
 import axiosInstance from "@/axios/axiosInstance";
-import { VehicleProps } from "@/types";
 
 // Get Cart Items
 export async function getCartItems() {
