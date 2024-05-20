@@ -1,3 +1,4 @@
+import axiosInstance from "@/axios/axiosInstance";
 import { VehicleProps } from "@/types";
 
 export async function fetchVehicles(): Promise<VehicleProps[]> {
@@ -12,4 +13,9 @@ export async function fetchVehicles(): Promise<VehicleProps[]> {
     console.error('Error fetching vehicles:', error);
     return [];
   }
+}
+
+export async function getPopularVehicles(): Promise<VehicleProps[]> {
+  const response = await axiosInstance.get("/vehicles/popular");
+  return response.data;
 }

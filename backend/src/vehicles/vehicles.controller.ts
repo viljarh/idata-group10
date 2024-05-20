@@ -43,6 +43,11 @@ export class VehiclesController {
     return vehicle;
   }
 
+  @Get('popular')
+  getPupularVehicles() {
+    return this.vehiclesService.getPopularVehicles();
+  }
+
   @Patch(':id')
   @ApiOkResponse({ type: VehicleEntity })
   async update(
@@ -77,4 +82,5 @@ export class VehiclesController {
       );
     }
   }
+
 }
