@@ -3,7 +3,7 @@ import axios from "axios";
 const OPEN_STACK_URL = process.env.OPEN_STACK_URL;
 
 const axiosInstance = axios.create({
-  baseURL: `http://${OPEN_STACK_URL}:8080`,
+  baseURL: `http://${OPEN_STACK_URL}:8000`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -18,7 +18,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    return Promise.reject(error);
+    return Promise.reject(new Error(error));
   }
 );
 
