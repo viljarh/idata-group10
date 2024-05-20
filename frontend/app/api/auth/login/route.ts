@@ -1,32 +1,30 @@
+import axiosInstance from "@/axios/axiosInstance";
+
 export async function POST(req: Request) {
   const { email, password } = await req.json();
 
   try {
-    const response = await fetch('http://localhost:8080/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
+    const response = await axiosInstance.post("/auth/login", {
+      email,
+      password,
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      return new Response(JSON.stringify(data), {
+    if (response.status === 200) {
+      return new Response(JSON.stringify(response.data), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
     } else {
-      return new Response(JSON.stringify({ message: 'Login failed' }), {
+      return new Response(JSON.stringify({ message: "Login failed" }), {
         status: response.status,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
     }
   } catch (error) {
-    console.error('Error during login:', error);
-    return new Response(JSON.stringify({ message: 'Login failed' }), {
+    console.error("Error during login:", error);
+    return new Response(JSON.stringify({ message: "Login failed" }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 }

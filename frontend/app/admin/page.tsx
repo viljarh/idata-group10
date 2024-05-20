@@ -14,7 +14,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -27,7 +26,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import SidebarNavigation from "@/components/SideBarNavigation";
 import { useRouter } from "next/navigation";

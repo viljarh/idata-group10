@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { VehicleProps } from "@/types";
+import axiosInstance from "@/axios/axiosInstance";
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,26 +21,21 @@ export default async function handler(
         imageUrl,
       }: VehicleProps = req.body;
 
-      const response = await fetch("http://localhost:8080/vehicles", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          manufacturer,
-          model,
-          year,
-          vehicleCategory,
-          transmission,
-          fuel,
-          passengerCapacity,
-          mileage,
-          dailyPrice,
-          imageUrl,
-        }),
+      const response = await axiosInstance.post("/vehicles", {
+        manufacturer,
+        model,
+        year,
+        vehicleCategory,
+        transmission,
+        fuel,
+        passengerCapacity,
+        mileage,
+        dailyPrice,
+        imageUrl,
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        return res.status(201).json(data);
+      if (response.status === 201) {
+        return res.status(201).json(response.data);
       } else {
         return res
           .status(response.status)

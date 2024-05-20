@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const OPEN_STACK_URL = process.env.OPEN_STACK_URL;
+
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: `http://${OPEN_STACK_URL}:8080`,
   headers: {
     "Content-Type": "application/json",
   },

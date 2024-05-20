@@ -27,6 +27,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { VehicleProps, VehicleTableProps } from "@/types";
+import axiosInstance from "@/axios/axiosInstance";
 
 export default function AdminVehiclePage() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
@@ -34,13 +35,8 @@ export default function AdminVehiclePage() {
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        const response = await fetch("http://localhost:8080/vehicles");
-        if (response.ok) {
-          const data = await response.json();
-          setVehicles(data);
-        } else {
-          console.error("Failed to fetch vehicles:", response.statusText);
-        }
+        const response = await axiosInstance.get("/vehicles");
+        setVehicles(response.data);
       } catch (error) {
         console.error("Error fetching vehicles:", error);
       }
@@ -54,13 +50,8 @@ export default function AdminVehiclePage() {
 
     if (!confirm("Are you sure you want to delete this vehicle?")) return;
     try {
-      const response = await fetch(
-        `http://localhost:8080/vehicles/${vehicleId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (response.ok) {
+      const response = await axiosInstance.delete(`/vehicles/${vehicleId}`);
+      if (response.status === 200) {
         console.log("Vehicle deleted successfully");
         setVehicles(
           vehicles.filter((vehicle) => vehicle.vehicleId !== vehicleId)
