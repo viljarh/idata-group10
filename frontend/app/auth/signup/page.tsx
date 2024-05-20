@@ -50,7 +50,7 @@ export default function SignUp() {
     <div className="flex items-center justify-center min-h-screen">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col p-6 space-y-4 bg-white rounded shadow-md w-80"
+        className="flex flex-col p-6 space-y-4 dark:shadow-gray-800 rounded-md shadow-md w-80"
       >
         <h1 className="text-2xl font-bold text-center">Signup</h1>
         <div className="space-y-2">

@@ -27,7 +27,6 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import SidebarNavigation from "@/components/SideBarNavigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/authContext";
@@ -37,6 +36,7 @@ import {
   fetchWeeklyRevenue,
 } from "../api/orders/orders";
 import { OrderProps } from "@/types";
+import SidebarNavigation from "./_components/SideBarNavigation";
 
 export default function AdminDashboard() {
   const { isAdmin } = useAuth();
