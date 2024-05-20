@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const OPEN_STACK_URL = process.env.OPEN_STACK_URL;
+const OPEN_STACK_URL = process.env.NEXT_PUBLIC_OPEN_STACK_URL ?? "localhost";
 
 const axiosInstance = axios.create({
   baseURL: `http://${OPEN_STACK_URL}:8000`,
