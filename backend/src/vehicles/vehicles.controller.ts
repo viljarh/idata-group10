@@ -33,6 +33,11 @@ export class VehiclesController {
     return this.vehiclesService.findAll();
   }
 
+  @Get('popular')
+  getPopularVehicles() {
+    return this.vehiclesService.getPopularVehicles();
+  }
+
   @Get(':id')
   @ApiOkResponse({ type: VehicleEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
@@ -41,11 +46,6 @@ export class VehiclesController {
       throw new NotFoundException(`Vehicle with ${id} does not exist.`);
     }
     return vehicle;
-  }
-
-  @Get('popular')
-  getPupularVehicles() {
-    return this.vehiclesService.getPopularVehicles();
   }
 
   @Patch(':id')
@@ -82,5 +82,4 @@ export class VehiclesController {
       );
     }
   }
-
 }

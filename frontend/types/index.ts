@@ -11,7 +11,7 @@ export interface VehicleProps {
   mileage: number;
   imageUrl?: string;
   dailyPrice: number;
-  image? : string;
+  image?: string;
 }
 
 export interface UserProps {
@@ -31,5 +31,21 @@ export interface VehicleTableProps {
 
 export interface UserTableProps {
   users: UserProps[];
-  onDelete: (userId: number) => void
+  onDelete: (userId: number) => void;
+}
+
+export interface OrderItemProps {
+  orderItemId: number;
+  vehicle: VehicleProps;
+  quantity: number;
+  price: number;
+}
+
+export interface OrderProps {
+  orderId: number;
+  user: UserProps;
+  createdAt: string;
+  orderStatus: string;
+  totalPrice: number;
+  OrderItems: OrderItemProps[];
 }

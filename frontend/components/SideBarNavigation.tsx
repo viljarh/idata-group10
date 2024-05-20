@@ -1,12 +1,5 @@
 import Link from "next/link";
-import {
-  Home,
-  ShoppingCart,
-  Package,
-  Users2,
-  LineChart,
-  Settings,
-} from "lucide-react";
+import { Home, Package, Users2 } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -56,19 +49,6 @@ const SidebarNavigation = () => {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Customers</TooltipContent>
-          </Tooltip>
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Settings className="h-5 w-5" />
-                <span className="sr-only">Settings</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Settings</TooltipContent>
           </Tooltip>
         </nav>
       </TooltipProvider>

@@ -82,11 +82,6 @@ export default function AdminUsersPage() {
       </div>
 
       <div className="flex flex-col flex-1 ml-14 sm:ml-">
-        <div className="flex justify-center items-center gap-4 p-4">
-          <Button asChild className=" m-5 w-1/4">
-            <Link href="/admin/users/new">Add User</Link>
-          </Button>
-        </div>
         <div className="px-4 py-2">
           <UsersTable users={users} onDelete={handleDelete} />
         </div>

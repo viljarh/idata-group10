@@ -47,10 +47,66 @@ export class OrdersService {
     return this.prisma.order.findMany({
       where: { userId },
       include: {
+        user: true,
         OrderItems: {
           include: { vehicle: true },
         },
       },
     });
+  }
+
+  async getAllOrders() {
+    return this.prisma.order.findMany({
+      include: {
+        user: true,
+        OrderItems: {
+          include: { vehicle: true },
+        },
+      },
+    });
+  }
+
+  async getWeeklyRevenue() {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    const orders = await this.prisma.order.findMany({
+      where: {
+        createdAt: {
+          gte: oneWeekAgo,
+        },
+      },
+      select: {
+        totalPrice: true,
+      },
+    });
+
+    const totalRevenue = orders.reduce(
+      (acc, order) => acc + order.totalPrice,
+      0,
+    );
+    return totalRevenue;
+  }
+
+  async getMonthlyRevenue() {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+    const orders = await this.prisma.order.findMany({
+      where: {
+        createdAt: {
+          gte: oneMonthAgo,
+        },
+      },
+      select: {
+        totalPrice: true,
+      },
+    });
+
+    const totalRevenue = orders.reduce(
+      (acc, order) => acc + order.totalPrice,
+      0,
+    );
+    return totalRevenue;
   }
 }

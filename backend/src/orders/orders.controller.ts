@@ -12,9 +12,23 @@ export class OrdersController {
   createOrder(@GetUser('userId') userId: number) {
     return this.ordersService.createOrder(userId);
   }
-
   @Get()
+  async getOrders() {
+    return this.ordersService.getAllOrders();
+  }
+
+  @Get('user')
   getOrderItems(@GetUser('userId') userId: number) {
     return this.ordersService.getOrderItems(userId);
+  }
+
+  @Get('revenue/weekly')
+  async getWeeklyRevenue() {
+    return this.ordersService.getWeeklyRevenue();
+  }
+
+  @Get('revenue/monthly')
+  async getMonthlyRevenue() {
+    return this.ordersService.getMonthlyRevenue();
   }
 }
