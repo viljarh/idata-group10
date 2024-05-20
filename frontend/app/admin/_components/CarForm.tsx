@@ -17,6 +17,7 @@ export function CarForm() {
     transmission: "",
     fuel: "",
     passengerCapacity: 0,
+    extraFeatures: "",
     mileage: 0.0,
     dailyPrice: 0.0,
     image: "",
@@ -65,10 +66,7 @@ export function CarForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col justify-center p-10">
       <div className="space-y-2">
         <Label htmlFor="manufacturer" className="from-neutral-800 font-mono">
           Manufacturer
@@ -178,6 +176,19 @@ export function CarForm() {
           name="passengerCapacity"
           required
           value={vehicle.passengerCapacity}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="extraFeatures" className="from-neutral-800 font-mono">
+          Extra Features
+        </Label>
+        <Input
+          type="text"
+          id="extraFeatures"
+          name="extraFeatures"
+          required
+          value={vehicle.extraFeatures}
           onChange={handleChange}
         />
       </div>
