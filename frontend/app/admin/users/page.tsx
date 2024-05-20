@@ -18,7 +18,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import SidebarNavigation from "@/components/SideBarNavigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -29,6 +28,7 @@ import {
 import { UserProps, UserTableProps } from "@/types";
 import axiosInstance from "@/axios/axiosInstance";
 import { useAuth } from "@/context/authContext";
+import SidebarNavigation from "../_components/SideBarNavigation";
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserProps[]>([]);
   const { user } = useAuth();

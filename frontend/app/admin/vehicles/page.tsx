@@ -18,7 +18,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import SidebarNavigation from "@/components/SideBarNavigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,6 +27,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { VehicleProps, VehicleTableProps } from "@/types";
 import axiosInstance from "@/axios/axiosInstance";
+import SidebarNavigation from "../_components/SideBarNavigation";
 
 export default function AdminVehiclePage() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
