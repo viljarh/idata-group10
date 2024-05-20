@@ -140,8 +140,8 @@ const VehiclePage = () => {
                   <option value="asc">Price: Low to High</option>
                   <option value="desc">Price: High to Low</option>
                 </select>
-                <div className="flex w-full">
-                  <DatePickerWithRange />
+                <div className="w-full">
+                  <DatePickerWithRange className="w-full"/>
                 </div>
                 <Button type="submit">Search</Button>
               </form>
