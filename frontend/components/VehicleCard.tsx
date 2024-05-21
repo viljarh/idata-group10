@@ -21,12 +21,6 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(`/img/${data.model}/${data.image}`);
 
-  useEffect(() => {
-    const encodedModel = encodeURIComponent(data.model);
-    const encodedImage = encodeURIComponent(data.image || ''); 
-    setImgSrc(`/img/${encodedModel}/${encodedImage}`)
-  },[data.model, data.image] ) 
-
   const handleImageError = () => {
     console.error(`Image not found: ${data.model}/${data.image}`);
     setImgSrc("img/fallback.svg");
