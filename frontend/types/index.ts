@@ -13,6 +13,7 @@ export interface VehicleProps {
   dailyPrice: number;
   image?: string;
   active: boolean;
+  rentalCompany: string;
 }
 
 export interface UserProps {

@@ -58,7 +58,7 @@ export class CreateVehicleDto {
   dailyPrice: number;
 
   @IsNotEmpty()
-  @ApiProperty()
   @IsString()
+  @ApiProperty()
   rentalCompany: string;
 }

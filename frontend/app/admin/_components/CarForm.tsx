@@ -21,6 +21,7 @@ export function CarForm() {
     mileage: 0.0,
     dailyPrice: 0.0,
     image: "",
+    rentalCompany: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -231,6 +232,19 @@ export function CarForm() {
           onChange={handleChange}
           required
         ></Input>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="rentalCompany" className="from-neutral-800 font-mono">
+          Rental Company
+        </Label>
+        <Input
+          type="text"
+          id="rentalCompany"
+          name="rentalCompany"
+          required
+          value={vehicle.rentalCompany}
+          onChange={handleChange}
+        />
       </div>
       <SubmitButton />
     </form>

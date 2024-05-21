@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -22,6 +22,7 @@ export default function EditVehicle() {
     mileage: 0.0,
     dailyPrice: 0.0,
     imageUrl: "",
+    rentalCompany: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -204,6 +205,16 @@ export default function EditVehicle() {
             id="imageUrl"
             name="imageUrl"
             value={vehicle.imageUrl}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="rentalCompany">Rental Company</Label>
+          <Input
+            type="text"
+            id="rentalCompany"
+            name="rentalCompany"
+            value={vehicle.rentalCompany}
             onChange={handleChange}
           />
         </div>
