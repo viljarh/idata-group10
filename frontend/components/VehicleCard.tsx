@@ -17,10 +17,14 @@ function capitalizeWords(str: string) {
     .join(" ");
 }
 
-
 const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [imgSrc, setImgSrc] = useState(`/img/${data.model}/${data.image}`)
+  const [imgSrc, setImgSrc] = useState(`/img/${data.model}/${data.image}`);
+
+  const handleImageError = () => {
+    console.error(`Image not found: ${data.model}/${data.image}`);
+    setImgSrc("img/fallback.svg");
+  };
 
   const handleViewMoreClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -37,18 +41,25 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
       <Card className="rounded-lg border-2">
         <CardContent className="pt-4">
           <div className="aspect-square relative bg-foreground/5 dark:bg-background rounded-lg">
-
-            <Image src={imgSrc || 'img/fallback.svg'} alt={`Image of ${data.model}`} layout="fill" objectFit="cover" onError={() => setImgSrc('img/fallback.svg')} />
-
+            <Image
+              src={imgSrc}
+              alt={`Image of ${data.model}`}
+              layout="fill"
+              objectFit="cover"
+              onError={handleImageError}
+            />
           </div>
         </CardContent>
 
         <CardFooter className="flex-col items-start">
           <div>
             <p className="font-semibold text-lg capitalize">
-            {capitalizeWords(`${data.manufacturer} ${data.model}`)}
+              {capitalizeWords(`${data.manufacturer} ${data.model}`)}
             </p>
-            <p className="text-sm text-primary/80 capitalize"> {capitalizeWords(`${data.rentalCompany}`)}</p>
+            <p className="text-sm text-primary/80 capitalize">
+              {" "}
+              {capitalizeWords(`${data.rentalCompany}`)}
+            </p>
           </div>
 
           <div className="flex items-center justify-between mb-2 font-semibold">
