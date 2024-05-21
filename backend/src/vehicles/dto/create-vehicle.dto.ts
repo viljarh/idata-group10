@@ -60,4 +60,8 @@ export class CreateVehicleDto {
   @IsString()
   @ApiProperty()
   rentalCompany: string;
+
+  @IsOptional()
+  @ApiProperty()
+  active?: boolean;
 }

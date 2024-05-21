@@ -22,6 +22,7 @@ export function CarForm() {
     dailyPrice: 0.0,
     image: "",
     rentalCompany: "",
+    active: true,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -34,9 +35,14 @@ export function CarForm() {
       "mileage",
       "dailyPrice",
     ].includes(name);
+    const isBooleanField = ["active"].includes(name);
     setVehicle((prevVehicle) => ({
       ...prevVehicle,
-      [name]: isNumberField ? Number(value) : value,
+      [name]: isNumberField
+        ? Number(value)
+        : isBooleanField
+        ? value === "true"
+        : value,
     }));
   }
 
@@ -245,6 +251,22 @@ export function CarForm() {
           value={vehicle.rentalCompany}
           onChange={handleChange}
         />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="active" className="from-neutral-800 font-mono">
+          Active
+        </Label>
+        <select
+          id="active"
+          name="active"
+          required
+          value={vehicle.active.toString()}
+          onChange={handleChange}
+          className="form-select border"
+        >
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+        </select>
       </div>
       <SubmitButton />
     </form>
