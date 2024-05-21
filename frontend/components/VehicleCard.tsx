@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { VehicleProps } from "@/types";
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "./ui/card";
@@ -23,7 +23,7 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
 
   const handleImageError = () => {
     console.error(`Image not found: ${data.model}/${data.image}`);
-    setImgSrc("img/fallback.svg");
+    setImgSrc("img/fallback.jpg");
   };
 
   const handleViewMoreClick = (
