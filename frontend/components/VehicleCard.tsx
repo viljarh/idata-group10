@@ -48,7 +48,7 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
             <p className="font-semibold text-lg capitalize">
             {capitalizeWords(`${data.manufacturer} ${data.model}`)}
             </p>
-            <p className="text-sm text-primary/80 capitalize"> {capitalizeWords(`${data.vehicleCategory}`)}</p>
+            <p className="text-sm text-primary/80 capitalize"> {capitalizeWords(`${data.rentalCompany}`)}</p>
           </div>
 
           <div className="flex items-center justify-between mb-2 font-semibold">
