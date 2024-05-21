@@ -2,13 +2,17 @@
 
 <h1 align="center">RentalRoulette.com</h1>
 
+</br>
+
+### Table of Contents
+
 -    [School Project](#school-project)
 -    [Project description](#project-description)
+-    [Project Pictures](#project-pictures)
 -    [Group Members](#group-members)
+-    [Access the website](#access-the-website)
 -    [Start localhost](#how-to-start-on-localhost)
 -    [Reference, Libary and Components](#reference-libary-and-components)
-
-<dl>
 
 ### School Project
 
@@ -21,7 +25,7 @@
 ### Project description
 
 <dd>
-This project is about learning the fundamentals about how to make a fullstack website from scratch.
+This project is about learning the fundamentals about how to make a fullstack website from scratch. We have worked through different frameworks  
 </dd>
 
 </br>
@@ -33,22 +37,54 @@ Frontend we have used Next.js, and here we have used Javascript and typescript. 
 </br>
 Backend we have used Node.js, and here we have used Javascript and typescript. To connect to the database we have used PostgresSQL. We also used Prisma ORM to help us to make the database, and make it simpler to imput new tables and values.
 
+</dd>
+
+</br>
+
+---
+
+### Project pictures
+
+<details>
+    <summary> <i> Show pictures from website </i> </summary>
+
+<img src="https://cdn.discordapp.com/attachments/1067009221083795458/1242534974796599377/Skjermbilde_2024-05-21_kl._19.49.45.png?ex=664e305f&is=664cdedf&hm=e83ef16336fdacbfc38e91ed6903fa2561cdab11e70e3b72e6e299e9913511dd&" alt="Picture of the frontpage"  width="500"/>
+
+</details>
+
+</br>
+
+<details>
+    <summary> <i> Show pictures from vehicle page </i> </summary>
+
+<img src="https://cdn.discordapp.com/attachments/1067009221083795458/1242535102416687164/Skjermbilde_2024-05-21_kl._19.50.49.png?ex=664e307d&is=664cdefd&hm=bf668affaa75ff2844e1fac9d8d06860807bb645c4c68c52d9561a0fb6ce0a7d&" alt="Picture of the vehicle page" width="500"/>
+
+</details>
+
+</br>
+
 ---
 
 ### Group members:
 
-<dd>Viljar Hoem-Olsen</dd>
-<dd>Thomas Åkre</dd>
+-    Viljar Hoem-Olsen </br>
+-    Thomas Åkre
+
+</br>
+
+---
+
+### Access the website:
+
+-    ##### Can open on <u>[rentalroulette.com](https://rentalroulette.com/) </u>, if you dont want to install the project on your own computer.
 
 ---
 
 ### How to start on localhost:
 
-- ##### Can open on <u>[rentalroulette.com](https://rentalroulette.com/) </u>, if you dont want to install the project on your own computer.
-
-- ##### Needed Requirements to run locally : 
-    - ###### Install Node to run the commands, and we're using postgresSQL. 
-    - ###### Create .env file in main root, and input your sql connection.  
+-    ##### Needed Requirements to run locally :
+     -    ###### Install Node js to run the commands, and we're using postgresSQL.
+     -    ###### Create .env file in main root, and input your sql connection.
 
 #### Backend
 
@@ -56,22 +92,22 @@ Backend we have used Node.js, and here we have used Javascript and typescript. T
     <summary> <i> Show details for starting backend </i> </summary>
 
 1. Change directory:
-<pre> cd backend </pre>
+  <pre> cd backend </pre>
 
 2. Install the modules:
-<pre>npm install</pre>
+  <pre>npm install</pre>
 
 3. Generate the database
-<pre> npx prisma generate</pre>
+  <pre> npx prisma generate</pre>
 
 4. Migrate the database
-<pre> npx prisma migrate dev</pre>
+  <pre> npx prisma migrate dev</pre>
 
-4. Seed Prisma DB
-<pre> npx prisma db seed</pre>
+5. Seed Prisma DB
+  <pre> npx prisma db seed</pre>
 
-5. Start the backend
-<pre> npm start </pre>
+6. Start the backend
+  <pre> npm start </pre>
 
 </details>
 
@@ -83,16 +119,13 @@ Backend we have used Node.js, and here we have used Javascript and typescript. T
     <summary> <i> Show details for instructions </i> </summary>
 
 1. Change directory:
-<pre> cd frontend </pre>
+  <pre> cd frontend </pre>
 
 2. Install the modules:
-<pre>npm install</pre>
+  <pre>npm install</pre>
 
 3. Start the frontend
-<pre> npm run dev</pre>
-
-
-</details>
+  <pre> npm run dev</pre>
 
 </details>
 
@@ -101,8 +134,6 @@ Backend we have used Node.js, and here we have used Javascript and typescript. T
 ---
 
 ### Reference, Libary and Components
-
-<dd>
 
 -    [Next.js](https://nextjs.org/) <a href="https://nextjs.org/">
      <img src="https://nextjs.org/static/favicon/favicon-32x32.png" alt="Next.js" width="20" height="20">
@@ -134,6 +165,3 @@ Backend we have used Node.js, and here we have used Javascript and typescript. T
 -    [Prisma](https://www.prisma.io/)<a href="https://www.prisma.io/">
      <img src="https://static-00.iconduck.com/assets.00/file-type-prisma-icon-1682x2048-yybmypz0.png" alt="Prisma ORM" width="20" height="20">
      </a></br>
-
-</dd>
-</dl>
