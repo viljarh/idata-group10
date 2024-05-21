@@ -132,7 +132,6 @@ export function CarForm() {
           <option value="compact">Compact</option>
           <option value="suv">SUV</option>
           <option value="sedan">Sedan</option>
-          <option value="electric">Electric</option>
         </select>
       </div>
       <div className="space-y-2 space-x-2">

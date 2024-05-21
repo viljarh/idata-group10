@@ -28,9 +28,11 @@ import {
 import { VehicleProps, VehicleTableProps } from "@/types";
 import axiosInstance from "@/axios/axiosInstance";
 import SidebarNavigation from "../_components/SideBarNavigation";
+import { useRouter } from "next/navigation";
 
 export default function AdminVehiclePage() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchVehicles = async () => {
@@ -64,23 +66,26 @@ export default function AdminVehiclePage() {
     }
   };
 
-  const handleToggleActive = async (vehicleId: number) => {
+  const toggleVehicleStatus = async (vehicleId: number, isActive: boolean) => {
     try {
       const response = await axiosInstance.patch(
-        `/vehicles/${vehicleId}/toggle`
+        `/vehicles/${vehicleId}/active`,
+        { active: isActive }
       );
       if (response.status === 200) {
-        const updatedVehicle = response.data;
         setVehicles(
           vehicles.map((vehicle) =>
-            vehicle.vehicleId === vehicleId ? updatedVehicle : vehicle
+            vehicle.vehicleId === vehicleId
+              ? { ...vehicle, active: isActive }
+              : vehicle
           )
         );
+        router.refresh();
       } else {
-        console.error("Failed to toggle active status:", response.statusText);
+        console.error("Failed to update vehicle status:", response.statusText);
       }
     } catch (error) {
-      console.error("Error toggling active status:", error);
+      console.error("Error updating vehicle status:", error);
     }
   };
 
@@ -117,7 +122,7 @@ export default function AdminVehiclePage() {
           <VehiclesTable
             vehicles={vehicles}
             onDelete={handleDelete}
-            onToggleActive={handleToggleActive}
+            onToggleActive={toggleVehicleStatus}
           />
         </div>
       </div>
@@ -175,9 +180,22 @@ function VehiclesTable({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <Link href={`/admin/vehicles/${vehicle.vehicleId}/edit`}>
-                      Edit
-                    </Link>
+                    <Button variant="ghost" className="w-full">
+                      <Link href={`/admin/vehicles/${vehicle.vehicleId}/edit`}>
+                        Edit
+                      </Link>
+                    </Button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Button
+                      onClick={() => {
+                        onToggleActive(vehicle.vehicleId, !vehicle.active);
+                      }}
+                      className="w-full"
+                      variant="ghost"
+                    >
+                      {vehicle.active ? "Deactivate" : "Activate"}
+                    </Button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
@@ -188,17 +206,6 @@ function VehiclesTable({
                       className="w-full"
                     >
                       Delete
-                    </Button>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Button
-                      onClick={() => {
-                        onToggleActive(vehicle.vehicleId);
-                      }}
-                      className="w-full"
-                    >
-                      {vehicle.active ? "Deactivate" : "Activate"}
                     </Button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

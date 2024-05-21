@@ -29,7 +29,7 @@ export interface UserProps {
 export interface VehicleTableProps {
   vehicles: VehicleProps[];
   onDelete: (vehicleId: number) => void;
-  onToggleActive: (vehicleId: number) => void;
+  onToggleActive: (vehicleId: number, isActive: boolean) => void;
 }
 
 export interface UserTableProps {
