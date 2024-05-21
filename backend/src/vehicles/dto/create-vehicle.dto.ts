@@ -39,7 +39,7 @@ export class CreateVehicleDto {
 
   @IsString()
   @IsOptional()
-  @ApiProperty({required: false})
+  @ApiProperty({ required: false })
   extraFeatures: string;
 
   @IsNumber()
@@ -47,14 +47,18 @@ export class CreateVehicleDto {
   @ApiProperty()
   mileage: number;
 
-
   @IsString()
   @IsOptional()
-  @ApiProperty({required: false})
+  @ApiProperty({ required: false })
   image?: string;
 
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
   dailyPrice: number;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  @IsString()
+  rentalCompany: string;
 }

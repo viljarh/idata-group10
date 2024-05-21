@@ -12,6 +12,7 @@ export interface VehicleProps {
   imageUrl?: string;
   dailyPrice: number;
   image?: string;
+  active: boolean;
 }
 
 export interface UserProps {
@@ -27,6 +28,7 @@ export interface UserProps {
 export interface VehicleTableProps {
   vehicles: VehicleProps[];
   onDelete: (vehicleId: number) => void;
+  onToggleActive: (vehicleId: number) => void;
 }
 
 export interface UserTableProps {

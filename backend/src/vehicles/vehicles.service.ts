@@ -48,6 +48,23 @@ export class VehiclesService {
     }
   }
 
+  async setVehicleStatus(id: number, active: boolean) {
+    try {
+      const vehicle = await this.prisma.vehicle.findUnique({
+        where: { vehicleId: id },
+      });
+      if (!vehicle) {
+        throw new Error(`Vehicle with ID ${id} not found`);
+      }
+      return this.prisma.vehicle.update({
+        where: { vehicleId: id },
+        data: { active },
+      });
+    } catch (error) {
+      throw new Error(`Failed to update vehicle status: ${error.message}`);
+    }
+  }
+
   async getPopularVehicles() {
     const vehicles = await this.prisma.vehicle.findMany({
       orderBy: { rentalCount: 'desc' },

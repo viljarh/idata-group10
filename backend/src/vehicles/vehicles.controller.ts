@@ -70,6 +70,28 @@ export class VehiclesController {
     }
   }
 
+  @Patch(':id/active')
+  @ApiOkResponse({ type: VehicleEntity })
+  async setVehicleStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: { active: boolean },
+  ) {
+    try {
+      const updatedVehicle = await this.vehiclesService.setVehicleStatus(
+        id,
+        body.active,
+      );
+      if (!updatedVehicle) {
+        throw new NotFoundException(`Vehicle with ID ${id} does not exist`);
+      }
+      return updatedVehicle;
+    } catch (error) {
+      throw new BadRequestException(
+        `Failed to update vehicle status with ID ${id}: ${error.message}`,
+      );
+    }
+  }
+
   @Delete(':id')
   @ApiOkResponse({ type: VehicleEntity })
   async remove(@Param('id', ParseIntPipe) id: number) {

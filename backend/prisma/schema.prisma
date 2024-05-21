@@ -35,11 +35,13 @@ model Vehicle {
   mileage           Float
   image             String?
   dailyPrice        Float
+  rentalCompany     String
   Rental            Rental[]
   Favorite          Favorite[]
   CartItem          CartItem[]
   OrderItem         OrderItem[]
   rentalCount       Int         @default(0)
+  active            Boolean     @default(true)
 }
 
 model Rental {

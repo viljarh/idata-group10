@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CheckCircle2, MoreVertical } from "lucide-react";
+import { CheckCircle2, MoreVertical, XCircle } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -64,6 +64,26 @@ export default function AdminVehiclePage() {
     }
   };
 
+  const handleToggleActive = async (vehicleId: number) => {
+    try {
+      const response = await axiosInstance.patch(
+        `/vehicles/${vehicleId}/toggle`
+      );
+      if (response.status === 200) {
+        const updatedVehicle = response.data;
+        setVehicles(
+          vehicles.map((vehicle) =>
+            vehicle.vehicleId === vehicleId ? updatedVehicle : vehicle
+          )
+        );
+      } else {
+        console.error("Failed to toggle active status:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error toggling active status:", error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SidebarNavigation />
@@ -94,14 +114,22 @@ export default function AdminVehiclePage() {
           </Button>
         </div>
         <div className="px-4 py-2">
-          <VehiclesTable vehicles={vehicles} onDelete={handleDelete} />
+          <VehiclesTable
+            vehicles={vehicles}
+            onDelete={handleDelete}
+            onToggleActive={handleToggleActive}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
+function VehiclesTable({
+  vehicles,
+  onDelete,
+  onToggleActive,
+}: Readonly<VehicleTableProps>) {
   if (vehicles.length === 0)
     return (
       <p className="p-4 from-neutral-800 font-mono">No vehicles found...</p>
@@ -127,8 +155,12 @@ function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
           <TableRow key={vehicle.vehicleId}>
             <TableCell>
               <>
-                <span className="sr-only">Available</span>
-                <CheckCircle2 className="stroke-green-400" />
+                <span className="sr-only">Availability</span>
+                {vehicle.active ? (
+                  <CheckCircle2 className="stroke-green-400" />
+                ) : (
+                  <XCircle className="stroke-red-400" />
+                )}
               </>
             </TableCell>
             <TableCell>{vehicle.manufacturer}</TableCell>
@@ -156,6 +188,17 @@ function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
                       className="w-full"
                     >
                       Delete
+                    </Button>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Button
+                      onClick={() => {
+                        onToggleActive(vehicle.vehicleId);
+                      }}
+                      className="w-full"
+                    >
+                      {vehicle.active ? "Deactivate" : "Activate"}
                     </Button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
