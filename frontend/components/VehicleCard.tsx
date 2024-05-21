@@ -19,7 +19,7 @@ function capitalizeWords(str: string) {
 
 const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [imgSrc, setImgSrc] = useState(`/img/${data.model}/${data.image}`);
+  const [imgSrc, setImgSrc] = useState(`https://rentalroulette.com/img/${data.model.toLowerCase()}/${data.image?.toLowerCase() ?? 'fallback.jpg'}`);
 
   const handleImageError = () => {
     console.error(`Image not found: ${data.model}/${data.image}`);
