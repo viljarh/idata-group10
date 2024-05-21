@@ -5,8 +5,8 @@
 -    [School Project](#school-project)
 -    [Project description](#project-description)
 -    [Group Members](#group-members)
+-    [Start localhost](#how-to-start-on-localhost)
 -    [Reference, Libary and Components](#reference-libary-and-components)
--    [Team Members](#)
 
 <dl>
 
@@ -46,6 +46,10 @@ Backend we have used Node.js, and here we have used Javascript and typescript. T
 
 - ##### Can open on <u>[rentalroulette.com](https://rentalroulette.com/) </u>, if you dont want to install the project on your own computer.
 
+- ##### Needed Requirements to run locally : 
+    - ###### Install Node to run the commands, and we're using postgresSQL. 
+    - ###### Create .env file in main root, and input your sql connection.  
+
 #### Backend
 
 <details>
@@ -57,7 +61,10 @@ Backend we have used Node.js, and here we have used Javascript and typescript. T
 2. Install the modules:
 <pre>npm install</pre>
 
-3. Migrate the database
+3. Generate the database
+<pre> npx prisma generate</pre>
+
+4. Migrate the database
 <pre> npx prisma migrate dev</pre>
 
 4. Seed Prisma DB
@@ -74,7 +81,18 @@ Backend we have used Node.js, and here we have used Javascript and typescript. T
 
 <details>
     <summary> <i> Show details for instructions </i> </summary>
-    <b></b>
+
+1. Change directory:
+<pre> cd frontend </pre>
+
+2. Install the modules:
+<pre>npm install</pre>
+
+3. Start the frontend
+<pre> npm run dev</pre>
+
+
+</details>
 
 </details>
 
