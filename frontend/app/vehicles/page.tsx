@@ -157,7 +157,7 @@ const VehiclePage = () => {
                 placeholder="Search for a Vehicle"
                 value={inputVehicleType}
                 onChange={(e) => setInputVehicleType(e.target.value)}
-                className="w-full"
+                className="w-min"
               />
               <select
                 value={carSize}
@@ -193,7 +193,6 @@ const VehiclePage = () => {
                 <option value="desc">Price: High to Low</option>
               </select>
               <DatePickerWithRange />
-              <Button type="submit">Search</Button>
             </form>
           </div>
         </div>
