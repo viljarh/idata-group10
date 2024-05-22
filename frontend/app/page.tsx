@@ -105,7 +105,7 @@ export default function Home() {
             <DicesIcon
               size={40}
               onClick={getRandomVehicle}
-              className="cursor-pointer hoved:text-blue"
+              className="cursor-pointer hover:animate-spin"
             />
             <p className="font-mono">Try your luck</p>
           </div>
