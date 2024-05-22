@@ -22,6 +22,22 @@
 <dd>
 All the information provided here is a result of imagination. Any resemblance with real companies or products is a coincidence.</dd>
 
+</br>
+
+#### Users for examinators
+
+<dd>
+
+Regular user:
+username: dave@dangerous.com
+Password: Dangerous2024
+
+Admin user:
+username: chuck@nunchucks.com
+Password: Nunchucks2024
+
+</dd>
+
 ---
 
 ### Project description
