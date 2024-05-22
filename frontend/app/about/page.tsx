@@ -7,7 +7,7 @@ import Container from "@/components/ui/Container";
 export default function AboutPage() {
      return (
           <Container>
-               <div className="flex flex-col items-center space-y-4">
+               <div className="flex flex-col items-center space-y-4 mt-10">
                     <h1 className="text-3xl font-bold">About Us</h1>
                     <p className="text-lg text-center">
                          Welcome to Rental Roulette, where your journey begins

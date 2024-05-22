@@ -26,7 +26,7 @@ const Header = () => {
     },
     {
       href: "/about",
-      label: "About us",
+      label: "About",
     },
     user?.customerType === "ADMIN" && {
       href: "/admin",
