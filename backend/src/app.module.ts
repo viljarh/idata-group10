@@ -9,9 +9,20 @@ import { RolesModule } from './roles/roles.module';
 import { AdminModule } from './admin/admin.module';
 import { CartModule } from './cart/cart.module';
 import { OrdersModule } from './orders/orders.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
-  imports: [PrismaModule, VehiclesModule, UsersModule, AuthModule, RolesModule, AdminModule, CartModule, OrdersModule],
+  imports: [
+    PrismaModule,
+    VehiclesModule,
+    UsersModule,
+    AuthModule,
+    RolesModule,
+    AdminModule,
+    CartModule,
+    OrdersModule,
+    FavoritesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
