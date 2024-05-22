@@ -21,7 +21,7 @@ const VehiclePage = () => {
   const [startDate] = useState("");
   const [endDate] = useState("");
   const [sortVehiclesAfterPrice, setSortVehiclesAfterPrice] = useState("");
-  const carType = ["Sedan", "Van", "SUV", "Coupe", "Compact"];
+  const carType = ["Sedan", "SUV", "Compact"];
   const [carEngine, setCarEngineType] = useState("");
   const carFuelType = ["Petrol", "Diesel", "Electric"];
   const [inputVehicleType, setInputVehicleType] = useState("");
