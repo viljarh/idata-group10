@@ -99,9 +99,13 @@ const VehicleDetails = ({
             <p className="capitalize">
               {capitalizeWords(`${vehicle.extraFeatures}`)}
             </p>
-            <Label>Price</Label>
+            <Label>Price Per Day</Label>
             <p className="capitalize">
-              {capitalizeWords(`${vehicle.dailyPrice}`)}
+              {capitalizeWords(`${vehicle.dailyPrice}`)} NOK 
+            </p>
+            <Label>Rental Company</Label>
+            <p className="capitalize">
+              {capitalizeWords(`${vehicle.rentalCompany}`)}
             </p>
           </div>
         </div>

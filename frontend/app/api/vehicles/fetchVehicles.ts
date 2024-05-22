@@ -4,7 +4,10 @@ import { VehicleProps } from "@/types";
 export async function fetchVehicles(): Promise<VehicleProps[]> {
   try {
     const response = await axiosInstance.get("/vehicles");
-    return response.data;
+    const activeVehicles = response.data.filter(
+      (vehicle: VehicleProps) => vehicle.active
+    );
+    return activeVehicles;
   } catch (error) {
     console.error("Error fetching vehicles:", error);
     return [];
@@ -14,7 +17,10 @@ export async function fetchVehicles(): Promise<VehicleProps[]> {
 export async function getPopularVehicles(): Promise<VehicleProps[]> {
   try {
     const response = await axiosInstance.get("/vehicles/popular");
-    return response.data;
+    const activeVehicles = response.data.filter(
+      (vehicle: VehicleProps) => vehicle.active
+    );
+    return activeVehicles;
   } catch (error) {
     console.error("Error fetching popular vehicles:", error);
     return [];

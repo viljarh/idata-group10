@@ -64,6 +64,7 @@ const LoginDialog = ({ isOpen, closeModal }: LoginDialogProps) => {
               <Link
                 href="/auth/forgot-password"
                 className="ml-auto inline-block text-sm underline"
+                onClick={closeModal}
               >
                 Forgot your password?
               </Link>

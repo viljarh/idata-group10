@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CheckCircle2, MoreVertical } from "lucide-react";
+import { CheckCircle2, MoreVertical, XCircle } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,9 +28,11 @@ import {
 import { VehicleProps, VehicleTableProps } from "@/types";
 import axiosInstance from "@/axios/axiosInstance";
 import SidebarNavigation from "../_components/SideBarNavigation";
+import { useRouter } from "next/navigation";
 
 export default function AdminVehiclePage() {
   const [vehicles, setVehicles] = useState<VehicleProps[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchVehicles = async () => {
@@ -64,6 +66,29 @@ export default function AdminVehiclePage() {
     }
   };
 
+  const toggleVehicleStatus = async (vehicleId: number, isActive: boolean) => {
+    try {
+      const response = await axiosInstance.patch(
+        `/vehicles/${vehicleId}/active`,
+        { active: isActive }
+      );
+      if (response.status === 200) {
+        setVehicles(
+          vehicles.map((vehicle) =>
+            vehicle.vehicleId === vehicleId
+              ? { ...vehicle, active: isActive }
+              : vehicle
+          )
+        );
+        router.refresh();
+      } else {
+        console.error("Failed to update vehicle status:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error updating vehicle status:", error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SidebarNavigation />
@@ -94,14 +119,22 @@ export default function AdminVehiclePage() {
           </Button>
         </div>
         <div className="px-4 py-2">
-          <VehiclesTable vehicles={vehicles} onDelete={handleDelete} />
+          <VehiclesTable
+            vehicles={vehicles}
+            onDelete={handleDelete}
+            onToggleActive={toggleVehicleStatus}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
+function VehiclesTable({
+  vehicles,
+  onDelete,
+  onToggleActive,
+}: Readonly<VehicleTableProps>) {
   if (vehicles.length === 0)
     return (
       <p className="p-4 from-neutral-800 font-mono">No vehicles found...</p>
@@ -127,8 +160,12 @@ function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
           <TableRow key={vehicle.vehicleId}>
             <TableCell>
               <>
-                <span className="sr-only">Available</span>
-                <CheckCircle2 className="stroke-green-400" />
+                <span className="sr-only">Availability</span>
+                {vehicle.active ? (
+                  <CheckCircle2 className="stroke-green-400" />
+                ) : (
+                  <XCircle className="stroke-red-400" />
+                )}
               </>
             </TableCell>
             <TableCell>{vehicle.manufacturer}</TableCell>
@@ -143,9 +180,22 @@ function VehiclesTable({ vehicles, onDelete }: VehicleTableProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem asChild>
-                    <Link href={`/admin/vehicles/${vehicle.vehicleId}/edit`}>
-                      Edit
-                    </Link>
+                    <Button variant="ghost" className="w-full">
+                      <Link href={`/admin/vehicles/${vehicle.vehicleId}/edit`}>
+                        Edit
+                      </Link>
+                    </Button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Button
+                      onClick={() => {
+                        onToggleActive(vehicle.vehicleId, !vehicle.active);
+                      }}
+                      className="w-full"
+                      variant="ghost"
+                    >
+                      {vehicle.active ? "Deactivate" : "Activate"}
+                    </Button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>

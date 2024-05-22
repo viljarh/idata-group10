@@ -1,43 +1,49 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Vehicle } from "@prisma/client";
+import { ApiProperty } from '@nestjs/swagger';
+import { Vehicle } from '@prisma/client';
 
 export class VehicleEntity implements Vehicle {
-    @ApiProperty()
-    vehicleId: number;
+  @ApiProperty()
+  vehicleId: number;
 
-    @ApiProperty()
-    manufacturer: string;
+  @ApiProperty()
+  manufacturer: string;
 
-    @ApiProperty()
-    model: string;
+  @ApiProperty()
+  model: string;
 
-    @ApiProperty()
-    year: string;
+  @ApiProperty()
+  year: string;
 
-    @ApiProperty()
-    vehicleCategory: string;
+  @ApiProperty()
+  vehicleCategory: string;
 
-    @ApiProperty()
-    transmission: string;
+  @ApiProperty()
+  transmission: string;
 
-    @ApiProperty()
-    fuel: string;
+  @ApiProperty()
+  fuel: string;
 
-    @ApiProperty()
-    passengerCapacity: number;
+  @ApiProperty()
+  passengerCapacity: number;
 
-    @ApiProperty()
-    extraFeatures: string;
+  @ApiProperty()
+  extraFeatures: string;
 
-    @ApiProperty()
-    mileage: number;
+  @ApiProperty()
+  mileage: number;
 
-    @ApiProperty()
-    image: string;
+  @ApiProperty()
+  image: string;
 
-    @ApiProperty()
-    dailyPrice: number;
+  @ApiProperty()
+  dailyPrice: number;
 
-    @ApiProperty()
-    rentalCount: number;
+  @ApiProperty()
+  rentalCount: number;
+
+  @ApiProperty()
+  active: boolean;
+
+  @ApiProperty()
+  rentalCompany: string;
 }

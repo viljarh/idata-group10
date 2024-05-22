@@ -17,6 +17,7 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { UserEntity } from './entities/user.entity';
@@ -28,7 +29,11 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @ApiCreatedResponse({ type: UserEntity })
+  @ApiOperation({ summary: 'Create a new user' })
+  @ApiCreatedResponse({
+    type: UserEntity,
+    description: 'User created successfully',
+  })
   async create(@Body() createUserDto: CreateUserDto) {
     try {
       return new UserEntity(await this.usersService.create(createUserDto));
@@ -41,7 +46,8 @@ export class UsersController {
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: UserEntity, isArray: true })
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiOkResponse({ type: [UserEntity], description: 'List of all users' })
   async findAll() {
     const users = await this.usersService.findAll();
     return users.map((user) => new UserEntity(user));
@@ -50,7 +56,8 @@ export class UsersController {
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: UserEntity })
+  @ApiOperation({ summary: 'Get a user by ID' })
+  @ApiOkResponse({ type: UserEntity, description: 'Details of the user' })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return new UserEntity(await this.usersService.findOne(id));
   }
@@ -58,7 +65,8 @@ export class UsersController {
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiCreatedResponse({ type: UserEntity })
+  @ApiOperation({ summary: 'Update a user by ID' })
+  @ApiCreatedResponse({ type: UserEntity, description: 'Updated user details' })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
@@ -70,7 +78,8 @@ export class UsersController {
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: UserEntity })
+  @ApiOperation({ summary: 'Delete a user by ID' })
+  @ApiOkResponse({ type: UserEntity, description: 'User deleted successfully' })
   async remove(@Param('id', ParseIntPipe) id: number) {
     return new UserEntity(await this.usersService.remove(id));
   }

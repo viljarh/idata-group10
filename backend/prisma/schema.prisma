@@ -35,11 +35,13 @@ model Vehicle {
   mileage           Float
   image             String?
   dailyPrice        Float
+  rentalCompany     String
   Rental            Rental[]
   Favorite          Favorite[]
   CartItem          CartItem[]
   OrderItem         OrderItem[]
   rentalCount       Int         @default(0)
+  active            Boolean     @default(true)
 }
 
 model Rental {
@@ -99,7 +101,7 @@ model OrderItem {
   orderItemId Int     @id @default(autoincrement())
   Order       Order   @relation(fields: [orderId], references: [orderId])
   orderId     Int
-  vehicle     Vehicle @relation(fields: [vehicleId], references: [vehicleId])
+  vehicle     Vehicle @relation(fields: [vehicleId], references: [vehicleId], onDelete: Cascade)
   vehicleId   Int
   quantity    Int
   price       Float
