@@ -64,7 +64,7 @@ const Cart = () => {
 
   return (
     <Container>
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center">
         <div className="w-3/4 max-w-4xl p-8 rounded-lg shadow-md dark:shadow-gray-500">
           <h2 className="text-3xl font-bold mb-8 text-center">
             {user?.firstName}&apos;s Cart

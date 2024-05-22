@@ -14,41 +14,49 @@ export default function ForgotPassword() {
   function handleChange(e: { target: { value: string } }) {
     setEmail(e.target.value);
   }
-  
-  async function handleSubmit(e: { preventDefault: () => void}) {
-    e.preventDefault()
-    setLoading(true)
-    setMessage("")
-    setError("")
+
+  async function handleSubmit(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+    setError("");
 
     try {
-        const response = await axiosInstance.post("/auth/forgot-password", { email })
-        console.log("Password reset email sent:", response.data)
-        setMessage("Password reset email sent. Please check your inbox.")
+      const response = await axiosInstance.post("/auth/forgot-password", {
+        email,
+      });
+      console.log("Password reset email sent:", response.data);
+      setMessage("Password reset email sent. Please check your inbox.");
     } catch (error: any) {
-        console.error("Password reset failed", error.response ? error.response.data : error.message)
-        setError("Failed to send password reset email: " + (error.response ? error.response.data.message : error.message))
+      console.error(
+        "Password reset failed",
+        error.response ? error.response.data : error.message
+      );
+      setError(
+        "Failed to send password reset email: " +
+          (error.response ? error.response.data.message : error.message)
+      );
     } finally {
-        setLoading(false)
+      setLoading(false);
     }
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col p-6 space-y-4 rounded shadow-md w-80 bg-white"
+        className="flex flex-col p-6 space-y-4 rounded shadow-md w-80"
       >
-        <h1 className="txet-2xl font-bold text-center">Forgot Password</h1>
-        <div className="space-y-2"> 
+        <h1 className="text-2xl font-bold text-center">Forgot Password</h1>
+        <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
-          <Input 
-          type="email"
-          id="email"
-          name="email"
-          required
-          value={email}
-          onChange={handleChange}
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            required
+            value={email}
+            onChange={handleChange}
           />
         </div>
         <Button>{loading ? "Sending..." : "Send Reset Link"}</Button>

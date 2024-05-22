@@ -10,10 +10,9 @@ const Profile = () => {
   const { user, logout } = useAuth();
   return (
     <Container>
-      <div className="flex flex-col items-center justify-center p-5 min-h-screen">
-        <h1 className="font-bold text-4xl">My Profile</h1>
-
+      <div className="flex flex-col items-center justify-center p-5">
         <div className="mt-10 p-5 w-1/4 border rounded-lg">
+          <h1 className="font-bold text-4xl">My Profile</h1>
           <Label>First Name</Label>
           <Input placeholder={user?.firstName} />
           <Label>Last Name</Label>
