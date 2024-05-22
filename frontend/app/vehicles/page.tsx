@@ -18,8 +18,8 @@ const VehiclePage = () => {
     null
   );
   const [carSize, setCarSize] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate] = useState("");
+  const [endDate] = useState("");
   const [sortVehiclesAfterPrice, setSortVehiclesAfterPrice] = useState("");
   const carType = ["Sedan", "Van", "SUV", "Coupe", "Compact"];
   const [carEngine, setCarEngineType] = useState("");
@@ -87,7 +87,7 @@ const VehiclePage = () => {
       <div className="p-5 h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
         <h1 className="font-bold text-2xl">All Cars</h1>
       </div>
-      <div className="relative sm:px-6 lg:px-8 flex w-full h-full flex justify-center items-center p-5">
+      <div className="relative sm:px-6 lg:px-8 flex w-full h-full  justify-center items-center p-5">
         <div className="flex justify-center items-center flex-wrap gap-4">
           <Sheet>
             <SheetTrigger asChild>
@@ -100,6 +100,7 @@ const VehiclePage = () => {
                 onSubmit={handleSearch}
                 className="flex flex-col gap-4 justify-center"
               >
+                ƒ
                 <Input
                   type="text"
                   placeholder="Search for a Vehicle"
