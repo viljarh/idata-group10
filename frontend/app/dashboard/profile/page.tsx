@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authContext";
 
+
 const Profile = () => {
   const { user, logout } = useAuth();
   return (

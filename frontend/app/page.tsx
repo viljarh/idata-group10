@@ -1,5 +1,8 @@
 "use client";
-import { fetchVehicles, getPopularVehicles } from "@/app/api/vehicles/fetchVehicles";
+import {
+  fetchVehicles,
+  getPopularVehicles,
+} from "@/app/api/vehicles/fetchVehicles";
 import Container from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
