@@ -39,6 +39,9 @@ const ProfileButton = () => {
           <Link href="/dashboard/profile">
             <DropdownMenuItem>Profile</DropdownMenuItem>
           </Link>
+          <Link href="/dashboard/favorites">
+            <DropdownMenuItem>Favorites</DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={logout}>Log Out</DropdownMenuItem>
         </DropdownMenuContent>
