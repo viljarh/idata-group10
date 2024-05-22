@@ -53,7 +53,7 @@ Backend we have used Node.js, and here we have used Javascript and Typescript. W
 <details>
     <summary> <i> Show pictures from the website </i> </summary><dd>
 
-<img src="https://cdn.discordapp.com/attachments/1067009221083795458/1242534974796599377/Skjermbilde_2024-05-21_kl._19.49.45.png?ex=664e305f&is=664cdedf&hm=e83ef16336fdacbfc38e91ed6903fa2561cdab11e70e3b72e6e299e9913511dd&" alt="Picture of the frontpage"  width="500"/>
+<img src="https://cdn.discordapp.com/attachments/1067009221083795458/1242534974796599377/Skjermbilde_2024-05-21_kl._19.49.45.png?ex=664ed91f&is=664d879f&hm=fc7cdea4524cf54dc330b4e3dc804c8fc67a53be2b2bf502bc95747e6515f55e&" alt="Picture of the frontpage"  width="500"/>
 
   </dd></details>
 
@@ -62,7 +62,7 @@ Backend we have used Node.js, and here we have used Javascript and Typescript. W
 <details>
     <summary> <i> Show pictures from the vehicle page </i> </summary><dd>
 
-<img src="https://cdn.discordapp.com/attachments/1067009221083795458/1242535102416687164/Skjermbilde_2024-05-21_kl._19.50.49.png?ex=664e307d&is=664cdefd&hm=bf668affaa75ff2844e1fac9d8d06860807bb645c4c68c52d9561a0fb6ce0a7d&" alt="Picture of the vehicle page" width="500"/>
+<img src="https://cdn.discordapp.com/attachments/1067009221083795458/1242535102416687164/Skjermbilde_2024-05-21_kl._19.50.49.png?ex=664ed93d&is=664d87bd&hm=0e79484da3d9c9b3257745380017f7962a34cd64e8152714c85f6eb482129a0d&" alt="Picture of the vehicle page" width="500"/>
 
 </dd></details>
 
@@ -75,7 +75,6 @@ Backend we have used Node.js, and here we have used Javascript and Typescript. W
 - Viljar Hoem-Olsen </br>
 - Thomas Åkre
 
-
 ---
 
 ### Access the Website:
@@ -85,7 +84,6 @@ Backend we have used Node.js, and here we have used Javascript and Typescript. W
 - ##### The api for the website you can access on <u>[https://api.rentalroulette.com/api](https://api.rentalroulette.com/api) </u>.
 
 ---
-
 
 ### How to start on Localhost:
 
@@ -140,9 +138,19 @@ Backend we have used Node.js, and here we have used Javascript and Typescript. W
 
 ---
 
-
-
 ### References, Libraries and Components
+
+<dd> All resources and image link is listed at a page down below in the footer menu. The Star icon to the left. </dd>
+
+</br>
+
+<dd> We have used Arteficial inteligence, StackOverflow, Github repositories throughout the project, but have tried to learn from it instead of using it directly in our projects.
+
+---
+
+</dd>
+
+</br>
 
 - [Next.js](https://nextjs.org/) <a href="https://nextjs.org/"><img src="https://nextjs.org/static/favicon/favicon-32x32.png" alt="Next.js" width="20" height="20">
   </a>
@@ -165,4 +173,8 @@ Backend we have used Node.js, and here we have used Javascript and Typescript. W
   </a>
 
 - [Prisma](https://www.prisma.io/)<a href="https://www.prisma.io/"><img src="https://static-00.iconduck.com/assets.00/file-type-prisma-icon-1682x2048-yybmypz0.png" alt="Prisma ORM" width="20" height="20">
+  </a>
+- [Tailwind CSS](https://tailwindcss.com/docs/installation)<a href="https://tailwindcss.com/"><img src="https://www.drupal.org/files/project-images/screenshot_361.png" alt="Tailwind CSS" width="20" height="20">
+  </a>
+- [Axios HTTP](https://axios-http.com/)<a href="https://axios-http.com/"><img src="https://axios-http.com/assets/logo.svg" alt="Axios HTTP" width="20" height="20">
   </a>
