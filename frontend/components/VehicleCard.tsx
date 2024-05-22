@@ -104,7 +104,7 @@ const VehicleCard: React.FC<VehicleCard> = ({ data }) => {
       onClick={handleViewMoreClick}
       className="outline-0 focus:ring-2 hover:ring-2 ring-primary transition duration-300 rounded-lg"
     >
-      <Card className="rounded-lg border-2 relative">
+      <Card className="rounded-lg border-2 relative no-pointer">
         <div
           className="absolute top-2 right-2 cursor-pointer z-10"
           onClick={toggleFavorite}
