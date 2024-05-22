@@ -24,6 +24,10 @@ const Header = () => {
       href: "/vehicles",
       label: "Vehicles",
     },
+    {
+      href: "/about",
+      label: "About us",
+    },
     user?.customerType === "ADMIN" && {
       href: "/admin",
       label: "Admin",
