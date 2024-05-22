@@ -12,7 +12,7 @@ const Profile = () => {
     <Container>
       <div className="flex flex-col items-center justify-center p-5">
         <div className="mt-10 p-5 w-1/4 border rounded-lg">
-          <h1 className="font-bold text-4xl">My Profile</h1>
+          <h1 className="font-bold text-3xl text-center mb-5">My Profile</h1>
           <Label>First Name</Label>
           <Input placeholder={user?.firstName} />
           <Label>Last Name</Label>

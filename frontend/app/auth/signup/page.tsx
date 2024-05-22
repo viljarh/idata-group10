@@ -47,10 +47,10 @@ export default function SignUp() {
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center mt-10">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col p-6 space-y-4 dark:shadow-gray-800 rounded-md shadow-md w-80"
+        className="flex flex-col p-6 space-y-4 dark:shadow-gray-800 rounded-md shadow-md w-80 mb-10"
       >
         <h1 className="text-2xl font-bold text-center">Signup</h1>
         <div className="space-y-2">
