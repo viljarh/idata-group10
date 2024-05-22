@@ -2,12 +2,16 @@
 import Link from "next/link";
 import "../app/globals.css";
 import { GitHubLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import { AsteriskIcon } from "lucide-react";
 
 const Footer = () => {
   return (
     <div className="py-8">
       <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center space-x-4">
+          <Link href="/info">
+          <AsteriskIcon className="h-6 w-6 text-black dark:text-white" />
+          </Link>
           <Link
             className="text-white hover:text-gray-300"
             href="https://github.com/viljarh/idata-group10"
